@@ -1,0 +1,115 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en-GB"> <![endif]-->
+<!--[if IE 7]>		<html class="no-js lt-ie9 lt-ie8" lang="en-GB"> <![endif]-->
+<!--[if IE 8]>		<html class="no-js lt-ie9" lang="en-GB"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en-GB"> <!--<![endif]-->
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>Improving text extraction from the FT Archives with Tesseract | FT Labs</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+	<script src="https://polyfill.webservices.ft.com/v2/polyfill.min.js"></script>
+	<script src="wp-content/themes/ftlabs-2016/main.js"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="wp-content/themes/ftlabs-2016/style.css" />
+
+	<link rel='dns-prefetch' href='http://cdnjs.cloudflare.com/' />
+<link rel='dns-prefetch' href='http://s.w.org/' />
+<link rel="alternate" type="application/rss+xml" title="FT Labs &raquo; Feed" href="feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="FT Labs &raquo; Comments Feed" href="comments/feed/index.html" />
+<link rel='stylesheet' id='prettify-css'  href='wp-content/plugins/prettify-code-highlight/code.css%3Fver=4.6.4.css' type='text/css' media='all' />
+<!-- This site uses the Google Analytics by Yoast plugin v5.4.6 - Universal enabled - https://yoast.com/wordpress/plugins/google-analytics/ -->
+<script type="text/javascript">
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','__gaTracker');
+
+	__gaTracker('create', 'UA-32884353-1', 'labs.ft.com');
+	__gaTracker('set', 'forceSSL', true);
+	__gaTracker('send','pageview');
+
+</script>
+<!-- / Google Analytics by Yoast -->
+<link rel='https://api.w.org/' href='wp-json/index.html' />
+<link rel='prev' title='Animating 123 years of FT banners' href='index.html%3Fp=14280.html' />
+<link rel='next' title='Training the Archive OCR with better characters' href='index.html%3Fp=14298.html' />
+<link rel="canonical" href="index.html%3Fp=14291.html" />
+<link rel='shortlink' href='index.html%3Fp=14291.html' />
+<link rel="alternate" type="application/json+oembed" href="wp-json/oembed/1.0/embed%3Furl=http%253A%252F%252Flabs.ft.com%252F2017%252F01%252Fimproving-text-extraction-from-the-ft-archives-with-tesseract%252F" />
+<link rel="alternate" type="text/xml+oembed" href="wp-json/oembed/1.0/embed%3Furl=http%253A%252F%252Flabs.ft.com%252F2017%252F01%252Fimproving-text-extraction-from-the-ft-archives-with-tesseract%252F&amp;format=xml" />
+</head>
+<body class="single single-post postid-14291 single-format-standard">
+	<div class="app" ontouchstart="">
+		<div class='container'>
+			<div class='sidebar'>
+				<div class='logo-wrap'>
+					<a href='index.html' class='logo'>
+						<h1>FT Labs</h1>
+					</a>
+				</div>
+				<nav>
+					<ul id="menu-header-navigation" class="app-header_nav"><li id="menu-item-14082" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14082"><a href="index.html">Home</a></li>
+<li id="menu-item-14083" class="menu-item menu-item-type-post_type menu-item-object-page current_page_parent menu-item-14083"><a href="articles.1.html">Articles</a></li>
+<li id="menu-item-14084" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14084"><a href="jobs.1.html">Jobs</a></li>
+<li id="menu-item-14085" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14085"><a href="contact-us.1.html">Contact</a></li>
+</ul>				</nav>
+			</div>
+			<main>
+			<script> var page = 'article-view';
+			</script>
+				<article class="article_content body-text">
+									<h1>Improving text extraction from the FT Archives with Tesseract</h1>
+					<div class="date">by <a href="author/ftlabs/index.html">FT Labs</a>, <time class="entry-date" datetime="2017-01-19T11:45:42+00:00" pubdate>19 January 2017</time></div>					<p>We have an online archive, currently only available in-house, of all printed issues of the Financial Times newspaper, from the first issue in <a href="http://aboutus.ft.com/files/2010/09/FThistory.jpg" target="_blank">1888 through to 2010</a>. Each page of each issue has been photographed, divided into distinct articles, and each article has been processed with OCR (<a href="https://en.wikipedia.org/wiki/Optical_character_recognition" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://en.wikipedia.org/wiki/Optical_character_recognition', 'Optical Character Recognition');" target="_blank">Optical Character Recognition</a>) to extract the source text from the image. </p>
+<p>The archive weighs in at approximately 2 TB of JPGs (one for each page of each issue) and XML (one monster file per issue, containing the positional data and titles of each article, and the text fragments identified within each article).</p>
+<p>As we consider how to integrate the content of our archive into the main site, <a href="https://open.blogs.nytimes.com/2016/07/26/the-future-of-the-past-modernizing-the-new-york-times-archive" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://open.blogs.nytimes.com/2016/07/26/the-future-of-the-past-modernizing-the-new-york-times-archive', 'as others have done');" target="_blank">as others have done</a>, one significant step is to improve the OCR: the extracted text varies from almost perfect transcription to random noise.</p>
+<p>We used open-source software, <a href="https://github.com/tesseract-ocr" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://github.com/tesseract-ocr', 'Tesseract');" target="_blank">Tesseract</a>, with its default settings, to achieve a very gratifying improvement in OCR quality.<br />
+<span id="more-14291"></span></p>
+<p><a href="wp-content/uploads/2017/01/DarkOCR1.png"><img alt='Image of article - original OCR scan - Tesseract default scan ' src="https://image.webservices.ft.com/v1/images/raw/http://ftlabs.wpengine.com/wp-content/uploads/2017/01/DarkOCR1.png" width="2000" class="size-full wp-image-14293" srcset="wp-content/uploads/2017/01/DarkOCR1.png 2000w, wp-content/uploads/2017/01/DarkOCR1-300x180.png 300w, wp-content/uploads/2017/01/DarkOCR1-768x461.png 768w, wp-content/uploads/2017/01/DarkOCR1-1024x614.png%3Fsource=ftlabs 1024w" sizes="(max-width: 2000px) 100vw, 2000px" /></a></p>
+<p>On the left, we have an article which has been cropped from its parent page according to the coordinates stored in the XML. In the middle, we have the original OCR text that we received from the 3rd party. And on the right we have the results of a default OCR scan from Tesseract. It&#8217;s not perfect, but it&#8217;s rather good for an off-the-shelf piece of kit. And what&#8217;s even more impressive is that Tesseract correctly identified a 55 year old spelling error!</p>
+<p>We continued with Tesseract to make further OCR improvements, described in a later post, but the remainder of this post describes how we used the out-of-the-box version to make the first big improvement. These posts are based on notes from a <a href="https://twitter.com/MobliMic/status/797456559043411968" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://twitter.com/MobliMic/status/797456559043411968', 'presentation');" target="_blank">presentation</a> given at <a href="https://twitter.com/BarcampSouth" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://twitter.com/BarcampSouth', 'Barcamp Southampton');" target="_blank">Barcamp Southampton</a>.</p>
+<h2>The problem: inconsistent OCR quality</h2>
+<p>The problem we have here, is that the archived page image quality has changed over time. The settings that create the ideal circumstance for OCR aren&#8217;t constant across the entirety of our dataset. This is unfortunate, but the 3rd party company we engaged was hardly going to manually dial in the OCR settings for each and every one of the individual issues.</p>
+<p>One thing to note is that although the general quality of the page images varies across the century, each decade is largely consistent within itself. The clarity and level of detail in the images from a January 1960 edition is roughly equivalent to the images from a December 1969 edition. That said, the images are quite noisy, often misaligned, sometimes with movement-induced discontinuities across the middle of a page. However, the bigger problem isn&#8217;t so much <em>&#8220;Can we scan the entire page or entire issue in one pass&#8221;</em> but more <em>&#8220;Can we scan decades of issues without too much configuration and with a reasonable result. Also we&#8217;ve changed fonts across the decades! Oh, the paper, ink, and printing machinery also varies.&#8221;</em></p>
+<h2>The opportunity: good positional data and Tesseract</h2>
+<p>The initial OCR content was not particularly high quality, BUT the data in the XML files describing the location of that content was both comprehensive and accurate. This meant that we could use the XML files to re-run OCR on the images on an article-by-article basis.</p>
+<figure id="attachment_14288" class="wp-caption aligncenter"><a href="wp-content/uploads/2017/01/Screen-Shot-2017-01-18-at-15.38.01.png"><img alt='individual page components and articles highlighted, based on the XML data' src="https://image.webservices.ft.com/v1/images/raw/http://ftlabs.wpengine.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-18-at-15.38.01.png" width="1420" class="size-full wp-image-14288" srcset="wp-content/uploads/2017/01/Screen-Shot-2017-01-18-at-15.38.01.png 1420w, wp-content/uploads/2017/01/Screen-Shot-2017-01-18-at-15.38.01-300x215.png 300w, wp-content/uploads/2017/01/Screen-Shot-2017-01-18-at-15.38.01-768x551.png 768w, wp-content/uploads/2017/01/Screen-Shot-2017-01-18-at-15.38.01-1024x734.png%3Fsource=ftlabs 1024w" sizes="(max-width: 1420px) 100vw, 1420px" /></a><figcaption class="wp-caption-text">individual page components and articles highlighted, based on the XML data</figcaption></figure>
+<p>Plus, there was Tesseract, a piece of open-source software that&#8217;s really good at one thing &#8211; OCR scanning.</p>
+<p>We picked a few articles at random from across the decades and ran Tesseract with its default settings, and got the spectacular results above.</p>
+<p>To be slightly fairer to the original provider of our OCR, here is another, more typical improvement in OCR</p>
+<p><a href="wp-content/uploads/2017/01/DarkOCR2.png"><img alt='DarkOCR2' src="https://image.webservices.ft.com/v1/images/raw/http://ftlabs.wpengine.com/wp-content/uploads/2017/01/DarkOCR2.png" width="2040" class="aligncenter size-full wp-image-14292" srcset="wp-content/uploads/2017/01/DarkOCR2.png 2040w, wp-content/uploads/2017/01/DarkOCR2-300x176.png 300w, wp-content/uploads/2017/01/DarkOCR2-768x452.png 768w, wp-content/uploads/2017/01/DarkOCR2-1024x602.png%3Fsource=ftlabs 1024w" sizes="(max-width: 2040px) 100vw, 2040px" /></a></p>
+<p>The improvement brought about by using Tesseract is sufficient to justify re-doing the OCR across the entire archive but, even so, there are still sections of the archive which remain illegible (for our OCR). </p>
+<h2>Gotchas</h2>
+<p>There are several challenges we noted but parked for the duration of this project</p>
+<ul>
+<li>Combining articles which are split across columns or pages</li>
+<li>Identifying adverts (rather than journalistic copy)</li>
+<li>Handling tabular text</li>
+</ul>
+									</article>
+				<div id='comments'></div>
+						</main>
+		</div>
+		<footer class="o-footer o-footer--theme-light" id="footer">
+			<div class="o-footer__row o-footer__copyright">
+				<div class="o-footer__col o-footer__col--full-width">
+					<span>© THE FINANCIAL TIMES LTD 2016.</span>
+					<span><abbr title="Financial Times">FT</abbr> and ‘Financial Times’ are trademarks of The Financial Times Ltd.</span>
+				</div>
+			</div>
+			<div class="o-footer__pearson">
+				<div class="o-footer__row">
+					<div class="o-footer__col o-footer__col--full-width">
+						<div class="o-footer__pearson-tagline" aria-label="Always Learning"></div>
+						<div class="o-footer__pearson-logo" aria-label="Pearson"></div>
+					</div>
+				</div>
+			</div>
+		</footer>
+	</div>
+	<script>window.onload = function() { prettyPrint(); }</script><script type='text/javascript' src='http://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.js?ver=4.6.4'></script>
+<script type='text/javascript' src='wp-includes/js/wp-embed.min.js%3Fver=4.6.4'></script>
+		<!--
+	JIRA Issue collector seems v unreliable
+	<script type="text/javascript" src="https://jira.ft.com/s/522ea8c716f027c1d18693d0cb29a056-T/en_UK-7dt5dq/64016/3/1.4.25/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector.js?locale=en-UK&amp;collectorId=eb5e21bf"></script>-->
+</body>
+</html>

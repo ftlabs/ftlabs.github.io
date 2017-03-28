@@ -1,0 +1,2347 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>Matthew Andrews &#8211; FT Labs</title>
+	<atom:link href="http://labs.ft.com/author/matthew/feed/" rel="self" type="application/rss+xml" />
+	<link>http://labs.ft.com</link>
+	<description>Labs is a team at the &#60;a href=&#34;http://www.ft.com&#34; class=&#34;ft&#34;&#62;Financial Times&#60;/a&#62; which experiments with exciting new web technologies. &#60;a href=&#34;/about&#34;&#62;Learn more&#60;/a&#62;</description>
+	<lastBuildDate>Tue, 28 Mar 2017 09:47:19 +0000</lastBuildDate>
+	<language>en-GB</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=4.6.4</generator>
+	<item>
+		<title>Tutorial 4: History API in an offline HTML5 web app</title>
+		<link>http://labs.ft.com/2013/04/offline-html5-history-api/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=offline-html5-history-api</link>
+		<pubDate>Wed, 24 Apr 2013 20:19:42 +0000</pubDate>
+		<dc:creator><![CDATA[Matthew Andrews]]></dc:creator>
+				<category><![CDATA[Tutorial]]></category>
+		<category><![CDATA[applicationCache]]></category>
+		<category><![CDATA[HTML5]]></category>
+		<category><![CDATA[Offline]]></category>
+
+		<guid isPermaLink="false">http://labs.ft.com/?p=7951</guid>
+		<description><![CDATA[Putting the web back into web app.
+
+How to build on our existing offline demonstration web app to make use of the HTML5 History API in order to make the web app render both on the server and the client so that it starts up fast whilst still being able to work offline.]]></description>
+				<content:encoded><![CDATA[<h2>Putting the web back into web app</h2>
+<p>This is part 4 of a <a href="http://labs.ft.com/category/tutorial/">tutorial series</a> on how to make an FT style offline web app. <strong>If you haven&#8217;t already, <a href="http://labs.ft.com/2012/08/basic-offline-html5-web-app/">read part 1 first</a>.</strong></p>
+<p>We left off last time with an app that delivers offline news on most modern browsers &#8211; and degrades gracefully on older browsers. But if we look back to our list of <strong>ideas for further development</strong> in the <a href="http://labs.ft.com/2012/08/basic-offline-html5-web-app/">first tutorial</a> we still have work to do to make it work <strong>just as well as a website as it does as an app</strong>.</p>
+<p>In other words how to use the HTML5 History API make the web app render <strong>both on the server and the client</strong> so that it starts up fast whilst still being able to work offline.</p>
+<h2>Requirements for the tutorial &#8211; Part 4</h2>
+<ul>
+<li>It should work even if the user&#8217;s Javascript is disabled.</li>
+<li>It should be crawl-able by search engines.</li>
+<li>When the app is first loaded we should render server-side for optimum performance.</li>
+<li>We should use the <a href="http://diveintohtml5.info/history.html">History API</a> instead of hash tag URLs so that the URL in the user&#8217;s browser address page always matches the page that they are viewing.</li>
+</ul>
+<p>These might not sound like groundbreaking features &#8211; websites have been doing the first three since forever &#8211; but as usual the <em>HTML5 application cache</em> gets in the way.</p>
+<p>As always, the <a href="https://github.com/matthew-andrews/ft-style-offline-web-app-part-4">full code is up on GitHub</a> and you can <a href="http://dev.labs.ft.com/matthew/pt4/">preview the working app</a>.</p>
+<h2>On and off &#8211; not always a switch</h2>
+<p>Product managers often come up with feature requests with descriptions along the lines of: <em>when the app is online do this, when it&#8217;s offline do that</em>. Unfortunately, it&#8217;s rarely that black and white.</p>
+<p>Connections can be weak and very slow, they can be flaky &#8211; disconnecting frequently. Devices can even be tricked into thinking they&#8217;re online when they&#8217;re not &#8211; they could be behind a captive portal in a coffee shop or hotel; or the device could have a perfect connection to a wifi router that isn&#8217;t connected to anything else. Requests to your website may be being blocked or somehow mangled by a government or corporate proxy. Or, of course, the device could actually be completely offline.</p>
+<p>Rather than thinking in terms of offline and online, the way to deliver the best possible user experience during that initial app boot phase up is to aim to deliver an app startup time that is consistent and unaffected by the connection type or speed. In order to achieve this we&#8217;re going to need some more AppCache hacking.</p>
+<h2>More AppCache hacking</h2>
+<p>The only way you can have a consistent start up time in the face of a wild west of internet connection possibilities is to ensure your web app will prefer, <strong>whenever possible</strong> load from the device&#8217;s local application cache. To do this you have to ensure that the page which your app starts on is <strong>explicitly cached</strong> in the application cache manifest.</p>
+<p>At FT Labs we refer to this kind of application cache behaviour as <em>prefer offline</em>, where the application cache &#8211; if populated &#8211; will <em>always</em> be the preferred source for the app to load itself from, rather than the network. This means that the amount of time the demo app will take to start up will always be the same &#8211; no matter what kind of connection the user&#8217;s device has to the internet.</p>
+<p>We can achieve this either by listing the root of the app explicitly in the <code>CACHE</code> section of the app cache manifest. Or, as we do in our demo app, listing it as the 2nd part of a fallback within the <code>FALLBACK</code> section.</p>
+<p>(In an ideal world we would like for the application cache to be configured so that every request (even ones not listed in the application cache) are <em>always</em> prefer offline unless we say otherwise, but that is not currently possible with the current spec or any browser implementation :-(. Given the home page is the likeliest entry point to your application, we prioritise that.)</p>
+<p>This means the web server must serve the root of your application (in the FT&#8217;s case that&#8217;s <code>http://app.ft.com/</code>) with the bootstrap code &#8211; explained in the <a href="http://labs.ft.com/2012/08/basic-offline-html5-web-app/">first tutorial</a>.</p>
+<p>However, in order to achieve the server side render of the HTML for the first time the user visits the app (which makes for a much faster initial app start; allows our app to be crawled by search engines and work without javascript) that same application root URL sometimes also needs, in the case of our demo app, to return the current latest blog posts.</p>
+<p>To summarise:</p>
+<ul>
+<li>When the app cache is doing its thing yourapp.com/ must be the bootstrap*.</li>
+<li>Otherwise yourapp.com/ should be the rendered HTML content.</li>
+</ul>
+<p>Given we have no Javascript control over either these requests (the former is made by the application cache&#8217;s update mechanism, the latter by the user typing the URL into their browser / clicking a link from another site) we only have one solution.</p>
+<p>* By bootstrap I mean the bootstrap of the sort we described in <a href="http://labs.ft.com/2012/08/basic-offline-html5-web-app/">Tutorial 1</a> &#8211; just enough Javascript and HTML to pull your Javascript&#8217;s application logic out of <code>localStorage</code> and <code>eval</code> it but no more. Not to be confused with <a href="http://twitter.github.io/bootstrap/">any other kind of bootstrap</a>, of course.</p>
+<h3>The solution</h3>
+<p>We already have quite precise control over how and when the application cache is loaded through the iframe (implemented in the previous tutorial) so solving this problem is actually quite easy.</p>
+<p>Before adding the iframe, simply set a cookie and when we receive a notification from the Javascript within that iframe (which is listening to the application cache events) that the application cache has finished updating we unset the cookie.</p>
+<p>Then on the server side, within <strong>/index.php</strong>, if that cookie is set: return the bootstrap otherwise return the latest blog posts.</p>
+<p>This is, of course, a monumental hack. But with the app cache as it is today it&#8217;s the best we can do.</p>
+<h2>Getting Started</h2>
+<p>Start by cloning (<a href="https://github.com/matthew-andrews/ft-style-offline-web-app-part-3">or downloading</a>) the GitHub repository from Part 3.</p>
+<p><code>git clone git://github.com/matthew-andrews/ft-style-offline-web-app-part-3.git</code></p>
+<h3>The new and changed files required in the tutorial:-</h3>
+<table>
+<tr>
+<td><strong>/api/resources/javascript.php</strong></td>
+</tr>
+<tr>
+<td>/index.php</td>
+</tr>
+<tr>
+<td><strong>/server/application/applicationcontroller.php</strong></td>
+</tr>
+<tr>
+<td><strong>/server/articles/article.php</strong></td>
+</tr>
+<tr>
+<td><strong>/server/articles/articlescontroller.php</strong></td>
+</tr>
+<tr>
+<td><strong>/server/templates.php</strong></td>
+</tr>
+<tr>
+<td>/source/appcache.js</td>
+</tr>
+<tr>
+<td>/source/application/applicationcontroller.js</td>
+</tr>
+<tr>
+<td>/source/templates.js</td>
+</tr>
+</table>
+<p>New files are highlighted in bold, changes to existing files not in bold.</p>
+<h3>/index.php</h3>
+<pre class="prettyprint linenums"><code>&lt;?php
+// Detect the app root (taken from api/resources/index.php)
+$appRoot = trim(dirname($_SERVER['SCRIPT_NAME']), '/');
+$appRoot = '/' . ltrim($appRoot . '/', '/');
+$appcacheUpdate = isset($_COOKIE['appcacheUpdate']);
+?&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+	&lt;head&gt;
+		&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no&quot; /&gt;
+		&lt;script type=&quot;text/javascript&quot; src=&quot;&lt;?php echo $appRoot; ?&gt;jquery.min.js&quot;&gt;&lt;/script&gt;
+		&lt;?php if ($appcacheUpdate) { ?&gt;
+		&lt;script type=&quot;text/javascript&quot;&gt;
+			$(document).ready(function () {
+
+				var APP_START_FAILED = &quot;I'm sorry, the app can't start right now.&quot;;
+				function startWithResources(resources, storeResources) {
+
+					// Try to execute the Javascript
+					try {
+						eval(resources.js);
+						APP.applicationController.start(resources, storeResources);
+
+					// If the Javascript fails to launch, stop execution!
+					} catch (e) {
+						if (typeof console !== &quot;undefined&quot;) {
+							console.log(e);
+						}
+						alert(APP_START_FAILED);
+					}
+				}
+				function startWithOnlineResources(resources) {
+					startWithResources(resources, true);
+				}
+
+				function startWithOfflineResources(e) {
+					var resources;
+
+					// If we have resources saved from a previous visit, use them
+					if (localStorage &amp;&amp; localStorage.resources) {
+						resources = JSON.parse(localStorage.resources);
+						startWithResources(resources, false);
+
+					// Otherwise, apologize and let the user know
+					} else {
+						alert(APP_START_FAILED);
+					}
+				}
+
+				// If we know the device is offline, don't try to load new resources
+				if (navigator &amp;&amp; navigator.onLine === false) {
+					startWithOfflineResources();
+
+				// Otherwise, download resources, eval them, if successful push them into local storage.
+				} else {
+					$.ajax({
+						url: '&lt;?php echo $appRoot; ?&gt;api/resources/',
+						success: startWithOnlineResources,
+						error: startWithOfflineResources,
+						dataType: 'json'
+					});
+				}
+
+			});
+		&lt;/script&gt;
+		&lt;?php } else { ?&gt;
+		&lt;link href=&quot;&lt;?php echo $appRoot; ?&gt;css/global.css&quot; media=&quot;all&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&gt;
+		&lt;script type=&quot;text/javascript&quot; src=&quot;&lt;?php $appRoot; ?&gt;api/resources/javascript.php&quot;&gt;&lt;/script&gt;
+		&lt;script type=&quot;text/javascript&quot;&gt;
+		$(document).ready(function () {
+			APP.applicationController.startFromServer();
+		});
+		&lt;/script&gt;
+		&lt;?php } ?&gt;
+		&lt;title&gt;News&lt;/title&gt;
+	&lt;/head&gt;
+&lt;body&gt;
+	&lt;?php if ($appcacheUpdate) { ?&gt;
+	&lt;div id=&quot;loading&quot;&gt;Loading&amp;hellip;&lt;/div&gt;
+	&lt;?php } else {
+		require_once('server/templates.php');
+		$templates = new Templates($appRoot);
+		require_once('server/application/applicationcontroller.php');
+		$applicationController = new ApplicationController($templates);
+		echo Templates::application($applicationController-&gt;route(preg_replace('/^'. preg_quote($appRoot, '/') . '/', '', $_SERVER['REQUEST_URI'])));
+	} ?&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p>As I explained above in the <strong>More app cache hacking</strong> section this file needs to be able to return the latest blog items for ordinary requests and it should return the bootstrap we created in <a href="http://labs.ft.com/2012/08/basic-offline-html5-web-app/">Tutorial 1</a> when requested during an application cache update.</p>
+<p>We detect whether the cookie is set at the top of the file via the PHP <code>isset</code> function:-</p>
+<p><code>$appcacheUpdate = isset($_COOKIE['appcacheUpdate']);</code></p>
+<p>The code we return if we&#8217;re not doing an app cache update can be a normal web page that follows all the best practises, such as:</p>
+<ul>
+<li>including the Javascript through a normal script tag that points to an external resource (we&#8217;ll create this file in just a minute):-</li>
+</ul>
+<p><code>&lt;script type="text/javascript" src="&lt;?php $appRoot; ?&gt;api/resources/javascript.php"&gt;&lt;/script&gt;</code></p>
+<ul>
+<li>and including the CSS again by pulling it in in the normal way from an external URL:-</li>
+</ul>
+<pre class="prettyprint linenums"><code>&lt;link href=&quot;&lt;?php echo $appRoot; ?&gt;css/global.css&quot; media=&quot;all&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&gt;</code></pre>
+<h3>/api/resources/javascript.php</h3>
+<pre class="prettyprint linenums"><code>&lt;?php
+$js = '';
+$js = $js . file_get_contents('../../libraries/client/fastclick.js');
+$js = $js . 'var APP={}; (function (APP) {';
+$js = $js . file_get_contents('../../source/application/applicationcontroller.js');
+$js = $js . file_get_contents('../../source/articles/articlescontroller.js');
+$js = $js . file_get_contents('../../source/articles/article.js');
+$js = $js . file_get_contents('../../source/datastores/network.js');
+$js = $js . file_get_contents('../../source/datastores/indexeddb.js');
+$js = $js . file_get_contents('../../source/datastores/websql.js');
+$js = $js . file_get_contents('../../source/templates.js');
+$js = $js . file_get_contents('../../source/appcache.js');
+$js = $js . '}(APP)),';
+
+// Detect and set the absolute path to the root of the web app
+// First get a clean version of the current directory (will include api/resources)
+$appRoot = trim(dirname($_SERVER['SCRIPT_NAME']), '/');
+
+// Strip of api/resources from the end of the path
+$appRoot = trim(preg_replace('/api/resources$/i', '', $appRoot), '/');
+
+// Ensure the path starts and ends with a slash or just / if on the root of domain
+$appRoot = '/' . ltrim($appRoot . '/', '/');
+
+echo $js . 'APP_ROOT = &quot;' . $appRoot . '&quot;;';</code></pre>
+<p>This is almost the same logic as <strong>/api/resources/index.php</strong>, except that it only returns Javascript. ( <strong>/api/resources/index.php</strong> returns JSON encoded object with two keys &#8211; one, <code>js</code> containing the demo web app&#8217;s Javascript and another, <code>css</code> containing its css).</p>
+<h2>Re-implement the demo app in PHP</h2>
+<p>The next step is to take the code we&#8217;ve written in Javascript and make it so that it will run on our server. The easiest way to do this (where easiest for the purposes of this tutorial means not adding dependencies on any more technologies) is to rewrite it in PHP.</p>
+<h3>/server/application/applicationcontroller.php</h3>
+<pre class="prettyprint linenums"><code>&lt;?php
+require_once('server/articles/articlescontroller.php');
+
+class ApplicationController {
+	private $_templates;
+
+	public function __construct(Templates $templates) {
+		$this-&gt;_templates = $templates;
+	}
+
+	public function showHome() {
+	    $articlesController = new ArticlesController($this-&gt;_templates);
+	    return $this-&gt;_templates-&gt;home($articlesController-&gt;showArticleList());
+	}
+
+	public function showArticle($id) {
+		$articlesController = new ArticlesController($this-&gt;_templates);
+	    return $articlesController-&gt;showArticle($id);
+	}
+
+	public function route($page) {
+		$page = trim($page, '/');
+	    if (strlen($page)) {
+	        if (intval($page) &gt; 0) {
+	            return $this-&gt;showArticle(intval($page));
+	        }
+	    } else {
+	        return $this-&gt;showHome();
+	    }
+	}
+}</code></pre>
+<p>To keep things as simple as possible I&#8217;ve copied the same structure as the Javascript file &#8211; giving the files, classes and their methods all the same names wherever possible.</p>
+<h3>/server/articles/article.php</h3>
+<pre class="prettyprint linenums"><code>&lt;?php
+
+class Article {
+	public function get($articleId = null) {
+		$rss = new SimpleXMLElement(file_get_contents('http://feeds2.feedburner.com/ft/tech-blog'));
+
+		if ($articleId) {
+			$xpath = '/rss/channel/item['. $articleId .']';
+		} else {
+			$xpath = '/rss/channel/item';
+		}
+		$items = $rss-&gt;xpath($xpath);
+
+		if ($items) {
+			$output = array();
+			foreach ($items as $id =&gt; $item) {
+
+			    // This will be encoded as an object, not an array, by json_encode
+			    $output[] = array(
+					'id' =&gt; $id + 1,
+					'headline' =&gt; strval($item-&gt;title),
+					'date' =&gt; strval($item-&gt;pubDate),
+					'body' =&gt; strval(strip_tags($item-&gt;description,'&lt;p&gt;&lt;br&gt;')),
+					'author' =&gt; strval($item-&gt;children('http://purl.org/dc/elements/1.1/')-&gt;creator)
+				);
+			}
+
+			if ($articleId &gt; 0) {
+				return $output[0];
+			} else {
+				return $output;
+			}
+		}
+	}
+}</code></pre>
+<p>Much like <strong>/sources/articles/article.js</strong> the role of this class is to just return article data. If the <code>get</code> function is passed a parameter (and ID of the article) it will return a single article, otherwise it will return all the articles in the RSS feed.</p>
+<p>To simplify the explanations in this tutorial I&#8217;ve not bothered to combine some of the logic in this file with the logic in <strong>/api/articles/index.php</strong> &#8211; even though it is almost exactly the same. The only difference is <strong>/api/article/index.php</strong> outputs a json encoded object &#8211; used by the Javascript in the demo app, whereas this file will be used by other PHP files to get a PHP associative array containing article data.</p>
+<h3>/server/articles/articlescontroller.php</h3>
+<pre class="prettyprint linenums"><code>&lt;?php
+require_once('article.php');
+
+class ArticlesController {
+	private $_article, $_templates;
+
+	public function __construct(Templates $templates) {
+		$this-&gt;_article = new Article();;
+		$this-&gt;_templates = $templates;
+	}
+
+	public function showArticleList() {
+		return $this-&gt;_templates-&gt;articleList($this-&gt;_article-&gt;get());
+	}
+
+	public function showArticle($id) {
+		return $this-&gt;_templates-&gt;article($this-&gt;_article-&gt;get($id));
+	}
+}</code></pre>
+<p>This code should look very similar to the corresponding Javascript file in <strong>/sources/articles/articlescontroller.js</strong>.</p>
+<h3>/server/templates.php</h3>
+<pre class="prettyprint linenums"><code>&lt;?php
+class Templates {
+    private $_appRoot;
+
+    public function __construct($appRoot) {
+        $this-&gt;_appRoot = $appRoot;
+    }
+
+    public function application($content) {
+		return '&lt;div id=&quot;window&quot;&gt;&lt;div id=&quot;header&quot;&gt;&lt;h1&gt;FT Tech Blog&lt;/h1&gt;&lt;/div&gt;&lt;div id=&quot;body&quot;&gt;' . $content .'&lt;/div&gt;&lt;/div&gt;';
+    }
+
+    public function home($headlines) {
+        return '&lt;button id=&quot;refreshButton&quot;&gt;Refresh the news!&lt;/button&gt;&lt;div id=&quot;headlines&quot;&gt;' . $headlines . '&lt;/div&gt;&lt;/div&gt;';
+    }
+
+    public function articleList($articles) {
+		$output = '';
+
+        if (count($articles) === 0) {
+            return '&lt;p&gt;&lt;i&gt;No articles have been found, maybe you haven't &lt;b&gt;refreshed the news&lt;/b&gt;?&lt;/i&gt;&lt;/p&gt;';
+        }
+        for ($i = 0, $l = count($articles); $i &lt; $l; $i = $i + 1) {
+            $output .= '&lt;li&gt;&lt;a href=&quot;' . $this-&gt;_appRoot . $articles[$i]['id'] . '&quot;&gt;&lt;b&gt;' . $articles[$i]['headline'] . '&lt;/b&gt;&lt;br /&gt;By ' . $articles[$i]['author'] . ' on ' . $articles[$i]['date'] . '&lt;/a&gt;&lt;/li&gt;';
+        }
+        return '&lt;ul&gt;' . $output . '&lt;/ul&gt;';
+    }
+
+    public function article($articleData) {
+        return '&lt;a href=&quot;' . $this-&gt;_appRoot . '&quot;&gt;Go back home&lt;/a&gt;&lt;h2&gt;' . $articleData['headline'] . '&lt;/h2&gt;&lt;h3&gt;By ' . $articleData['author'] . ' on ' . $articleData['date'] . '&lt;/h3&gt;' . $articleData['body'];
+    }
+
+	public function articleLoading() {
+        return '&lt;a href=&quot;' . $this-&gt;_appRoot . '&quot;&gt;Go back home&lt;/a&gt;&lt;br /&gt;&lt;br /&gt;Please wait&amp;hellip;';
+    }
+}</code></pre>
+<p>In this file we&#8217;ve reimplemented the logic inside <strong>/sources/templates.js</strong>. Rather than copying this file directly you could choose to copy the Javascript file and manually port the code to PHP. If you do this make sure to be careful replacing <code>+</code>&#8216;s with <code>.</code>&#8216;s.</p>
+<p>For example:-</p>
+<pre class="prettyprint linenums"><code>output = output + '&lt;li&gt;&lt;a href=&quot;' + APP_ROOT + articles[i].id + '&quot;&gt;&lt;b&gt;' + articles[i].headline + '&lt;/b&gt;&lt;br /&gt;By ' + articles[i].author + ' on ' + articles[i].date + '&lt;/a&gt;&lt;/li&gt;';</code></pre>
+<p>Becomes:-</p>
+<pre class="prettyprint linenums"><code>$output .= '&lt;li&gt;&lt;a href=&quot;' . $this-&gt;_appRoot . $articles[$i]['id'] . '&quot;&gt;&lt;b&gt;' . $articles[$i]['headline'] . '&lt;/b&gt;&lt;br /&gt;By ' . $articles[$i]['author'] . ' on ' . $articles[$i]['date'] . '&lt;/a&gt;&lt;/li&gt;';</code></pre>
+<h2>Some updates to the client side code</h2>
+<h3>/source/appcache.js</h3>
+<p>As we discussed above with the <strong>More hacking the app cache</strong> section, we have two changes to make inside <strong>/source/appcache.js</strong>.</p>
+<p>The first change is to set the cookie inside the <code>innerLoad</code> function:-</p>
+<pre class="prettyprint linenums"><code>function innerLoad() {
+
+	// 5 minutes in the future
+	var cookieExpires = new Date(new Date().getTime() + 60 * 5 * 1000);
+	document.cookie = &quot;appcacheUpdate=1;expires=&quot; + cookieExpires.toGMTString();
+	var iframe = document.createElement('IFRAME');
+	iframe.setAttribute('style', 'width:0px; height:0px; visibility:hidden; position:absolute; border:none');
+	iframe.src = APP_ROOT + 'manifest.html';
+	iframe.id = 'appcacheloader';
+	document.body.appendChild(iframe);
+}</code></pre>
+<p>And the second change is to unset that same cookie once we know the appcache update process is complete:-</p>
+<pre class="prettyprint linenums"><code>function logEvent(evtcode, hasChecked) {
+	var s = statuses[evtcode], loaderEl, cookieExpires;
+	if (hasChecked || s === 'timeout') {
+		if (s === 'uncached' || s === 'idle' || s === 'obsolete' || s === 'timeout' || s === 'updateready') {
+			loaderEl = document.getElementById('appcacheloader');
+			loaderEl.parentNode.removeChild(loaderEl);
+
+			// Remove appcacheUpdate cookie
+			cookieExpires = new Date(new Date().getTime() - 60 * 5 * 1000);
+			document.cookie = &quot;appcacheUpdate=;expires=&quot; + cookieExpires.toGMTString();
+		}
+	}
+}</code></pre>
+<h3>/source/application/applicationcontroller.js</h3>
+<p>The changes to the application controller are a little more complicated. We want to make some changes to existing code, and add a few new methods. I&#8217;m just going to post the changes in this tutorial &#8211; for the full code please <a href="https://github.com/matthew-andrews/ft-style-offline-web-app-part-4/blob/tutorial/source/application/applicationcontroller.js">view the file on the GitHub project</a>.</p>
+<p>We need to make the following changes to the applicationcontroller.js file:</p>
+<ul>
+<li>Add a new new class variable <code>initialRenderOnServer</code>:-</li>
+</ul>
+<pre class="prettyprint linenums"><code>APP.applicationController = (function () {
+	'use strict';
+
+var fastClick,
+	iOSPrivateBrowsing,
+	initialRenderOnServer;
+
+	... etc ...</code></pre>
+<ul>
+<li>Replace the <code>route</code> function with one that is able to understand real URLs instead of hash tag URLs.</li>
+</ul>
+<pre class="prettyprint linenums"><code>function route(page) {
+    if (page) {
+        page = page.replace(new RegExp('^' + APP_ROOT), '');
+    } else {
+        page = '';
+    }
+    if (page.length &gt; 0) {
+        if (parseInt(page, 10) &gt; 0) {
+            showArticle(parseInt(page, 10));
+        } else {
+            pageNotFound();
+            page = APP_ROOT + 'error';
+        }
+    } else {
+        showHome();
+    }
+    window.history.pushState(null, null, APP_ROOT + page);
+}</code></pre>
+<p>Notice that we&#8217;re also adding our code to hook into the <strong>HTML5 History API</strong> here.</p>
+<ul>
+<li>Replace the <code>initialize</code> and <code>start</code> methods with ones that are able to boot the app either from our locally cached bootstrap (discussed in <a href="labs.ft.com/2012/08/basic-offline-html5-web-app/">Tutorial 1</a>) or from the network.</li>
+</ul>
+<pre class="prettyprint linenums"><code>function initialize(resources) {
+
+    // Listen to the URL link clicks
+    $(document).on('click', 'a', function (event) {
+        event.stopPropagation();
+        event.preventDefault();
+        route(this.getAttribute('href'));
+    });
+
+    // Set up FastClick
+    fastClick = new FastClick(document.body);
+
+    // Initalise appcache if app not in private browsing mode
+    if (!iOSPrivateBrowsing) {
+        APP.appcache.start();
+    }
+
+    // If we don't have resources, trigger a
+    // synchronize but from then on stop because
+    // this means the data in the dom has been freshly
+    // loaded from the server.
+    if (initialRenderOnServer) {
+    	return APP.articlesController.synchronizeWithServer();
+    }
+
+    // Inject CSS Into the DOM
+    $(&quot;head&quot;).append(&quot;&lt;style&gt;&quot; + resources.css + &quot;&lt;/style&gt;&quot;);
+
+    // Create app elements
+    $(&quot;body&quot;).append(APP.templates.application());
+
+    // Remove our loading splash screen
+    $(&quot;#loading&quot;).remove();
+
+    route();
+}
+
+// This is to our webapp what main() is to C, $(document).ready is to jQuery, etc
+function start(resources, storeResources, contentAlreadyLoaded) {
+	initialRenderOnServer = contentAlreadyLoaded;
+
+    // Try to detect whether iOS private browsing mode is enabled
+    try {
+        localStorage.test = &quot;&quot;;
+        localStorage.removeItem(&quot;test&quot;);
+    } catch (exception) {
+        if (exception.code === 22) {
+            iOSPrivateBrowsing = true;
+        }
+    }
+
+    if (iOSPrivateBrowsing) {
+        return APP.network.start(function networkSuccess() {
+            APP.database = APP.network;
+            initialize(resources);
+        });
+    }
+
+    // As a bare minimum we need History API to
+    // run the advanced features of this app
+    if (!historyAPI()) return;
+
+    window.addEventListener(&quot;popstate&quot;, function(e) {
+        route(location.pathname);
+    });
+
+    // When indexedDB available, use it!
+    APP.indexedDB.start(function indexedDBSuccess() {
+        APP.database = APP.indexedDB;
+        initialize(resources);
+
+        // When indexedDB is not available, fallback to trying websql
+    }, function indexedDBFailure() {
+        APP.webSQL.start(function webSQLSuccess() {
+            APP.database = APP.webSQL;
+            initialize(resources);
+
+        // When webSQL not available, fall back to using the network
+        }, function webSQLFailure() {
+            APP.network.start(function networkSuccess() {
+                APP.database = APP.network;
+                initialize(resources);
+            });
+        });
+    });
+
+    if (storeResources &amp;&amp; window['localStorage']) {
+        localStorage.resources = JSON.stringify(resources);
+    }
+}</code></pre>
+<ul>
+<li>We need to add a new function that handles the app if it is starting up after being downloaded directly from the server (as opposed to from the app cache).</li>
+</ul>
+<pre class="prettyprint linenums"><code>function startFromServer() {
+
+    // As a bare minimum we need History API to
+    // run the advanced features of this app
+    if (!historyAPI()) return;
+    $.ajax('api/resources/', {
+        dataType: 'json',
+        success: function (data) {
+            start(data, true, true);
+        }
+    });
+}</code></pre>
+<ul>
+<li>We&#8217;ve borrowed a little code from the very excellent Modernizr &#8211; to detect whether we can <em>actually use</em> the HTML5 History API.</li>
+</ul>
+<pre class="prettyprint linenums"><code>// Detection of history API, 'borrowed' from Modernizr
+function historyAPI() {
+    var ua = navigator.userAgent;
+
+    // We only want Android 2, stock browser, and not Chrome which identifies
+    // itself as 'Mobile Safari' as well
+    if (ua.indexOf('Android 2') !== -1 &amp;&amp;
+        ua.indexOf('Mobile Safari') !== -1 &amp;&amp;
+            ua.indexOf('Chrome') === -1) {
+        return false;
+    }
+
+    // Return the regular check
+    if (window.history &amp;&amp; 'pushState' in history) {
+        return true;
+    }
+}</code></pre>
+<ul>
+<li>And finally, we need to update our public API to expose the <code>route</code> and newly added <code>startFromServer</code> methods.</li>
+</ul>
+<pre class="prettyprint linenums"><code>return {
+    start: start,
+    startFromServer: startFromServer,
+    route: route
+};</code></pre>
+<h3>/source/templates.js</h3>
+<pre class="prettyprint linenums"><code>APP.templates = (function () {
+    'use strict';
+
+    function application() {
+        return '&lt;div id=&quot;window&quot;&gt;&lt;div id=&quot;header&quot;&gt;&lt;h1&gt;FT Tech Blog&lt;/h1&gt;&lt;/div&gt;&lt;div id=&quot;body&quot;&gt;&lt;/div&gt;&lt;/div&gt;';
+    }
+
+    function home() {
+        return '&lt;button id=&quot;refreshButton&quot;&gt;Refresh the news!&lt;/button&gt;&lt;div id=&quot;headlines&quot;&gt;&lt;/div&gt;&lt;/div&gt;';
+    }
+
+    function articleList(articles) {
+        var i, l, output = '';
+
+        if (!articles.length) {
+            return '&lt;p&gt;&lt;i&gt;No articles have been found, maybe you haven't &lt;b&gt;refreshed the news&lt;/b&gt;?&lt;/i&gt;&lt;/p&gt;';
+        }
+        for (i = 0, l = articles.length; i &lt; l; i = i + 1) {
+            output = output + '&lt;li&gt;&lt;a href=&quot;' + APP_ROOT + articles[i].id + '&quot;&gt;&lt;b&gt;' + articles[i].headline + '&lt;/b&gt;&lt;br /&gt;By ' + articles[i].author + ' on ' + articles[i].date + '&lt;/a&gt;&lt;/li&gt;';
+        }
+        return '&lt;ul&gt;' + output + '&lt;/ul&gt;';
+    }
+
+    function article(articleData) {
+
+        // If the data is not in the right form, redirect to an error
+        if (!articleData) {
+            APP.applicationController.route(APP_ROOT + 'error');
+            return;
+        }
+        return '&lt;a href=&quot;' + APP_ROOT + '&quot;&gt;Go back home&lt;/a&gt;&lt;h2&gt;' + articleData.headline + '&lt;/h2&gt;&lt;h3&gt;By ' + articleData.author + ' on ' + articleData.date + '&lt;/h3&gt;' + articleData.body;
+    }
+
+    function articleLoading() {
+        return '&lt;a href=&quot;' + APP_ROOT  + '&quot;&gt;Go back home&lt;/a&gt;&lt;br /&gt;&lt;br /&gt;Please wait&amp;hellip;';
+    }
+
+    return {
+        application: application,
+        home: home,
+        articleList: articleList,
+        article: article,
+        articleLoading: articleLoading
+    };
+}());</code></pre>
+<p>The majority of the changes here are changing the URLs inside the each of the <code>&lt;a href=""&gt;</code>&#8216;s from using a hashtag URL to using a real URL (e.g. yourapp.com/#5 becomes yourapp/5).</p>
+<p>There&#8217;s also a small change to the way the error handler works &#8211; previously it just redirected the user to the error page by calling <code>window.location = '#error';</code> but now since we aren&#8217;t using hashtag URLs we have to call the route function instead.</p>
+<h2>Wrapping up</h2>
+<p>In this tutorial we&#8217;ve made our demo web app work just as well as a website as it does as an app. But in doing so we&#8217;ve created a bit of a monster.</p>
+<p>If we look back again at the PHP server side code and compare it to the client side Javascript there is a huge amount of duplicated logic. With the exception of the client side specific code (such as the local database and app cache logic) the contents of the <strong>/sources</strong> folder, used for client side Javascript is almost exactly the same at the <strong>/server</strong> folder, used for PHP.</p>
+<p>Having to maintain two sets of files with identical logic wastes time as every feature or bug fix has to be implemented twice.</p>
+<p>The codebase would be a lot neater and more manageable if we were able to <em>just</em> write the Javascript versions and then run that Javascript code on <strong>both the server and client</strong>.</p>
+<p>In 2009 Ryan Dahl created <a href="http://nodejs.org">NodeJS</a>, which allows developers to do just that. In the next tutorial we will bid farewell to the web technologies of the past (PHP and Apache) and rebuild the app with the latest tools and techniques (Node, NPM, Grunt, BusterJS and more…).</p>
+<p>Finally, if you think you’d like to work on this sort of thing and live (or would like to live) in London, <a href="http://labs.ft.com/jobs">we’re hiring</a>!</p>
+<p>By <a href="http://mattandre.ws">Matt Andrews</a> &#8211; @andrewsmatt on <a href="http://twitter.com/andrewsmatt">Twitter</a> and <a href="http://weibo.com/andrewsmatt">Weibo</a></p>
+]]></content:encoded>
+			</item>
+		<item>
+		<title>Tutorial 3: &#8216;Fixing&#8217; the application cache with an iframe</title>
+		<link>http://labs.ft.com/2012/11/using-an-iframe-to-stop-app-cache-storing-masters/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=using-an-iframe-to-stop-app-cache-storing-masters</link>
+		<pubDate>Thu, 01 Nov 2012 00:00:49 +0000</pubDate>
+		<dc:creator><![CDATA[Matthew Andrews]]></dc:creator>
+				<category><![CDATA[Tutorial]]></category>
+		<category><![CDATA[applicationCache]]></category>
+		<category><![CDATA[Bootstrapping]]></category>
+		<category><![CDATA[HTML5]]></category>
+		<category><![CDATA[Offline]]></category>
+
+		<guid isPermaLink="false">http://labs.ft.com/?p=3601</guid>
+		<description><![CDATA[One of the most important aspects of the web is the URL, and the direct connection between a URL and a single item of content. So far in this tutorial series we've delivered the whole experience through a single URL. To fix this we need to deal with the problem with the application cache which caused us to adopt a single URL in the first place.]]></description>
+				<content:encoded><![CDATA[<p>This is part 3 of a <a href="http://labs.ft.com/category/tutorial/">tutorial series</a> on how to make an FT style offline web app. <strong>If you haven’t already, please read <a href="http://labs.ft.com/2012/08/basic-offline-html5-web-app/">part 1</a> and <a href="http://labs.ft.com/2012/09/ft-style-web-app-on-firefox-and-ie6-to-ie10/">part 2</a> first.</strong></p>
+<p>One of the most important aspects of the web is the URL, and the direct connection between a URL and a single item of content. Currently for a number of reasons we break this rule and the demo app delivers the whole experience through a single URL. To fix this we need to deal with the problem with the application cache which caused us to adopt a single URL in the first place.</p>
+<p>As I mentioned in Tutorial 1, one of the ill thought out features of the HTML5 application cache is that the page which points to the manifest in its HTML tag – <code>&lt;html manifest="myappcache.manifest"&gt;</code> – will itself also be cached, whether you like it or not. This is a problem because each time a user arrives on the demo web app from a different URL (which in the case of the FT is several million articles) their browser will attempt to add that URL into the application cache, indefinitely until the application cache runs out of space. So we have to find a solution that will allow users to begin to use the demo app from any URL without littering their browser’s application cache with unwanted content.</p>
+<p><a href="https://github.com/matthew-andrews/ft-style-offline-web-app-part-3">Forks, stars, pulls and even issue reports all welcome on GitHub.com.</a></p>
+<p><a href="http://dev.labs.ft.com/matthew/pt3/">Experience the demo app working here</a>.</p>
+<h2>Getting Started</h2>
+<p>Start by cloning (<a href="https://github.com/matthew-andrews/ft-style-offline-web-app-part-2/zipball/master">or downloading</a>) the GitHub repository from Part 2.</p>
+<pre class="prettyprint linenums"><code>git clone https://github.com/matthew-andrews/ft-style-offline-web-app-part-2.git</code></pre>
+<h2>Requirements</h2>
+<ul>
+<li>Maintain compatibility with all previous browsers and devices</li>
+<li>Allow the demo app to be loaded from any URL (except those beginning with <code>api</code>) in preparation of switching from hashtag URLs to real URLs.</li>
+<li>Maintain control of what is in the application cache.</li>
+</ul>
+<h2>Preventing the application cache from storing masters with an iframe</h2>
+<p>We worked around this application cache problem on the <a href="http://labs.ft.com/articles/the-economist/"><strong>Economist HTML5 app</strong></a> by using an <code>IFRAME</code>. The trick is rather than include a manifest attribute on the html tag of the page loaded, instead load an almost empty page (empty except for a little Javascript) that has the manifest attribute in its html tag in a hidden iframe. This means no matter which page your users load the demo web app, the browser will only store one unique master entry and therefore the files stored by the application cache are also always the same.</p>
+<p>We then rely on <code>FALLBACK</code> rules inside the application cache manifest to ensure that every URL within the demo web app, including the URL the user initially loaded the web app on, can be loaded without an internet connection.</p>
+<p><strong>The new and changed files required in this tutorial:-<br />
+</strong></p>
+<table>
+<tr>
+<td>/source/appcache.js</td>
+<td>The code in the web app responsible for loading the iframe</td>
+</tr>
+<tr>
+<td>/api/resources/index.php</td>
+<td>Adding the above file into the web app Javascript; also setting a new app global <code>APP_ROOT</code> which will be the absolute path to the root of the web app.</td>
+</tr>
+<tr>
+<td>/offline.manifest.php</td>
+<td>Changes required by the iframe solution and to prepare for the History API (coming in Tutorial 4)</td>
+</tr>
+<tr>
+<td>/manifest.html</td>
+<td>The file to be loaded by the iframe</td>
+</tr>
+<tr>
+<td>/api/offline/index.html</td>
+<td>A fallback for any request starting /api when no connection is available. All other requests will fallback to the root file (index.php).</td>
+</tr>
+<tr>
+<td>/source/applicationcontroller.js</td>
+<td>Updating the web app to use the new iframe application cache solution</td>
+</tr>
+<tr>
+<td>/source/articles/articlescontroller.js</td>
+<td>Updating the path to the articles api call to make use of the <code>APP_ROOT</code> global – we can no longer rely on relative paths because the subfolder of the page the user is viewing can vary.</td>
+</tr>
+<tr>
+<td>/index.php (renamed from index.html)</td>
+<td>Preventing the bootstrap (<a href="http://labs.ft.com/2012/08/basic-offline-html5-web-app/">discussed in Tutorial 1</a>) from using the old, non-iframe based offline caching solution as well as changing all the relative paths to absolute paths.</td>
+</tr>
+<tr>
+<td>/.htaccess</td>
+<td>A simple mod rewrite to route all requests not beginning with <strong>/api</strong> to index.php.</td>
+</tr>
+</table>
+<p><strong>/source/appcache.js</strong><br />
+This file will take care of informing the user that the website is capable of working offline and will request permission to do so. This is a good idea, because it means we can control at least the first part of the offline permission prompt experience and prepare the user for <a href="http://mattandre.ws/2012/09/firefox-a-bit-too-polite/">any odd things the browser may do</a>.</p>
+<p>Once it has permission this code will also be responsible for managing the iframe – both adding it to the DOM and removing it once the application cache is populated.</p>
+<p>You might also have noticed on line 17 we are making use of a new app-wide global variable <code>APP_ROOT</code>. This will be set in <strong>api/resources/index.php</strong> and will be the path to the root of the web app (simply “/” if it is sitting at the top of a domain, like app.ft.com, or the path to subfolder that contains the demo app)</p>
+<p><span style="font-size: 80%; line-height: 1em;">Huge amount of credit to <a href="https://github.com/georgecrawford">George Crawford</a>, lead developer of <a href="http://labs.ft.com/articles/the-economist/">The Economist HTML5 app</a> and <a href="http://labs.ft.com/articles/ft-columnflow/">FT columnflow</a>, for this and <strong>manifest.html</strong> that I&#8217;ve butchered for the purposes of this tutorial.</span></p>
+<pre class="prettyprint linenums"><code>APP.appcache = (function () {
+	'use strict';
+
+	var statuses = {
+		&quot;-1&quot;: 'timeout',
+		&quot;0&quot;: 'uncached',
+		&quot;1&quot;: 'idle',
+		&quot;2&quot;: 'checking',
+		&quot;3&quot;: 'downloading',
+		&quot;4&quot;: 'updateready',
+		&quot;5&quot;: 'obsolete'
+	}, offlineEnabled;
+
+	function innerLoad() {
+		var iframe = document.createElement('IFRAME');
+		iframe.setAttribute('style', 'width:0px; height:0px; visibility:hidden; position:absolute; border:none');
+		iframe.src = APP_ROOT + 'manifest.html';
+		iframe.id = 'appcacheloader';
+		document.body.appendChild(iframe);
+	}
+
+	function logEvent(evtcode, hasChecked) {
+		var s = statuses[evtcode], loaderEl;
+		if (hasChecked || s === 'timeout') {
+			if (s === 'uncached' || s === 'idle' || s === 'obsolete' || s === 'timeout' || s === 'updateready') {
+				loaderEl = document.getElementById('appcacheloader');
+				loaderEl.parentNode.removeChild(loaderEl);
+			}
+		}
+	}
+
+	function requestOffline() {
+		return confirm(&quot;This website is capable of working offline. Would you like to enable this feature?&quot;);
+	}
+
+	function start() {
+		if (offlineEnabled !== true &amp;&amp; offlineEnabled !== false) {
+			offlineEnabled = requestOffline();
+			if (offlineEnabled) {
+				localStorage.offlineEnabled = true;
+			}
+		}
+		if (offlineEnabled === true) {
+			innerLoad();
+		}
+	}
+
+	// If offline mode already enabled, run innerLoad
+	offlineEnabled = localStorage.offlineEnabled;
+
+	if (offlineEnabled !== undefined) {
+		offlineEnabled = (offlineEnabled === &quot;true&quot;);
+	}
+
+	return {
+		start: start,
+		logEvent: logEvent
+	};
+}());</code></pre>
+<p><strong>/api/resources/index.php</strong><br />
+We need to add <strong>appcache.js</strong> into the application Javascript (the new line is line 14).</p>
+<p>So that the web app can work from inside a subfolder we also need to set the new global variable, <code>APP_ROOT</code>, which I introduced earlier.</p>
+<pre class="prettyprint linenums"><code>&lt;?php
+// Concatenate the files in the /source/ directory
+// This would be a sensible point to compress your Javascript.
+$js = '';
+$js = $js . file_get_contents('../../libraries/client/fastclick.js');
+$js = $js . 'window.APP={}; (function (APP) {';
+$js = $js . file_get_contents('../../source/application/applicationcontroller.js');
+$js = $js . file_get_contents('../../source/articles/articlescontroller.js');
+$js = $js . file_get_contents('../../source/articles/article.js');
+$js = $js . file_get_contents('../../source/datastores/network.js');
+$js = $js . file_get_contents('../../source/datastores/indexeddb.js');
+$js = $js . file_get_contents('../../source/datastores/websql.js');
+$js = $js . file_get_contents('../../source/templates.js');
+$js = $js . file_get_contents('../../source/appcache.js');
+$js = $js . '}(APP)),';
+
+// Detect and set the absolute path to the root of the web app
+// First get a clean version of the current directory (will include api/resources)
+$appRoot = trim(dirname($_SERVER['SCRIPT_NAME']), '/');
+
+// Strip of api/resources from the end of the path
+$appRoot = trim(preg_replace('/api/resources$/i', '', $appRoot), '/');
+
+// Ensure the path starts and ends with a slash or just / if on the root of domain
+$appRoot = '/' . ltrim($appRoot . '/', '/');
+
+$js = $js . 'APP_ROOT = &quot;' . $appRoot . '&quot;;';
+
+$output['js'] = $js;
+
+// Concatenate the files in the /css/ directory
+// This would be a sensible point to compress your css
+$css = '';
+$css = $css . file_get_contents('../../css/global.css');
+$output['css'] = $css;
+
+// Encode with JSON (PHP 5.2.0+) &amp; output the resources
+echo json_encode($output);</code></pre>
+<p><strong>/offline.manifest.php</strong><br />
+There&#8217;s only one change to the manifest file. I&#8217;ve added a <code>FALLBACK</code> section. The <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/offline.html#concept-appcache-manifest-fallback"><code>FALLBACK</code> section of the HTML5 application cache</a> uses basic pattern matching (something like Apache&#8217;s .htaccess’ mod rewrite) to provide an offline response for resources that aren&#8217;t specifically cached in the application cache. In our example, we don’t want to list every single article we have ever published (because there are too many) – but even if we are offline, and therefore can’t display an article the user may have requested, we’d like the ability to display a branded “Article not found” error instead.</p>
+<p>Under these new fallback rules, if a user does not have an internet connection and navigates to any URL that doesn’t begin with <strong>/api</strong> the browser should* return (“fallback to using”) the root page of our web app. Any URL beginning with <strong>/api</strong> should* get <strong>api/offline</strong> – which is just a file that contains the single word &#8220;offline&#8221;.</p>
+<p>* With the exception of Internet Explorer 10. Although Internet Explorer 10 does support fallbacks, it only supports them for subresources – it can’t load a page via a fallback directly if the application cache doesn’t explicitly have that page cached offline.</p>
+<pre class="prettyprint linenums"><code>&lt;?php
+header(&quot;Content-Type: text/cache-manifest&quot;);
+
+// Detect the demo app root (taken from api/resources/index.php)
+$appRoot = trim(dirname($_SERVER['SCRIPT_NAME']), '/');
+$appRoot = '/' . ltrim($appRoot . '/', '/');
+?&gt;
+CACHE MANIFEST
+# 2012-10-29 v1
+jquery.min.js
+
+FALLBACK:
+&lt;?php echo $appRoot; ?&gt;api &lt;?php echo $appRoot; ?&gt;api/offline/
+&lt;?php echo $appRoot; ?&gt; &lt;?php echo $appRoot; ?&gt;
+
+
+NETWORK:
+*</code></pre>
+<p><strong>/manifest.html</strong><br />
+This is the file that will be included by the demo app in the iframe. It intentionally has no content to minimise its size (it will count towards the application cache’s storage limit) and because the contents of the iframe will never be shown to the user. This is only file in the project that will have a <code>manifest</code> attribute set in the html tag.</p>
+<p>We have also implemented some basic Javascript event listeners to listen for application cache events in order to pass notifications up to <code>parent</code> (the page in which the iframe is contained).</p>
+<pre class="prettyprint linenums"><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot; manifest=&quot;offline.manifest.php&quot;&gt;
+	&lt;head&gt;
+		&lt;script type=&quot;text/javascript&quot; src=&quot;jquery.min.js&quot;&gt;&lt;/script&gt;
+		&lt;script type=&quot;text/javascript&quot;&gt;
+			$(document).ready(function () {
+				'use strict';
+
+				var checkTimer, status, hasChecked, loopMax = 60;
+
+				function check() {
+					if (applicationCache.status === applicationCache.CHECKING
+							|| applicationCache.status === applicationCache.DOWNLOADING
+							|| applicationCache.status === applicationCache.UPDATEREADY) {
+						hasChecked = true;
+					}
+					if (applicationCache.status !== status) {
+						status = applicationCache.status;
+						parent.APP.appcache.logEvent(status, hasChecked);
+					}
+					loopMax = loopMax - 1;
+					if (loopMax &gt; 0) {
+						if (checkTimer) {
+							clearTimeout(checkTimer);
+						}
+						setTimeout(check, 1000);
+					} else {
+						parent.APP.appcache.logEvent(-1, hasChecked);
+					}
+				}
+
+				if (parent.APP) {
+					$(applicationCache).bind('updateready cached checking downloading error noupdate obsolete progress updateready', check);
+					setTimeout(check, 250);
+				}
+			});
+		&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p><strong>/api/offline/index.html</strong><br />
+This is the page that the application cache will return for any api request if the network request fails. The reason why we have to have to have a specific api fallback is so that we don’t accidentally allow the application cache to return the bootstrap html page in response to our api requests.</p>
+<pre class="prettyprint linenums"><code>offline</code></pre>
+<p><strong>/source/applicationcontroller.js</strong><br />
+There is only a tiny change required in the application controller, which to run the <code>APP.appcache.start();</code> method within the <strong>initialize</strong> method, which will ask permission from the user to enable the demo app to load offline and enable that feature if the user says yes. See line 26 for the new code required.</p>
+<pre class="prettyprint linenums"><code>... etc ...
+
+ function initialize(resources) {
+
+        // Listen to the hash tag changing
+        if (&quot;onhashchange&quot; in window) {
+            $(window).bind(&quot;hashchange&quot;, route);
+            
+        // Support for old IE (which didn't have hash change)
+        } else {
+            (function () {
+                var lastHash = window.location.hash;
+                window.setInterval(function () {
+                    if (window.location.hash !== lastHash) {
+                        lastHash = window.location.hash;
+                        route();
+                    }
+                }, 100);
+            }());
+        }
+
+        // Set up FastClick
+        fastClick = new FastClick(document.body);
+
+        // Initalise appcache
+        APP.appcache.start();	
+
+        // Inject CSS Into the DOM
+        $(&quot;head&quot;).append(&quot;&lt;style&gt;&quot; + resources.css + &quot;&lt;/style&gt;&quot;);
+
+        // Create app elements
+        $(&quot;body&quot;).append(APP.templates.application());
+
+        // Remove our loading splash screen
+        $(&quot;#loading&quot;).remove();
+
+        route();
+    }
+
+... etc ...</code></pre>
+<p><strong>/source/articles/articlescontroller.js</strong></p>
+<p>Again a very small change (line 6) to change <code>url: 'api/articles'</code> to <code>url: APP_ROOT + 'api/articles/'</code>.</p>
+<pre class="prettyprint linenums"><code>... etc ...
+
+    function synchronizeWithServer(failureCallback) {
+        $.ajax({
+            dataType: 'json',
+            url: APP_ROOT + 'api/articles/',
+            success: function (articles) {
+                APP.article.deleteArticles(function () {
+                    APP.article.insertArticles(articles, function () {
+                        /*
+                         * Instead of the line below we *could* just run showArticeList() but since
+                         * we already have the articles in scope we needn't make another call to the
+                         * database and instead just render the articles straight away.
+                         */
+                        $(&quot;#headlines&quot;).html(APP.templates.articleList(articles));
+                    });
+                });
+            },
+            type: &quot;GET&quot;,
+            error: function () {
+                if (failureCallback) {
+                  failureCallback();
+                }
+            }
+        });
+    }
+
+... etc ...</code></pre>
+<p><strong>/index.php (renamed from index.html)</strong><br />
+Because this file will no longer just be able to be loaded from the root of the demo app (it will also be served from any request to the web app &#8211; except for requests starting with /api) it has to be know where the demo app’s root is so that it can load jQuery (see line 10) and the demo app’s resources (see line 55).</p>
+<pre class="prettyprint linenums"><code>&lt;?php
+// Detect the demo app root (taken from api/resources/index.php)
+$appRoot = trim(dirname($_SERVER['SCRIPT_NAME']), '/');
+$appRoot = '/' . ltrim($appRoot . '/', '/');
+?&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+	&lt;head&gt;
+		&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no&quot; /&gt;
+		&lt;script type=&quot;text/javascript&quot; src=&quot;&lt;?php echo $appRoot; ?&gt;jquery.min.js&quot;&gt;&lt;/script&gt;
+		&lt;script type=&quot;text/javascript&quot;&gt;
+			$(document).ready(function () {
+
+				var APP_START_FAILED = &quot;I'm sorry, the app can't start right now.&quot;;
+				function startWithResources(resources, storeResources) {
+
+					// Try to execute the Javascript
+					try {
+						eval(resources.js);
+						APP.applicationController.start(resources, storeResources);
+
+					// If the Javascript fails to launch, stop execution!
+					} catch (e) {
+						if (typeof console !== &quot;undefined&quot;) {
+							console.log(e);
+						}
+						alert(APP_START_FAILED);
+					}
+				}
+				function startWithOnlineResources(resources) {
+					startWithResources(resources, true);
+				}
+
+				function startWithOfflineResources(e) {
+					var resources;
+
+					// If we have resources saved from a previous visit, use them
+					if (localStorage &amp;&amp; localStorage.resources) {
+						resources = JSON.parse(localStorage.resources);
+						startWithResources(resources, false);
+
+					// Otherwise, apologize and let the user know
+					} else {
+						alert(APP_START_FAILED);
+					}
+				}
+
+				// If we know the device is offline, don't try to load new resources
+				if (navigator &amp;&amp; navigator.onLine === false) {
+					startWithOfflineResources();
+
+				// Otherwise, download resources, eval them, if successful push them into local storage.
+				} else {
+					$.ajax({
+						url: '&lt;?php echo $appRoot; ?&gt;api/resources/',
+						success: startWithOnlineResources,
+						error: startWithOfflineResources,
+						dataType: 'json'
+					});
+				}
+
+			});
+		&lt;/script&gt;
+		&lt;title&gt;News&lt;/title&gt;
+	&lt;/head&gt;
+&lt;body&gt;
+	&lt;div id=&quot;loading&quot;&gt;Loading&amp;hellip;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p><strong>/.htaccess</strong><br />
+Finally, use Apache&#8217;s htaccess’s <code>mod_rewrite</code> (assuming you are using an Apache server with this feature enabled) to route every request to index.php except requests for specific files or folders or requests to the api.</p>
+<pre class="prettyprint linenums"><code>&lt;IfModule mod_rewrite.c&gt;
+        RewriteEngine On
+        RewriteCond %{REQUEST_FILENAME} !-f
+        RewriteCond %{REQUEST_FILENAME} !-d
+        
+        # Match everything not under /api/ to index.php
+        RewriteRule !^api/. index.php [L]
+&lt;/IfModule&gt;</code></pre>
+<h2>Wrapping Up</h2>
+<p>Users can now load the demo app from any URL – ie. where previously users could only access the demo app from the root of our web app, which for example could be <strong>example.com/path/to/app/</strong>, they can now access it from, say, <strong>example.com/path/to/app/any-article</strong> or <strong>example.com/path/to/app/subfolder/2012/11/01/another-article</strong> and we stay in complete control of what is stored inside our user’s application cache and we don’t break our the rules of what to store in the application cache, which we set out in <a href="http://labs.ft.com/2012/08/basic-offline-html5-web-app/">Tutorial 1</a>.</p>
+<p>But at the moment the demo app isn’t aware of there being any difference between these URLs so it will always return the same content. In next month’s article we will implement the <strong>History API</strong> – which will allow us to remove hash tag URLs and be one step closer to getting the initial load of app rendered on the server, use real URLs and allow the demo app to be crawlable by search engines.</p>
+<p>If you think you’d like to work on this sort of thing and live (or would like to live) in London, <a href="http://labs.ft.com/jobs/">we’re hiring!</a></p>
+<p><span style="font-size: 80%; line-height: 1em;">By <a href="http://mattandre.ws">Matt Andrews</a> – @andrewsmatt on <a href="http://twitter.com/andrewsmatt">Twitter</a> &amp; <a href="http://weibo.com/andrewsmatt">Weibo</a>.</span></p>
+<p align="right"><strong><a href="http://labs.ft.com/2013/04/offline-html5-history-api/">Continue to part 4 &#8211; Putting the web back into web app <span class="meta-nav">→</span></a></strong></p>
+]]></content:encoded>
+			</item>
+		<item>
+		<title>Tutorial 2: Supporting both IndexedDB and WebSQL on a cross platform web app</title>
+		<link>http://labs.ft.com/2012/09/ft-style-web-app-on-firefox-and-ie6-to-ie10/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=ft-style-web-app-on-firefox-and-ie6-to-ie10</link>
+		<pubDate>Sat, 01 Sep 2012 22:00:32 +0000</pubDate>
+		<dc:creator><![CDATA[Matthew Andrews]]></dc:creator>
+				<category><![CDATA[Tutorial]]></category>
+		<category><![CDATA[applicationCache]]></category>
+		<category><![CDATA[Bootstrapping]]></category>
+		<category><![CDATA[Firefox]]></category>
+		<category><![CDATA[HTML5]]></category>
+		<category><![CDATA[IE10]]></category>
+		<category><![CDATA[IndexedDB]]></category>
+		<category><![CDATA[Offline]]></category>
+		<category><![CDATA[WebSQL]]></category>
+
+		<guid isPermaLink="false">http://labs.ft.com/?p=2532</guid>
+		<description><![CDATA[How to make a Firefox, Safari, Chrome, iOS, IE10, Opera, Playbook &#038; Android offline HTML5 web app that even loads on pre-HTML5 browsers, including IE6 to IE9. In part 2 of our FT style web app tutorial series we will get our app working everywhere and make it more responsive on touch devices.]]></description>
+				<content:encoded><![CDATA[<p>This is part 2 of a <a href="http://labs.ft.com/category/tutorial/">tutorial series</a> on how to make an FT style offline web app. <strong>If you haven&#8217;t already, <a href="http://labs.ft.com/2012/08/basic-offline-html5-web-app/">read part 1 first</a></strong>.</p>
+<p>We left off last time with a severely limited, but working, offline HTML5 web app. This time we will aim to address some of the concerns that were raised at the end of the last tutorial.</p>
+<p>We will keep the core functionality of the app the same &#8211; the same simple RSS reader &#8211; and instead focus on making it faster and making it work for everyone, including users of Firefox, IE10 (including web apps formerly known as Metro style), and even old pre-HTML5 browsers, such as IE6.</p>
+<p>This demo app will continue to be based on the same principals of maximum ubiquity and brevity and so will continue to use jQuery and PHP and will require no special server configuration. As before this tutorial intentionally avoids going into detail on particular technologies and instead attempts to give a high level overview on how, with the fewest lines of code and in the shortest amount of time, various technologies can be brought together to achieve the goals we have set out to solve. This is purely about making the best of what we have available in real browsers today and delivering great experiences on the web platform.</p>
+<p>As always, <a href="https://github.com/matthew-andrews/ft-style-offline-web-app-part-2">the full code is up on GitHub</a>.</p>
+<h2>Getting Started</h2>
+<p>Start by cloning (<a href="https://github.com/matthew-andrews/basic-offline-html5-web-app/zipball/master">or downloading</a>) the GitHub repository from Part 1.</p>
+<pre class="prettyprint linenums"><code>git clone https://github.com/matthew-andrews/basic-offline-html5-web-app.git</code></pre>
+<h2>New requirements</h2>
+<ul>
+<li>A minimised delay between a user clicking a button and a page being displayed.</li>
+<li>Fully support Firefox, Internet Explorer 10, achieve better performance on Chrome as well as continue to support all the platforms supported by the first tutorial (which included Android, Blackberry Playbook, iPads and iPhones).</li>
+<li>Support every other browser as well as we can &#8211; falling back to being a normal website on older browsers.</i></li>
+<li>Users of the app we made in the previous tutorial should be able to seamlessly start using the new app.
+</ul>
+<h2>Housekeeping</h2>
+<p>To overcome the tap-delay we&#8217;ll use an FT Labs open source project: <a href="https://raw.github.com/ftlabs/fastclick/master/src/fastclick.js">FT FastClick</a>. We&#8217;ll put it in the folder <strong>/libraries/client</strong>, because soon we will need server libraries as well as client libraries, and keeping them separate will make our app easier to maintain.  Add the following files:</p>
+<table>
+<tr>
+<td><b>/libraries/client/fastclick.js</b></td>
+<td><a href="https://raw.github.com/ftlabs/fastclick/master/lib/fastclick.js">Download</a></td>
+</tr>
+<tr>
+<td><b>/source/datasources/network.js</b></td>
+<td><em>create blank</em></td>
+</tr>
+<tr>
+<td><b>/source/datasources/indexeddb.js</b></td>
+<td><em>create blank</em></td>
+</tr>
+<tr>
+<td><b>/source/datasources/websql.js</b></td>
+<td><em>create blank</em></td>
+</tr>
+</table>
+<p>And delete this one:</p>
+<table>
+<tr>
+<td><b>/source/database.js</b></td>
+<td>This file will be replaced by the three Javascript wrappers around the three data source technologies available to browsers (IndexedDB, WebSQL and live-loading from the network &#8211; traditional AJAX) which one will be chosen based on the capabilities of the browser being used.</td>
+</tr>
+</table>
+<h2>Faster clicks with FT FastClick</h2>
+<p>At the end of the last tutorial I described the 300ms delay between the user tapping a link and the browser responding. (It&#8217;s waiting to see if you are going to double tap &#8211; if you do, it knows you want to zoom in instead of clicking). Since we don&#8217;t want the user to zoom right now, we can use FT Fastclick to remove that delay.</p>
+<p>To start using FT FastClick in this demo app:</p>
+<ol>
+<li>Ensure <a href="https://github.com/ftlabs/fastclick">the latest version of FT FastClick</a> is saved at <strong>/libraries/client/fastclick.js</strong>.</li>
+<li>Add it to <strong>/api/resources/index.php</strong>. The top of my file now looks like this:-
+<pre class="prettyprint linenums"><code>&lt;?php
+// Concatenate the files in the /source/ directory
+// This would be a sensible point to compress your Javascript.
+$js = '';
+$js = $js . file_get_contents('../../libraries/client/fastclick.js');
+$js = $js . 'window.APP={}; (function (APP) {';
+$js = $js . file_get_contents('../../source/application/applicationcontroller.js');
+$js = $js . file_get_contents('../../source/articles/articlescontroller.js');
+$js = $js . file_get_contents('../../source/articles/article.js');
+... etc ...</code></pre>
+</li>
+<li>Inside <strong>/source/application/applicationcontroller.js</strong>, make two changes. First, declare the variable that FT FastClick will use at the top of the file, so we can maintain a reference to it and disable it later if required. The top of <strong>applicationcontroller.js</strong> is now:
+<pre class="prettyprint linenums"><code>APP.applicationController = (function () {
+  'use strict';
+
+  var fastClick;
+
+  function offlineWarning() {
+    alert(&quot;This feature is only available online.&quot;);
+  }
+
+  function pageNotFound() {
+    alert(&quot;That page you were looking for cannot be found.&quot;);
+  }
+
+... etc ...</code></pre>
+</li>
+<li>Second, add the single line that sets up FT FastClick for the project (<code>fastClick = new FastClick(document.body);</code>) inside the <code>start</code> function. The <code>start</code> function is now:
+<pre class="prettyprint linenums"><code>function start(resources, storeResources) {
+  APP.database.open(function () {
+
+    // Listen to the hash tag changing
+    $(window).bind(&quot;hashchange&quot;, route);
+
+    // Set up FT FastClick
+    fastClick = new FastClick(document.body);
+
+    // Inject CSS Into the DOM
+    $(&quot;head&quot;).append(&quot;&lt;style&gt;&quot; + resources.css + &quot;&lt;/style&gt;&quot;);
+
+    // Create app elements
+    $(&quot;body&quot;).html(APP.templates.application());
+
+    // Remove our loading splash screen
+    $(&quot;#loading&quot;).remove();
+
+    route();
+  });
+
+  if (storeResources) {
+    localStorage.resources = JSON.stringify(resources);
+  }
+}</code></pre>
+</li>
+</ol>
+<h2>IndexedDB: Firefox and Internet Explorer 10</h2>
+<p>We&#8217;re firm believers in progressive enhancement but implementing a feature so that it can work with two different client side database technologies is tricky. We could use a polyfill to make WebSQL behave like IndexedDB but this has some significant performance implications for WebSQL (still required for iPhone, iPad, Playbook, amongst others) and it won&#8217;t help old browsers such as IE 6-9 or old non-HTML5 mobile web browsers that don&#8217;t support WebSQL either. So, for maximum compatibility, we will design a new, simple common API that can use any of IndexedDB, WebSQL or the network (via ajax) as a data source.</p>
+<p>For this common API we will implement the following methods on each store:</p>
+<table>
+<thead>
+<tr>
+<th><u>Method name (Parameters)</u></th>
+<th><u>Notes</u></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>start(successCallback)</strong></td>
+<td>Perform any required data source set up. We need have a success callback because initialising some data sources (indexedDB) may require asynchronous calls.</td>
+</tr>
+<tr>
+<td><strong>selectOne(model, id, successCallback, failureCallback)</strong></td>
+<td>Fetch a single data object from the data store for a type of data.  In our demo app the model will always be an article.</td>
+</tr>
+<tr>
+<td><strong>selectAll(model, successCallback, failureCallback)</strong></td>
+<td>Fetch all data objects of a specified type from the data store.</td>
+</tr>
+<tr>
+<td><strong>insertInto(model, data, successCallback)</strong></td>
+<td>Insert data into a data store.</td>
+</tr>
+<tr>
+<td><strong>deleteAllFrom(model, successCallback)</strong></td>
+<td>Clear all the data of one type from a data store.</td>
+</tr>
+</table>
+<p>Here&#8217;s how we can implement those methods for the network store:</p>
+<p><strong>/source/datasources/network.js</strong></p>
+<pre class="prettyprint linenums"><code>APP.network = (function () {
+  'use strict';
+
+  function start(successCallback) {
+    if (successCallback) {
+      successCallback();
+    }
+  }
+
+  function insertInto(model, data, successCallback) {
+    if (successCallback) {
+      successCallback();
+    }
+  }
+
+  function deleteAllFrom(model, successCallback) {
+    if (successCallback) {
+      successCallback();
+    }
+  }
+
+  function selectAll(model, successCallback, failureCallback) {
+    $.ajax({
+      dataType: 'json',
+      url: 'api/' + model,
+      success: successCallback || function () {},
+      type: 'GET',
+      error: failureCallback || function () {}
+    });
+  }
+
+  function selectOne(model, id, successCallback, failureCallback) {
+    $.ajax({
+      dataType: 'json',
+      url: 'api/' + model + '/?id=' + id,
+      success: successCallback || function () {},
+      type: 'GET',
+      error: failureCallback || function () {}
+    });
+  }
+
+  return {
+    start: start,
+    insertInto: insertInto,
+    deleteAllFrom: deleteAllFrom,
+    selectAll: selectAll,
+    selectOne: selectOne
+  };
+
+}());</code></pre>
+<p>This is just a very thin wrapper around the <code>jQuery.ajax</code> method. As far as our app is concerned <code>insertInto</code> and <code>deleteAllFrom</code> don&#8217;t make sense if we don&#8217;t have a local database because those functions are concerned with caching data for offline use &#8211; but we have to implement them to ensure network and Websql/IndexedDB all share the same API, so here calling either of those methods just calls their <code>successCallback</code> straight away.</p>
+<p>Because we need to be able to select individual articles (the <code>selectOne</code> method) we need to update the <strong>/api/articles/index.php</strong> file.</p>
+<pre class="prettyprint linenums"><code>&lt;?php
+$rss = new SimpleXMLElement(file_get_contents('http://feeds2.feedburner.com/ft/tech-blog'));
+
+$articleId = intval(isset($_GET['id']) ? $_GET['id'] : 0);
+if ($articleId) {
+  $xpath = '/rss/channel/item['. $articleId .']';
+} else {
+  $xpath = '/rss/channel/item';
+}
+$items = $rss-&gt;xpath($xpath);
+
+if ($items) {
+  $output = array();
+  foreach ($items as $id =&gt; $item) {
+
+    // This will be encoded as an object, not an array, by json_encode
+    $output[] = array(
+      'id' =&gt; $id + 1,
+      'headline' =&gt; strval($item-&gt;title),
+      'date' =&gt; strval($item-&gt;pubDate),
+      'body' =&gt; strval(strip_tags($item-&gt;description,'&lt;p&gt;&lt;br&gt;')),
+      'author' =&gt; strval($item-&gt;children('http://purl.org/dc/elements/1.1/')-&gt;creator)
+    );
+  }
+
+  if ($articleId &gt; 0) {
+    echo json_encode($output[0]);
+  } else {
+    echo json_encode($output);
+  }
+}</code></pre>
+<p>Moving on to the WebSQL data store:</p>
+<p><strong>/source/datasources/websql.js</strong></p>
+<pre class="prettyprint linenums"><code>APP.webSQL = (function () {
+    'use strict';
+
+    var smallDatabase;
+
+    function runQuery(query, data, returnFirst, successCallback) {
+        var i, l, remaining;
+
+
+        if (!(data[0] instanceof Array)) {
+            data = [data];
+        }
+
+        remaining = data.length;
+
+        function innerSuccessCallback(tx, rs) {
+            var i, l, output = [];
+            remaining = remaining - 1;
+            if (!remaining) {
+
+                // HACK Convert row object to an array to make our lives easier
+                for (i = 0, l = rs.rows.length; i &lt; l; i = i + 1) {
+                    output.push(rs.rows.item(i));
+                }
+                if (successCallback) {
+                    successCallback(returnFirst ? output[0] : output);
+                }
+            }
+        }
+
+        function errorCallback(tx, e) {
+            if (console) {
+          console.log(&quot;WebSQL error: &quot;, tx, e);
+        }
+        }
+
+        smallDatabase.transaction(function (tx) {
+            for (i = 0, l = data.length; i &lt; l; i = i + 1) {
+                tx.executeSql(query, data[i], innerSuccessCallback, errorCallback);
+            }
+        });
+    }
+
+    function insertInto(model, data, successCallback) {
+        var remaining = data.length, i, l, insertData = [];
+
+        if (remaining === 0) {
+            successCallback();
+        }
+
+        // Convert article array of objects to array of arrays
+        for (i = 0, l = data.length; i &lt; l; i = i + 1) {
+            insertData[i] = [data[i].id, data[i].date, data[i].headline, data[i].author, data[i].body];
+        }
+
+        if (model === 'articles') {
+            runQuery(&quot;INSERT INTO articles (id, date, headline, author, body) VALUES (?, ?, ?, ?, ?);&quot;, insertData, false, successCallback);
+        }
+    }
+
+    function deleteAllFrom(model, successCallback) {
+        runQuery(&quot;DELETE FROM &quot; + model, [], false, successCallback);
+    }
+
+    function selectAll(model, successCallback) {
+        if (model === &quot;articles&quot;) {
+            runQuery(&quot;SELECT id, headline, date, author FROM articles&quot;, [], false, successCallback);
+        }
+    }
+
+    function selectOne(model, id, successCallback) {
+        if (model === &quot;articles&quot;) {
+            runQuery(&quot;SELECT id, headline, date, author, body FROM articles WHERE id = ?&quot;, [id], true, successCallback);
+        }
+    }
+
+    function start(successCallback, failureCallback) {
+        try {
+            smallDatabase = openDatabase(&quot;APP&quot;, &quot;1.0&quot;, &quot;Not The FT Web App&quot;, (5 * 1024 * 1024));
+            runQuery(&quot;CREATE TABLE IF NOT EXISTS articles(id INTEGER PRIMARY KEY ASC, date TIMESTAMP, author TEXT, headline TEXT, body TEXT)&quot;, [], false, successCallback);
+        } catch (e) {
+            if (failureCallback){
+                failureCallback();
+            }
+        }
+    }
+
+    return {
+        start: start,
+        insertInto: insertInto,
+        deleteAllFrom: deleteAllFrom,
+        selectAll: selectAll,
+        selectOne: selectOne
+    };
+}());</code></pre>
+<p>This is based on the same code the we used in <a href="http://labs.ft.com/2012/08/basic-offline-html5-web-app/">part 1 of the tutorial</a>. </p>
+<p>Finally, here&#8217;s the indexedDB one:</p>
+<p><strong>/source/datasources/indexeddb.js</strong></p>
+<pre class="prettyprint linenums"><code>APP.indexedDB = (function () {
+	'use strict';
+
+	var db, indexedDB, IDBTransaction, IDBKeyRange;
+
+	function indexedDBError(event) {
+		if (typeof console !== &quot;undefined&quot;) {
+			console.error(&quot;An error occurred&quot;, event);
+		}
+	}
+
+	function insertInto(model, data, successCallback) {
+		var transaction = db.transaction([model], IDBTransaction.READ_WRITE || 'readwrite'), store, i, request, total = data.length;
+
+		function successCallbackInner() {
+			total = total - 1;
+			if (total === 0) {
+				successCallback();
+			}
+		}
+
+		transaction.onerror = indexedDBError;
+		store = transaction.objectStore(model);
+		for (i in data) {
+			if (data.hasOwnProperty(i)) {
+				request = store.add(data[i]);
+				request.onsuccess = successCallbackInner;
+				request.onerror = indexedDBError;
+			}
+		}
+	}
+
+	function deleteAllFrom(model, successCallback) {
+		var transaction = db.transaction([model], IDBTransaction.READ_WRITE || 'readwrite'), store, request;
+		transaction.onerror = indexedDBError;
+		store = transaction.objectStore(model);
+		request = store.clear();
+		request.onerror = indexedDBError;
+		request.onsuccess = successCallback;
+	}
+
+	function selectAll(model, successCallback) {
+		var transaction = db.transaction([model], IDBTransaction.READ_ONLY || 'readonly'), store, request, results = [];
+		transaction.onerror = indexedDBError;
+		store = transaction.objectStore(model);
+		request = store.openCursor();
+
+		request.onerror = indexedDBError;
+		request.onsuccess = function (event) {
+			var result = event.target.result;
+
+			// When result is null the end is reached
+			if (!result) {
+				successCallback(results);
+				return;
+			}
+			results.push(result.value);
+
+			// Weird to hack jslint
+			result['continue']();
+		};
+	}
+
+	function selectOne(model, id, successCallback) {
+		var transaction = db.transaction([model], IDBTransaction.READ_WRITE || 'readwrite'), store, request;
+		transaction.onerror = indexedDBError;
+		store = transaction.objectStore(model);
+		request = store.get(id);
+		request.onerror = indexedDBError;
+		request.onsuccess = function (event) {
+			var result = event.target.result;
+			successCallback(result);
+		};
+	}
+
+	function start(successCallback, failureCallback) {
+
+		// Protect ourselves inside old browsers
+		try {
+			indexedDB = window.indexedDB || window.webkitIndexedDB || window.mozIndexedDB || window.msIndexedDB;
+			IDBTransaction = window.hasOwnProperty('webkitIndexedDB') ? window.webkitIDBTransaction : window.IDBTransaction;
+			IDBKeyRange = window.hasOwnProperty('webkitIndexedDB') ? window.webkitIDBKeyRange : window.IDBKeyRange;
+
+		} catch (e) {
+			failureCallback();
+		}
+		if (!indexedDB) {
+			failureCallback();
+			return;
+		}
+
+		var version = 6,
+		request = indexedDB.open(&quot;APPDATA&quot;, version);
+
+		function installModels() {
+			if (db.objectStoreNames.contains(&quot;articles&quot;)) {
+				db.deleteObjectStore(&quot;articles&quot;);
+			}
+
+			// TODO This is strictly model logic, and ought not live inside the indexedDB library, should move.
+			db.createObjectStore(&quot;articles&quot;, { keyPath: &quot;id&quot; });
+		}
+
+		request.onsuccess = function (event) {
+			var setVersionRequest;
+
+			db = event.target.result;
+			version = String(version);
+			if (db.setVersion &amp;&amp; version !== db.version) {
+				setVersionRequest = db.setVersion(version);
+				setVersionRequest.onfailure = indexedDBError;
+				setVersionRequest.onsuccess = function (event) {
+					installModels();
+					setVersionRequest.result.oncomplete = function () {
+						if (successCallback) {
+							successCallback();
+						}
+					};
+				};
+
+			} else {
+				successCallback();
+			}
+		};
+		request.onupgradeneeded = function (event) {
+			db = event.target.result;
+			installModels();
+		};
+		request.onerror = function (event) {
+			alert(&quot;You have chosen not to use offline storage&quot;);
+			failureCallback();
+		};
+	}
+
+	return {
+		start: start,
+		insertInto: insertInto,
+		deleteAllFrom: deleteAllFrom,
+		selectAll: selectAll,
+		selectOne: selectOne
+	};
+}());</code></pre>
+<p>A <a href="https://developer.mozilla.org/en-US/docs/IndexedDB">good resource for understanding indexedDB is on the Mozilla Development Network</a> so I won&#8217;t go into details on how this works for this tutorial.</p>
+<p>One thing to note though is that on the Firefox the browser asks the user for permission to open an IndexedDB database and if the user declines or cancels the prompt, the app should still be able to continue running. This is handled by <code>request.onerror</code> (notice this calls the <code>failureCallback</code> function, which we&#8217;ll implement inside <strong>/source/application/applicationcontroller.js</strong>). I&#8217;ve added a simple alert so that the user knows they have opted out of offline functionality. In a production app we might like to handle this more gracefully and perhaps even provide instructions on how to re-enable offline storage.</p>
+<p>Now we need to update the resources api PHP file so that it is aware of the files we just created. (the old database.js file can also be deleted at the same time)</p>
+<p><strong>/api/resources/index.php</strong></p>
+<pre class="prettyprint linenums"><code>&lt;?php
+// Concatenate the files in the /source/ directory
+// This would be a sensible point to compress your Javascript.
+$js = '';
+$js = $js . file_get_contents('../../libraries/client/fastclick.js');
+$js = $js . 'window.APP={}; (function (APP) {';
+$js = $js . file_get_contents('../../source/application/applicationcontroller.js');
+$js = $js . file_get_contents('../../source/articles/articlescontroller.js');
+$js = $js . file_get_contents('../../source/articles/article.js');
+$js = $js . file_get_contents('../../source/datasources/network.js');
+$js = $js . file_get_contents('../../source/datasources/indexeddb.js');
+$js = $js . file_get_contents('../../source/datasources/websql.js');
+$js = $js . file_get_contents('../../source/templates.js');
+$js = $js . '}(APP));';
+$output['js'] = $js;
+
+// Concatenate the files in the /css/ directory
+// This would be a sensible point to compress your css
+$css = '';
+$css = $css . file_get_contents('../../css/global.css');
+$output['css'] = $css;
+
+// Encode with JSON (PHP 5.2.0+) &amp; output the resources
+echo json_encode($output);</code></pre>
+<p>Now we can add code that makes the decision about which data store to use.</p>
+<p><strong>/source/application/applicationcontroller.js</strong></p>
+<pre class="prettyprint linenums"><code>APP.applicationController = (function () {
+    'use strict';
+
+    var fastClick;
+
+    function offlineWarning() {
+        alert(&quot;This feature is only available online.&quot;);
+    }
+
+    function pageNotFound() {
+        alert(&quot;That page you were looking for cannot be found.&quot;);
+    }
+
+    function showHome() {
+        $(&quot;#body&quot;).html(APP.templates.home());
+
+        // Load up the last cached copy of the news
+        APP.articlesController.showArticleList();
+
+        $('#refreshButton').click(function () {
+
+            // If the user is offline, don't bother trying to synchronize
+            if (navigator &amp;&amp; navigator.onLine === false) {
+                offlineWarning();
+            } else {
+                APP.articlesController.synchronizeWithServer(function failureCallback() {
+                    alert(&quot;This feature is not available offline&quot;);
+                });
+            }
+        });
+    }
+
+    function showArticle(id) {
+        $(&quot;#body&quot;).html(APP.templates.articleLoading());
+        APP.articlesController.showArticle(id);
+    }
+
+    function route() {
+        var page = window.location.hash;
+        if (page) {
+            page = page.substring(1);
+        }
+        if (page.length &gt; 0) {
+            if (parseInt(page, 10) &gt; 0) {
+                showArticle(parseInt(page, 10));
+            } else {
+                pageNotFound();
+            }
+        } else {
+            showHome();
+        }
+    }
+
+    function initialize(resources) {
+
+        // Listen to the hash tag changing
+        if (&quot;onhashchange&quot; in window) {
+            $(window).bind(&quot;hashchange&quot;, route);
+            
+        // Support for old IE (which didn't have hash change)
+        } else {
+            (function () {
+                var lastHash = window.location.hash;
+                window.setInterval(function () {
+                    if (window.location.hash !== lastHash) {
+                        lastHash = window.location.hash;
+                        route();
+                    }
+                }, 100);
+            }());
+        }
+
+        // Set up FastClick
+        fastClick = new FastClick(document.body);
+
+        // Inject CSS Into the DOM
+        $(&quot;head&quot;).append(&quot;&lt;style&gt;&quot; + resources.css + &quot;&lt;/style&gt;&quot;);
+
+        // Create app elements
+        $(&quot;body&quot;).html(APP.templates.application());
+
+        // Remove our loading splash screen
+        $(&quot;#loading&quot;).remove();
+
+        route();
+    }
+
+    // This is to our webapp what main() is to C, $(document).ready is to jQuery, etc
+    function start(resources, start) {
+
+        // When indexedDB available, use it!
+        APP.indexedDB.start(function indexedDBSuccess() {
+            APP.database = APP.indexedDB;
+            initialize(resources);
+
+            // When indexedDB is not available, fallback to trying websql
+        }, function indexedDBFailure() {
+            APP.webSQL.start(function webSQLSuccess() {
+                APP.database = APP.webSQL;
+                initialize(resources);
+
+            // When webSQL not available, fall back to using the network
+            }, function webSQLFailure() {
+                APP.network.start(function networkSuccess() {
+                    APP.database = APP.network;
+                    initialize(resources);
+                });
+            });
+        });
+
+        if (storeResources &amp;&amp; window['localStorage']) {
+            localStorage.resources = JSON.stringify(resources);
+        }
+    }
+
+    return {
+        start: start
+    };
+}());</code></pre>
+<p>The code to decide which data store to use is inside <code>start</code>. We first attempt to set up an indexedDB database, then if that fails attempt to set up a WebSQL database then finally fall back to using the network. This enables us to get the best out of those browsers that support IndexedDB whilst continuing to be able to support all browsers that do not support these features.</p>
+<p><strong>Other changes:</strong></p>
+<ul>
+<li>I&#8217;ve refactored the code slightly so that much of the functionality that used to live inside <code>start</code> is moved to the new private function <code>initialize</code> &#8211; which will get run after whichever data source technology the app chooses to use is fully loaded;</li>
+<li>and made a small change to the <code>route</code> function to force the value it passes to <code>showArticle</code> to be an integer.</li>
+<li>To be able to run the app on IE6, which does not support the <code>hashchange</code> event, I&#8217;ve had to implement a short piece of code that runs every 100ms to see if the hash tag has changed. Also I&#8217;ve needed to change the check to see localStorage is available on the device to <code>window['localStorage']</code>.</li>
+</ul>
+<p>Now all the groundwork is done, we can update the article model to use the new database API, like this:</p>
+<p><strong>/source/articles/article.js</strong></p>
+<pre class="prettyprint linenums"><code>APP.article = (function () {
+    'use strict';
+
+    function deleteArticles(successCallback) {
+        APP.database.deleteAllFrom('articles', successCallback);
+    }
+
+    function insertArticles(articles, successCallback) {
+        APP.database.insertInto('articles', articles, successCallback);
+    }
+
+    function selectBasicArticles(successCallback) {
+        APP.database.selectAll('articles', successCallback);
+    }
+
+    function selectFullArticle(id, successCallback) {
+        APP.database.selectOne('articles', id, successCallback);
+    }
+
+    return {
+        insertArticles: insertArticles,
+        selectBasicArticles: selectBasicArticles,
+        selectFullArticle: selectFullArticle,
+        deleteArticles: deleteArticles
+    };
+}());</code></pre>
+<p>The format in which a single article is returned has changed from an array containing a single article to an object. So one final update is needed to the <code>article</code> method inside <strong>/source/templates.js</strong>. Replace the <code>article</code> function with the code below:-</p>
+<p><strong>/source/templates.js</strong></p>
+<pre class="prettyprint linenums"><code>function article(articleData) {
+
+  // If the data is not in the right form, redirect to an error
+  if (!articleData) {
+    window.location = '#error';
+    return;
+  }
+  return '&lt;a href=&quot;#&quot;&gt;Go back home&lt;/a&gt;&lt;h2&gt;' + articleData.headline + '&lt;/h2&gt;&lt;h3&gt;By ' + articleData.author + ' on ' + articleData.date + '&lt;/h3&gt;' + articleData.body;
+}</code></pre>
+<h2>Wrapping Up</h2>
+<p>The app is now responsive on touch enabled devices thanks to <a href="http://labs.ft.com/articles/ft-fastclick/">FT FastClick</a>. It is also now able to work fully in Firefox and IE10, will perform faster on Chrome and Chrome for Android, and should work &#8211; albeit not offline &#8211; on older browsers such as IE6 (<a href="http://dev.labs.ft.com/matthew/pt2/">tested and working!</a>). But we&#8217;re not done yet &#8211; it&#8217;s still not a website in a traditional sense: it doesn&#8217;t work if Javascript is switched off and it can&#8217;t be indexed by search engines. In next month&#8217;s article we&#8217;ll get a step closer to achieving this.</p>
+<p>Finally, if you think you&#8217;d like to work on this sort of thing and live (or would like to live) in London, <a href="/jobs">we&#8217;re hiring!</a></p>
+<p><span style="font-size: 80%; line-height: 1em;">By <a href="http://mattandre.ws">Matt Andrews</a> – @andrewsmatt on <a href="http://twitter.com/andrewsmatt">Twitter</a> &amp; <a href="http://weibo.com/andrewsmatt">Weibo</a>.</span></p>
+<p align="right"><strong><a href="http://labs.ft.com/2012/11/using-an-iframe-to-stop-app-cache-storing-masters/">Continue to part 3 &#8211; ‘Fixing’ the application cache with an iframe <span class="meta-nav">→</span></a></strong></p>
+]]></content:encoded>
+			</item>
+		<item>
+		<title>Tutorial: How to make an offline HTML5 web app, FT style</title>
+		<link>http://labs.ft.com/2012/08/basic-offline-html5-web-app/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=basic-offline-html5-web-app</link>
+		<pubDate>Wed, 01 Aug 2012 10:10:47 +0000</pubDate>
+		<dc:creator><![CDATA[Matthew Andrews]]></dc:creator>
+				<category><![CDATA[Tutorial]]></category>
+
+		<guid isPermaLink="false">http://labs.ft.com/?p=2009</guid>
+		<description><![CDATA[A beginner's guide to building HTML5 web apps. In this tutorial we will build two versions of an offline website in order to demonstrate how to add functionality to an existing offline website in such a way that existing users won’t get left behind using an old version.]]></description>
+				<content:encoded><![CDATA[<h2>9th November 2014 Update</h2>
+<p>This article is a little out of date but it still gets a lot of traffic.  For more up to date tips and best practise see my <strong><a href="https://github.com/matthew-andrews/workshop-making-it-work-offline">offline web app workshop</a></strong>, published for free on GitHub, which includes <a href="https://github.com/matthew-andrews/workshop-making-it-work-offline/tree/master/05-offline-news"><strong>a chapter on building an offline news app</strong></a>.</p>
+<p>Most importantly, my advice on using local databases (WebSQL and IndexedDB) has evolved since writing this article.  I now recommend <strong>only</strong> implementing IndexedDB integration and using <a href="http://nparashuram.com/IndexedDBShim/"><strong>the IndexedDB polyfill</strong></a> to support browsers that only provide WebSQL.</p>
+<p>For the actual integration with IndexedDB I recommend using <a href="http://dexie.org"><strong>Dexie.js</strong></a> a Promise-based library that makes integrating with IndexedDB easy and safe.</p>
+<h2>Why the world needs another Offline HTML5 App Tutorial</h2>
+<p>There are plenty of great resources already written for offline HTML5 websites, but just getting a website to work offline is not enough.</p>
+<p>In this tutorial we will build two versions of an offline website in order to demonstrate how to add functionality to an existing offline website in such a way that existing users won&#8217;t get left behind using an old version.</p>
+<p>Many existing tutorials tend to focus on a single technology at a time. This tutorial intentionally avoids going into detail on particular technologies and instead attempts to give a high level overview on how, with the fewest lines of code and in the shortest amount of time, various technologies can be brought together to create an real (and potentially useful) <a href="http://news.mattandre.ws">working web app</a> that is structured in a way that makes further development on it in the future easy.</p>
+<h2>Introduction</h2>
+<p>We are going to make a simple <a href="http://en.wikipedia.org/wiki/RSS">RSS feed</a> reader capable of storing the latest news items for offline reading. The completed project is <a href="https://github.com/matthew-andrews/basic-offline-html5-web-app">ready for forking on github</a>.</p>
+<p><strong>Requirements for the demo app</strong></p>
+<ul>
+<li>Users should be able to download the latest articles.</li>
+<li>There should be an easy and reliable way to upgrade users&#8217; cached versions of the demo app if we ever want to add functionality to or fix bugs in client side code.</li>
+<li>Users should be able to view a list of headlines and be able to click or tap into any to read the full content.</li>
+<li>It should work offline.</li>
+<li>It will support the iPhone, iPad and iPod touch (and any other platforms you get for free with this support, which includes: Blackberry Playbook, Chrome for Android, Android Browser, Opera Mobile as well as Chrome, Opera and Safari on Desktop).</li>
+</ul>
+<p>This demo will use PHP and jQuery because we want the best combination of ubiquity and brevity for demo purposes.</p>
+<p><strong>Introducing the application cache</strong></p>
+<p>The <strong>appcache</strong> can be used to enable websites to work offline by specifying a discrete, markup-less list of files that will be saved in case the user&#8217;s internet connection is lost.</p>
+<p>However, as is widely documented on the internet, <a href="http://www.alistapart.com/articles/application-cache-is-a-douchebag/">the app cache is a bit rubbish</a>.</p>
+<ul>
+<li>If you list one hundred files in your app cache manifest, it will then download all one hundred of those files as quickly as it can &#8211; slowing down the user&#8217;s interactions with the app &#8211; the app will seem less responsive whilst the browser is doing all that downloading.</li>
+<li>Added to that, if you change any one of those resources, even just a one line change in one CSS file the browser will then re-download every single resource in the manifest. It can&#8217;t do a single file update. It can only replace the entire contents in the cache.</li>
+<li>And if any of the files fails to download for any reason it will get rid of all the files it&#8217;s successfully downloaded and revert to the previous version it had in cache.</li>
+<li>So even if you made a one line change to one file and the browser successfully downloaded the updated file, if it didn&#8217;t manage to download one of your files that didn&#8217;t change the entire update would be lost.</li>
+<li>So our policy on using the application cache is put as few things in it as possible and put things in it that are not going to change very often, such as:
+<ul>
+<li>Fonts</li>
+<li>Sprites</li>
+<li>Splash screen images</li>
+<li>And one single bootstrap page (see below).</li>
+</ul>
+</li>
+<li>And we don&#8217;t use it for:-
+<ul>
+<li>The majority of our Javascript, HTML &amp; CSS</li>
+<li>Content (including images)</li>
+</ul>
+</li>
+</ul>
+<p>31/08/2012 Edit: <a href="http://labs.ft.com/2012/08/fixing-app-cache/">Read about our efforts to fix app cache!</a></p>
+<p><strong>So this is what we do instead</strong></p>
+<p>We use the appcache to store just enough Javascript, CSS and HTML to get the web app started (we call this the bootstrap) then deliver the rest through an ajax request, <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/eval">eval()</a> it, then store it in <a href="https://developer.mozilla.org/en/DOM/Storage#localStorage">localStorage</a>*.</p>
+<p>This is a powerful approach as it means that if, for whatever reason, a mistake or corruption creeps into the Javascript code which prevents the app from starting then that broken Javascript will not be cached and the next time the user tries to launch the app their browser will attempt to get a fresh copy of the code from the server.</p>
+<p><span style="font-size: 80%; line-height: 1em;">* This is controversial because localStorage is synchronous, which means nothing else can happen &#8211; the website will be completely frozen &#8211; whilst you save or retrieve data from it. But in our tests on the platforms we target it is also <strong>fast</strong>, much faster than WebSQL (the client side database available on platforms such as iOS and Blackberry, which can sometimes be slower than the network). When we come to storing and retrieving articles from our RSS feed, we will use client side database technology WebSQL.</span></p>
+<h2>1. The bootstrap</h2>
+<p>In order to make a simple bootstrapped <strong>Hello World</strong> web app, create the following files.</p>
+<table width="100%">
+<tr>
+<td>/index.html</td>
+<td>The bootstrap HTML, Javascript &amp; CSS</td>
+</tr>
+<tr>
+<td>/api/resources/index.php</td>
+<td>This will concatenate our Javascript &amp; CSS source files together and send them as <a href="https://developer.mozilla.org/en/JSON">a JSON string</a>.</td>
+</tr>
+<tr>
+<td>/css/global.css</td>
+<td></td>
+</tr>
+<tr>
+<td>/source/application/applicationcontroller.js</td>
+<td>Start off by making a single Javascript file for our application, &amp; create others later</td>
+</tr>
+<tr>
+<td>/jquery.min.js</td>
+<td>Download the latest version from <a href="http://jquery.com">jquery.com</a></td>
+</tr>
+<tr>
+<td>/offline.manifest.php</td>
+<td>The <a href="https://developer.mozilla.org/en/Apps/The_Manifest">app cache manifest file</a>.</td>
+</tr>
+</table>
+<p><strong>/index.html</strong><br />
+Start by creating the bootstrap html file.</p>
+<pre class="prettyprint linenums"><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot; manifest=&quot;offline.manifest.php&quot;&gt;
+    &lt;head&gt;
+        &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no&quot; /&gt;
+        &lt;script type=&quot;text/javascript&quot; src=&quot;jquery.min.js&quot;&gt;&lt;/script&gt;
+        &lt;script type=&quot;text/javascript&quot;&gt;
+            $(document).ready(function () {
+              var APP_START_FAILED = &quot;I'm sorry, the app can't start right now.&quot;;
+              function startWithResources(resources, storeResources) {
+
+                  // Try to execute the Javascript
+                  try {
+                      eval(resources.js);
+                      APP.applicationController.start(resources, storeResources);
+
+                  // If the Javascript fails to launch, stop execution!
+                  } catch (e) {
+                      alert(APP_START_FAILED);
+                  }
+              }
+
+              function startWithOnlineResources(resources) {
+                  startWithResources(resources, true);
+              }
+
+              function startWithOfflineResources() {
+                  var resources;
+
+                  // If we have resources saved from a previous visit, use them
+                  if (localStorage &amp;&amp; localStorage.resources) {
+                      resources = JSON.parse(localStorage.resources);
+                      startWithResources(resources, false);
+
+                  // Otherwise, apologize and let the user know the app cannot start
+                  } else {
+                      alert(APP_START_FAILED);
+                  }
+              }
+
+              // If we know the device is offline, don't try to load new resources
+              if (navigator &amp;&amp; navigator.onLine === false) {
+                  startWithOfflineResources();
+
+                  // Otherwise, download resources, eval them, if successful push them into local storage.
+              } else {
+                  $.ajax({
+                      url: 'api/resources/',
+                      success: startWithOnlineResources,
+                      error: startWithOfflineResources,
+                       dataType: 'json'
+                  });
+              }
+          });
+        &lt;/script&gt;
+        &lt;title&gt;News&lt;/title&gt;
+    &lt;/head&gt;
+&lt;body&gt;
+    &lt;div id=&quot;loading&quot;&gt;Loading&amp;hellip;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p>To summarise, this file does the following:-</p>
+<ul>
+<li>It tells the browser this website is capable of working offline by including a reference to the manifest file in its html tag: <code>&lt;html manifest="offline.manifest.php"&gt;</code></li>
+<li>Unless the app knows it is offline (by <a href="https://developer.mozilla.org/en/DOM/window.navigator.onLine">using window.navigator.onLine</a>), attempt to download the latest Javascript and CSS files.
+<li>If the app cannot get new resources retrieve them from <a href="https://developer.mozilla.org/en/DOM/Storage#localStorage">local storage instead</a>.</li>
+<li><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/eval">Eval the Javascript</a>.</li>
+<li>Start the app by calling a function in the evaled code (which will be <code>APP.applicationController.start()</code> for the purposes of this tutorial)</strong></li>
+<li>If we have just downloaded new resources, save them to local storage.</li>
+<li>And finally, if at any point the app fails to load, show a friendly error.</li>
+<li>Whilst the app is loading, display a <strong>Loading&hellip;</strong> message to users.</li>
+</ul>
+<p><strong>/api/resources/index.php</strong><br />
+Now to make the server side response to <strong>api/resources/</strong> (which we requested on #47 of the previous file, /index.html):-</p>
+<pre class="prettyprint linenums"><code>&lt;?php
+// Concatenate the files in the /source/ directory
+// This would be a sensible point to compress your Javascript
+$js = '';
+$js = $js . 'window.APP={}; (function (APP) {';
+$js = $js . file_get_contents('../../source/application/applicationcontroller.js');
+$js = $js . '}(APP));';
+$output['js'] = $js;
+
+// Concatenate the files in the /css/ directory
+// This would be a sensible point to compress your css
+$css = '';
+$css = $css . file_get_contents('../../css/global.css');
+$output['css'] = $css;
+
+// Encode with JSON (PHP 5.2.0+) and output the resources
+echo json_encode($output);</code></pre>
+<p><strong>/css/global.css</strong></p>
+<p>At this stage, this is just a placeholder to demonstrate how we can deliver CSS.</p>
+<pre class="prettyprint linenums"><code>body {
+  background: #d6fab2; /* garish green */
+}</code></pre>
+<p><strong>/source/application/applicationcontroller.js</strong></p>
+<p>This will be expanded later, but for now this is the minimum Javascript required to inject our CSS resources, remove the loading screen and display a <strong>Hello World</strong> message instead.</p>
+<pre class="prettyprint linenums"><code>APP.applicationController = (function () {
+    'use strict';
+
+    function start(resources, storeResources) {
+
+        // Inject CSS into the DOM
+        $(&quot;head&quot;).append(&quot;&lt;style&gt;&quot; + resources.css + &quot;&lt;/style&gt;&quot;);
+
+        // Create app elements
+        $(&quot;body&quot;).html('&lt;div id=&quot;window&quot;&gt;&lt;div id=&quot;header&quot;&gt;&lt;h1&gt;My News&lt;/h1&gt;&lt;/div&gt;&lt;div id=&quot;body&quot;&gt;Hello World!&lt;/div&gt;');
+
+        // Remove our loading splash screen
+        $(&quot;#loading&quot;).remove();
+
+        if (storeResources) {
+          localStorage.resources = JSON.stringify(resources);
+        }
+
+    }
+
+    return {
+        start: start
+    };
+}());</code></pre>
+<p><strong>/offline.manifest.php</strong><br />
+Finally, <a href="http://www.html5rocks.com/en/tutorials/appcache/beginner/">the appcache manifest</a>.</p>
+<p>This is where other tutorials will tell you to edit your apache config file to add the content-type for *.appcache. You would be right to do this but I want this demo web app to be as portable as possible and work by simply uploading the files to any standard PHP server without any .htaccess or server configuration file hassle, so I will give the file a *.php extension and set the content type by using the PHP <a href="http://php.net/manual/en/function.header.php">header function</a> instead. The *.appcache extension is a recommendation, not a requirement, so we will get away with doing this.</p>
+<pre class="prettyprint linenums"><code>&lt;?php
+header(&quot;Content-Type: text/cache-manifest&quot;);
+?&gt;
+CACHE MANIFEST
+# 2012-07-14 v2
+jquery.min.js
+/
+NETWORK:
+*</code></pre>
+<p>As you can see, in line with our app cache usage recommendations we&#8217;ve only used the app cache to store the bare minimum to get the web app started:- <strong>jquery.min.js</strong> and <strong>/</strong> &#8211; which will store <strong>index.html</strong>.</p>
+<p>Upload these files to a standard PHP web server (all the files should go in a publicly accessible folder either in public_html (sometimes httpdocs) &#8211; or a subfolder of it) then load the app and it should  work offline. Currently it doesn&#8217;t do anything more than say <strong>Hello World</strong> &#8211; and we needn&#8217;t have written a single line of Javascript if that were our aim.</p>
+<p>What we&#8217;ve actually created is a web app capable of automatically upgrading itself &#8211; and we won&#8217;t need to worry about the app cache for the rest of the tutorial.</p>
+<h2>2. Building the actual app</h2>
+<p>So far we’ve kept the code very generic &#8211; at this point the app could feasibly go onto become a calculator, a list of train times, or even a game. We’re making a simple news app so we will need:-</p>
+<ul>
+<li>A client side database to store articles downloaded from the RSS feed.</li>
+<li>A way to update those articles.</li>
+<li>A view listing all the articles.</li>
+<li>A view to show each article on their own.</li>
+</ul>
+<p>We&#8217;ll use a standard <a href="http://www.codinghorror.com/blog/2008/05/understanding-model-view-controller.html">Model-View-Controller (MVC) approach</a> to organise our code and try to keep it all as clean as possible. This will make testing and future development on it a lot easier.</p>
+<p>With this in mind, we&#8217;ll make the following files:-</p>
+<table>
+<tr>
+<td>/source/database.js</td>
+<td>Some simple functions to make using the client side (WebSQL) database easier.</td>
+</tr>
+<tr>
+<td>/source/templates.js</td>
+<td>The V in MVC. View logic will go in here.</td>
+</tr>
+<tr>
+<td>/source/articles/article.js</td>
+<td>The model for <strong>articles</strong> &#8211; in this case just some database functions.</td>
+</tr>
+<tr>
+<td>/source/articles/articlescontroller.js</td>
+<td>The controller for <strong>articles</strong>.</td>
+</tr>
+<tr>
+<td>/api/articles/index.php</td>
+<td>An API method for actually getting the news.</td>
+</tr>
+</table>
+<p>We will also need to make changes to <strong>api/resources/index.php</strong> and <strong>/source/application/applicationcontroller.js</strong>.</p>
+<p><strong>/source/database.js</strong><br />
+The client side database technology which we will use to store article content will be WebSQL even though it is deprecated because its replacement, IndexedDB, is still not supported on iOS &#8211; our key target platform for the demo web app. We will cover how to support both IndexedDB and WebSQL in future posts.</p>
+<pre class="prettyprint linenums"><code>APP.database = (function () {
+    'use strict';
+
+    var smallDatabase;
+
+    function runQuery(query, data, successCallback) {
+        var i, l, remaining;
+
+        if (!(data[0] instanceof Array)) {
+            data = [data];
+        }
+
+        remaining = data.length;
+
+        function innerSuccessCallback(tx, rs) {
+            var i, l, output = [];
+            remaining = remaining - 1;
+            if (!remaining) {
+
+                // HACK Convert row object to an array to make our lives easier
+                for (i = 0, l = rs.rows.length; i &lt; l; i = i + 1) {
+                    output.push(rs.rows.item(i));
+                }
+                if (successCallback) {
+                    successCallback(output);
+                }
+            }
+        }
+
+        function errorCallback(tx, e) {
+            alert(&quot;An error has occurred&quot;);
+        }
+
+        smallDatabase.transaction(function (tx) {
+            for (i = 0, l = data.length; i &lt; l; i = i + 1) {
+                tx.executeSql(query, data[i], innerSuccessCallback, errorCallback);
+            }
+        });
+    }
+
+    function open(successCallback) {
+        smallDatabase = openDatabase(&quot;APP&quot;, &quot;1.0&quot;, &quot;Not The FT Web App&quot;, (5 * 1024 * 1024));
+        runQuery(&quot;CREATE TABLE IF NOT EXISTS articles(id INTEGER PRIMARY KEY ASC, date TIMESTAMP, author TEXT, headline TEXT, body TEXT)&quot;, [], successCallback);
+    }
+
+    return {
+        open: open,
+        runQuery: runQuery
+    };
+}());</code></pre>
+<p>This module has two functions that other modules can call:-</p>
+<ul>
+<li><code>open</code> will open (or create a new) 5MB* database and ensure a table called <strong>articles</strong> with some appropriate fields exists so that the app can store the articles for offline reading.</li>
+<li><code>runQuery</code> is just a simple helper method that makes running queries on the database a little simpler.</li>
+</ul>
+<p><span style="font-size: 80%; line-height: 1em;">* <a href="http://labs.ft.com/2012/06/text-re-encoding-for-optimising-storage-capacity-in-the-browser/">See our article on offline storage</a> for more details on database size limits.</span></p>
+<p><strong>/source/templates.js</strong><br />
+We will keep all <strong>view</strong> or <strong>template</strong> type functions together here.</p>
+<pre class="prettyprint linenums"><code>APP.templates = (function () {
+    'use strict';
+
+    function application() {
+        return '&lt;div id=&quot;window&quot;&gt;&lt;div id=&quot;header&quot;&gt;&lt;h1&gt;FT Tech Blog&lt;/h1&gt;&lt;/div&gt;&lt;div id=&quot;body&quot;&gt;&lt;/div&gt;&lt;/div&gt;';
+    }
+
+    function home() {
+        return '&lt;button id=&quot;refreshButton&quot;&gt;Refresh the news!&lt;/button&gt;&lt;div id=&quot;headlines&quot;&gt;&lt;/div&gt;&lt;/div&gt;';
+
+    }
+
+    function articleList(articles) {
+        var i, l, output = '';
+
+        if (!articles.length) {
+            return '&lt;p&gt;&lt;i&gt;No articles have been found, maybe you haven't &lt;b&gt;refreshed the news&lt;/b&gt;?&lt;/i&gt;&lt;/p&gt;';
+        }
+        for (i = 0, l = articles.length; i &lt; l; i = i + 1) {
+            output = output + '&lt;li&gt;&lt;a href=&quot;#' + articles[i].id + '&quot;&gt;&lt;b&gt;' + articles[i].headline + '&lt;/b&gt;&lt;br /&gt;By ' + articles[i].author + ' on ' + articles[i].date + '&lt;/a&gt;&lt;/li&gt;';
+        }
+        return '&lt;ul&gt;' + output + '&lt;/ul&gt;';
+    }
+
+    function article(articles) {
+
+        // If the data is not in the right form, redirect to an error
+        if (!articles[0]) {
+            window.location = '#error';
+        }
+        return '&lt;a href=&quot;#&quot;&gt;Go back home&lt;/a&gt;&lt;h2&gt;' + articles[0].headline + '&lt;/h2&gt;&lt;h3&gt;By ' + articles[0].author + ' on ' + articles[0].date + '&lt;/h3&gt;' + articles[0].body;
+    }
+
+    function articleLoading() {
+        return '&lt;a href=&quot;#&quot;&gt;Go back home&lt;/a&gt;&lt;br /&gt;&lt;br /&gt;Please wait&amp;hellip;';
+    }
+
+    return {
+        application: application,
+        home: home,
+        articleList: articleList,
+        article: article,
+        articleLoading: articleLoading
+    };
+}());</code></pre>
+<p>In this file we&#8217;ll just put some simple functions that (with as little logic as possible) generate HTML strings. The only slightly odd thing here is: you may have noticed the database.js <code>runQuery</code> function always returns an array of rows even if you&#8217;re only expecting a single result. This means the <code>APP.templates.article()</code> function will need to accept an array that contains a single article to be compatible with that. A new method could easily be added to the database function which could run a query but only return the first result, but for now this will do.</p>
+<p>As our app grows we might like to split this file up, the article functions could go into /source/articles/articlesview.js, for example.</p>
+<p><strong>/source/articles/article.js</strong><br />
+This file will deal with communication between the article controller and the database.</p>
+<pre class="prettyprint linenums"><code>APP.article = (function () {
+    'use strict';
+
+    function deleteArticles(successCallback) {
+        APP.database.runQuery(&quot;DELETE FROM articles&quot;, [], successCallback);
+    }
+
+    function insertArticles(articles, successCallback) {
+        var remaining = articles.length, i, l, data = [];
+
+        if (remaining === 0) {
+            successCallback();
+        }
+
+        // Convert article array of objects to array of arrays
+        for (i = 0, l = articles.length; i &lt; l; i = i + 1) {
+            data[i] = [articles[i].id, articles[i].date, articles[i].headline, articles[i].author, articles[i].body];
+        }
+
+        APP.database.runQuery(&quot;INSERT INTO articles (id, date, headline, author, body) VALUES (?, ?, ?, ?, ?);&quot;, data, successCallback);
+    }
+
+    function selectBasicArticles(successCallback) {
+        APP.database.runQuery(&quot;SELECT id, headline, date, author FROM articles&quot;, [], successCallback);
+    }
+
+    function selectFullArticle(id, successCallback) {
+        APP.database.runQuery(&quot;SELECT id, headline, date, author, body FROM articles WHERE id = ?&quot;, [id], successCallback);
+    }
+
+    return {
+        insertArticles: insertArticles,
+        selectBasicArticles: selectBasicArticles,
+        selectFullArticle: selectFullArticle,
+        deleteArticles: deleteArticles
+    };
+}());</code></pre>
+<p>There are complexities to be dealt with here:-</p>
+<ul>
+<li>In this simple demo app, articles are passed around as objects (in the form <code>var article = { headline: 'Something has happened!', author: 'Matt Andrews', &hellip; etc }</code>). In order to insert an article of this form this WebSQL, it&#8217;ll need to be converted into an array &#8211; which is what happens on line #17</li>
+<li>Because WebSQL is really slow (sometimes even slower than the network), when we&#8217;re selecting all of the articles for listing on our app&#8217;s home page we don&#8217;t want to select the article body (as this is the largest part of each article) which is why there are two functions with different queries for selecting articles, <code>selectBasicArticles</code> (plural) and <code>selectFullArticle</code>.
+</ul>
+<p><strong>/sources/articles/articlescontroller.js</strong><br />
+Now create the articles&#8217; controller.</p>
+<pre class="prettyprint linenums"><code>APP.articlesController = (function () {
+    'use strict';
+
+    function showArticleList() {
+        APP.article.selectBasicArticles(function (articles) {
+            $(&quot;#headlines&quot;).html(APP.templates.articleList(articles));
+        });
+    }
+
+    function showArticle(id) {
+        APP.article.selectFullArticle(id, function (article) {
+            $(&quot;#body&quot;).html(APP.templates.article(article));
+        });
+    }
+
+    function synchronizeWithServer(failureCallback) {
+        $.ajax({
+            dataType: 'json',
+            url: 'api/articles',
+            success: function (articles) {
+              APP.article.deleteArticles(function () {
+                  APP.article.insertArticles(articles, function () {
+                    /*
+                     * Instead of the line below we *could* just run showArticeList() but since
+                     * we already have the articles in scope we needn't make another call to the
+                     * database and instead just render the articles straight away.
+                     */
+                    $(&quot;#headlines&quot;).html(APP.templates.articleList(articles));
+                  });
+              });
+            },
+            type: &quot;GET&quot;,
+            error: function () {
+                if (failureCallback) {
+                    failureCallback();
+                }
+            }
+        });
+    }
+
+    return {
+        synchronizeWithServer: synchronizeWithServer,
+        showArticleList: showArticleList,
+        showArticle: showArticle
+    };
+}());</code></pre>
+<p>The article controller will be responsible for:-</p>
+<ul>
+<li>Instructing the model to pull article(s) out of the database, and for passing the returned data to the view so that it can be displayed on screen. (#4 and #10)</li>
+<li>Synchronising the articles in the database with the latest articles from the RSS feed. This works by:-
+<ul>
+<li>Using <a href="http://api.jquery.com/jQuery.ajax/">jQuery&#8217;s <code>.ajax</code> method</a>, it first download the latest articles from the RSS feed (formatted using JSON).</li>
+<li>If that download successfully completes, it runs the <code>APP.articles.deleteArticles</code> function to clear the database of any articles that are currently stored</li>
+<li>Then it uses the <code>APP.article.insertArticles</code> to push the articles that have been just downloaded into the database.</li>
+<li>Finally, it uses jQuery and a call to the templates module to display a list of those article&#8217;s headlines.</li>
+</ul>
+</li>
+</ul>
+<p><strong>/api/articles/index.php</strong><br />
+This file will download then parse an RSS feed (<a href="http://www.w3schools.com/xpath/">using xpath</a>). It will then strip out all the HTML tags from each article&#8217;s body (except for &lt;p&gt;&#8217;s and &lt;br&gt;&#8217;s) and output this information using <code>json_encode</code>.</p>
+<pre class="prettyprint linenums"><code>&lt;?php
+// Convert RSS feed to JSON, stripping out all but basic HTML
+$rss = new SimpleXMLElement(file_get_contents('http://feeds2.feedburner.com/ft/tech-blog'));
+$xpath = '/rss/channel/item';
+$items = $rss-&gt;xpath($xpath);
+
+if ($items) {
+  $output = array();
+  foreach ($items as $id =&gt; $item) {
+
+    // This will be encoded as an object, not an array, by json_encode
+    $output[] = array(
+      'id' =&gt; $id + 1,
+      'headline' =&gt; strval($item-&gt;title),
+      'date' =&gt; strval($item-&gt;pubDate),
+      'body' =&gt; strval(strip_tags($item-&gt;description,'&lt;p&gt;&lt;br&gt;')),
+      'author' =&gt; strval($item-&gt;children('http://purl.org/dc/elements/1.1/')-&gt;creator)
+    );
+  }
+}
+
+echo json_encode($output);</code></pre>
+<p>Although we&#8217;ve finished adding all the new files we&#8217;re not quite done yet.</p>
+<p><strong>/api/resources/index.php</strong><br />
+We need to update the resource compiler to let it know the locations of our newly added Javascript files, so /api/resources/index.php becomes:-</p>
+<pre class="prettyprint linenums"><code>&lt;?php
+// Concatenate the files in the /source/ directory
+// This would be a sensible point to compress your Javascript.
+$js = '';
+$js = $js . 'var APP={}; (function (APP) {';
+$js = $js . file_get_contents('../../source/application/applicationcontroller.js');
+$js = $js . file_get_contents('../../source/articles/articlescontroller.js');
+$js = $js . file_get_contents('../../source/articles/article.js');
+$js = $js . file_get_contents('../../source/database.js');
+$js = $js . file_get_contents('../../source/templates.js');
+$js = $js . '}(APP));';
+$output['js'] = $js;
+
+// Concatenate the files in the /css/ directory
+// This would be a sensible point to compress your css
+$css = '';
+$css = $css . file_get_contents('../../css/global.css');
+$output['css'] = $css;
+
+// Encode with JSON (PHP 5.2.0+) &amp; output the resources
+echo json_encode($output);</code></pre>
+<p><strong>/source/application/applicationcontroller.js</strong><br />
+And finally we will need to update applicationcontroller.js so that all the new functions we&#8217;ve added can actually be used by our users.</p>
+<pre class="prettyprint linenums"><code>APP.applicationController = (function () {
+    'use strict';
+
+    function offlineWarning() {
+        alert(&quot;This feature is only available online.&quot;);
+    }
+
+    function pageNotFound() {
+        alert(&quot;That page you were looking for cannot be found.&quot;);
+    }
+
+    function showHome() {
+        $(&quot;#body&quot;).html(APP.templates.home());
+
+        // Load up the last cached copy of the news
+        APP.articlesController.showArticleList();
+
+        $('#refreshButton').click(function () {
+
+            // If the user is offline, don't bother trying to synchronize
+            if (navigator &amp;&amp; navigator.onLine === false) {
+                offlineWarning();
+            } else {
+                APP.articlesController.synchronizeWithServer(offlineWarning);
+            }
+        });
+    }
+
+    function showArticle(id) {
+        $(&quot;#body&quot;).html(APP.templates.articleLoading());
+        APP.articlesController.showArticle(id);
+    }
+
+    function route() {
+        var page = window.location.hash;
+        if (page) {
+            page = page.substring(1);
+            if (parseInt(page, 10) &gt; 0) {
+                showArticle(page);
+            } else {
+                pageNotFound();
+            }
+        } else {
+            showHome();
+        }
+    }
+
+
+    // This is to our webapp what main() is to C, $(document).ready is to jQuery, etc
+    function start(resources, start) {
+        APP.database.open(function () {
+
+            // Listen to the hash tag changing
+            $(window).bind(&quot;hashchange&quot;, route);
+
+            // Inject CSS Into the DOM
+            $(&quot;head&quot;).append(&quot;&lt;style&gt;&quot; + resources.css + &quot;&lt;/style&gt;&quot;);
+
+            // Create app elements
+            $(&quot;body&quot;).html(APP.templates.application());
+
+            // Remove our loading splash screen
+            $(&quot;#loading&quot;).remove();
+
+            route();
+        });
+
+        if (storeResources) {
+          localStorage.resources = JSON.stringify(resources);
+        }
+    }
+
+    return {
+        start: start
+    };
+}());</code></pre>
+<p>(Working from bottom to top) this file will handle the following functionality:-</p>
+<ul>
+<li>On <code>APP.applicationController.start()</code>:-
+<ul>
+<li>Start listening for <a href="https://developer.mozilla.org/en/DOM/window.onhashchange">changes in the hash tag</a> and when a change is detected, run the <code>route</code> function &#8211; more on this below.</li>
+<li>Inject the CSS into the DOM, create initial app elements (as before, but we&#8217;ve moved the HTML string into the templates.js file).</li>
+<li>Remove the loading splash screen, as before.</li>
+<li>Run the <code>route</code> function.</li>
+</ul>
+<li>The <code>route</code> function will get the current hash tag:-
+<ul>
+<li>If it is blank run the <code>showHome</code> function.</li>
+<li>If it isn&#8217;t remove the first character (as it will always be &#8220;#&#8221;) &#8211; then if it&#8217;s a positive integer assume it&#8217;s an article and try to load the article with that ID number by calling <code>showArticle(id)</code>.</li>
+<li>If it&#8217;s not blank or a positive integer display a friendly <strong>Page not found</strong> message to the user.</li>
+</ul>
+</li>
+<li>Finally, <code>showHome</code> and <code>showArticle(id)</code> will put some basic HTML into the page and call the articleController&#8217;s <code>showArticleList</code> and <code>showArticle(id)</code> functions, respectively. The <code>showHome</code> also sets up the event listener so that the refresh button triggers the articleController&#8217;s <code>synchronizeWithServer</code> [sic] method.</li>
+</ul>
+<h2>Ideas for further development</h2>
+<ul>
+<li>We’ve broken the web &#8211; it won’t work without Javascript switched on.</li>
+<li>We’ve broken search engines &#8211; there’s no crawlable content.</li>
+<li>We’ve not considered accessibility.</li>
+<li>We’re passing all the rendering of the page to be done on the client (potentially an antique mobile telephone) when we have an entire web server (and cache) at our disposal.</li>
+<li>It doesn’t feel like an app. You may have noticed on certain touch devices, the links aren’t very responsive &#8211; there is a 300ms delay between tapping and anything happening. Nor is there any swiping, flicking or pinching.</li>
+<li>It doesn’t look like an app either &#8211; eg. it isn’t optimized to “my” device’s screensize&#8230;</li>
+<li>Images currently won’t work offline.</li>
+<li>Specific improvements we could make the bootstrap:-
+<ul>
+<li>In this demo news app, we download all our CSS and Javascript and process that information (JSON decoding then re-encoding it, saving it to local storage) each time we load the app. This could be made more efficient by giving the resources we download a version number. If we did this, the demo app could first check if it has the latest version already and skip the download stage if nothing has changed.</li>
+<li>This still forces the user to wait for the server to respond before the demo app will start when they are online. Instead, the demo app could boot with the code it has already &#8211; then only start using the new code the next time it is launched. This is how the FT web app works.</li>
+</ul>
+</li>
+<li>Currently the demo app doesn&#8217;t gracefully fail when iOS is in &#8216;private browsing&#8217; mode &#8211; it just throws an error. This is caused by <a href="http://stackoverflow.com/questions/9077101/iphone-localstorage-quota-exceeded-err-issue">an iOS bug</a>, which we could easily detect and work around.</li>
+</ul>
+<h2>Wrapping Up</h2>
+<p>Clearly our demo web app leaves a lot of room for improvement. However, by organising our code in a clean and structured way, we&#8217;ve created a platform that almost any kind of application could be built upon and by using a short script (which we called the bootstrap) to download and eval the application&#8217;s code, we don&#8217;t need to worry about dealing with the app cache&#8217;s problems. This leaves us free to get on with building great web applications.</p>
+<p>Finally, if you think you&#8217;d like to work on this sort of thing and live (or would like to live) in London, <a href="/jobs">we&#8217;re hiring!</a></p>
+<p><span style="font-size: 80%; line-height: 1em;">By <a href="http://mattandre.ws">Matt Andrews</a> – @andrewsmatt on <a href="http://twitter.com/andrewsmatt">Twitter</a> &amp; <a href="http://weibo.com/andrewsmatt">Weibo</a>.<br />Also available in <a href='http://science.webhostinggeeks.com/ftlabs-tutorial'>Serbo-Croatian</a> thanks to Jovana Milutinovich.</span></p>
+<p align="right"><strong><a href="http://labs.ft.com/2012/09/ft-style-web-app-on-firefox-and-ie6-to-ie10/">Continue to part 2 &#8211; Going cross platform with an FT style web app <span class="meta-nav">→</span></a></strong></p>
+]]></content:encoded>
+			</item>
+	</channel>
+</rss>

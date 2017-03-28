@@ -1,0 +1,150 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en-GB"> <![endif]-->
+<!--[if IE 7]>		<html class="no-js lt-ie9 lt-ie8" lang="en-GB"> <![endif]-->
+<!--[if IE 8]>		<html class="no-js lt-ie9" lang="en-GB"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en-GB"> <!--<![endif]-->
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>Batching decoupled API requests | FT Labs</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+	<script src="https://polyfill.webservices.ft.com/v2/polyfill.min.js"></script>
+	<script src="../../../wp-content/themes/ftlabs-2016/main.js"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="../../../wp-content/themes/ftlabs-2016/style.css" />
+
+	<link rel='dns-prefetch' href='http://cdnjs.cloudflare.com/' />
+<link rel='dns-prefetch' href='http://s.w.org/' />
+<link rel="alternate" type="application/rss+xml" title="FT Labs &raquo; Feed" href="../../../feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="FT Labs &raquo; Comments Feed" href="../../../comments/feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="FT Labs &raquo; Batching decoupled API requests Comments Feed" href="feed/index.html" />
+<link rel='stylesheet' id='prettify-css'  href='../../../wp-content/plugins/prettify-code-highlight/code.css%3Fver=4.6.4.css' type='text/css' media='all' />
+<!-- This site uses the Google Analytics by Yoast plugin v5.4.6 - Universal enabled - https://yoast.com/wordpress/plugins/google-analytics/ -->
+<script type="text/javascript">
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','__gaTracker');
+
+	__gaTracker('create', 'UA-32884353-1', 'labs.ft.com');
+	__gaTracker('set', 'forceSSL', true);
+	__gaTracker('send','pageview');
+
+</script>
+<!-- / Google Analytics by Yoast -->
+<link rel='https://api.w.org/' href='../../../wp-json/index.html' />
+<link rel='prev' title='Tutorial 3: &#8216;Fixing&#8217; the application cache with an iframe' href='../../../index.html%3Fp=3601.html' />
+<link rel='next' title='Edge: We&#8217;re having a conference!' href='../../../index.html%3Fp=7051.html' />
+<link rel="canonical" href="../../../index.html%3Fp=6831.html" />
+<link rel='shortlink' href='../../../index.html%3Fp=6831.html' />
+<link rel="alternate" type="application/json+oembed" href="../../../wp-json/oembed/1.0/embed%3Furl=http%253A%252F%252Flabs.ft.com%252F2012%252F12%252Fbatching-decoupled-api-requests%252F" />
+<link rel="alternate" type="text/xml+oembed" href="../../../wp-json/oembed/1.0/embed%3Furl=http%253A%252F%252Flabs.ft.com%252F2012%252F12%252Fbatching-decoupled-api-requests%252F&amp;format=xml" />
+</head>
+<body class="single single-post postid-6831 single-format-standard">
+	<div class="app" ontouchstart="">
+		<div class='container'>
+			<div class='sidebar'>
+				<div class='logo-wrap'>
+					<a href='../../../index.html' class='logo'>
+						<h1>FT Labs</h1>
+					</a>
+				</div>
+				<nav>
+					<ul id="menu-header-navigation" class="app-header_nav"><li id="menu-item-14082" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14082"><a href="../../../index.html">Home</a></li>
+<li id="menu-item-14083" class="menu-item menu-item-type-post_type menu-item-object-page current_page_parent menu-item-14083"><a href="../../../articles.1.html">Articles</a></li>
+<li id="menu-item-14084" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14084"><a href="../../../jobs.1.html">Jobs</a></li>
+<li id="menu-item-14085" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14085"><a href="../../../contact-us.1.html">Contact</a></li>
+</ul>				</nav>
+			</div>
+			<main>
+			<script> var page = 'article-view';
+			</script>
+				<article class="article_content body-text">
+									<h1>Batching decoupled API requests</h1>
+					<div class="date">by <a href="../../../author/andrew/index.html">Andrew Betts</a>, <time class="entry-date" datetime="2012-12-03T22:52:55+00:00" pubdate>3 December 2012</time></div>					<p>If you&#8217;re developing websites for mobile, by now you probably have a healthy hatred for HTTP requests.  The growth in the number of people wanting to use the web on cellular connections has introduced developers to a new kind of network: one with high bandwidth, but very high latency and low reliability.  The more HTTP requests your site requires to load, the longer your page will take to become interactive, regardless of how small they are.</p>
+<p>We realised that in order to really cut down on our HTTP requests, we needed to batch very disparate requests together.  Ideally we should be able to send one single request to fetch an image, log some analytics, and get the content of an article.  Another important realisation is that we don&#8217;t need to send all requests immediately.  Some, like analytics, can be done not just asynchronously, but can also be deferred until there&#8217;s an opportunity to send a request for some other reason.</p>
+<p>The main problem with all of this is that it threatens to play havoc with both your server side and client side application architecture.  We don&#8217;t want the need for this behaviour to affect the way we write our code, or make disparate parts of our application needlessly aware of one another.</p>
+<h2>Client side</h2>
+<p>Looking at the client side first, we solved this problem by creating an API object that can internally queue requests and intelligently marshal several different queues.  The interface is accessed like this:</p>
+<pre class="prettyprint linenums"><code>api.add('getStory', {'path': '/story1.html'}).done(callback1);
+api.add('getStory', {'path': '/story2.html'}).done(callback2);
+api.send().done(callback3);
+api.add('healthcheck', params).done(callback4);
+api.send().done(callback5);</code></pre>
+<p>First, we separate the queuing and sending of API requests into two calls.  No great pain there, and it provides the application with a more flexible tool &#8211; it can attach a callback to the response from each individual <code>getStory</code> request, and also attach a roll-up callback to the entire queue, which is notified when all the queued requests have completed.  Both <code>add</code> and <code>send</code> return deferred objects, so the callbacks are added by chaining the <code>done</code> method.  We have our own deferred implementation, but if you want to learn about deferreds and promises, this <a href="http://www.html5rocks.com/en/tutorials/async/deferred/" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://www.html5rocks.com/en/tutorials/async/deferred/', 'HTML5 rocks tutorial');">HTML5 rocks tutorial</a>, which uses the <a href="http://api.jquery.com/category/deferred-object/" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://api.jquery.com/category/deferred-object/', 'jQuery Deferred');">jQuery Deferred</a> implementation, is a good place to start.</p>
+<p>Now, given this simple piece of code, you&#8217;d assume that the API object is now going to make two HTTP requests, but it doesn&#8217;t.  It makes one.  Why?  When you call <code>send</code>, we set a <code>setTimeout</code> with a zero delay, which delays the actual send process until the next break in the execution thread.  This means any further calls to send that are made in the same thread (ie. before the JavaScript engine has a chance to return to the queued setTimeout) will simply re-queue the same send.</p>
+<p>Why not simply call <code>send</code> once?  The example above is a bit contrived &#8211; obviously you can easily see you&#8217;re calling send twice and refactor &#8211; but in many cases that&#8217;s not possible.  We might call a function in another part of our code which needs to do an API request, and decides it needs to be sent immediately.  When control returns to the parent function, if we also want to send an API request there, we don&#8217;t know that one has already just been invoked.  The API object takes care of rolling these up for us without the various parts of our application needing to know about one another&#8217;s API antics.</p>
+<p>With this aggressive grouping of requests, we need to add more intelligence to ensure we don&#8217;t run into problems.  First, it&#8217;s possible that an application will add so many requests to the queue that the resulting batched HTTP request will be too large (never mind the size of the potential <em>response</em>!), or will take too long for the server to process.  So when a <code>send</code> is invoked on a very large queue, the API object will create a separate, special send-queue, move the main queue into it, and start sending it in manageable batches.  This means optimally sized HTTP requests and a nice controlled pace that doesn&#8217;t send too many requests at once.</p>
+<p>Another problem that comes up when you have a lot of requests in the queue is prioritisation.  A function that adds 100 requests to the queue is going to be pretty content to wait a while for them to complete, but if a function just adds one and says it should be sent immediately, having to wait for 100 others ahead of it is going to make for a potentially painful user experience.  A practical example of this is an app downloading a long list of content in the background, and then suddenly needing to load a piece of content in response to a user action.  That new request is much higher priority than the background stuff, but the background stuff is already in the send-queue and is being downloaded right now.  In our implementation this is fine, because as soon as <code>send</code> is invoked, the transfer of the main queue into a separate send-queue frees up the main queue, and when send is invoked the next time, a second send-queue, independent of the first, is created and starts processing.  The result is that the queue of one item will get processed almost immediately even though there&#8217;s a background task which is still churning through a giant queue of stuff.  Some checks and balances are needed to ensure we don&#8217;t have too many send queues being processed at the same time, but the automatic batching tends to avoid that.</p>
+<p>So, in summary:</p>
+<ul>
+<li>The origin of API requests within the application and what actually gets batched together are completely disconnected</li>
+<li>It&#8217;s possible for two utterly decoupled parts of an application to make separate immediately-executed API calls and have them actually sent in the same HTTP request</li>
+<li>It&#8217;s equally possible for an app to make lots of API calls from the same procedure but actually have them sent in multiple batches</li>
+<li>Spawning separate send-queues for each send allows parallelising of urgent API requests alongside low priority ones, and prevents low priority requests swamping all network resources.</li>
+</ul>
+<p>One final point about the use of the API interface in the app JavaScript &#8211; there are some requests (notably analytics) which are such low priority that we really don&#8217;t care when they get sent.  So for those, we can just call <code>add</code>, and let them sit in the queue until there&#8217;s some other part of the app that wants some response right now.</p>
+<h3>On the wire</h3>
+<p>When the API object actually comes to make a request, it sends it to a generic API URL endpoint (eg <code>/api</code>), wrapping the package in JSON and sending it as a single query param (or POST field).  The topmost level is an array of API requests.  Each request is a two-element array, the first element being the method name, and the second an object with the arguments to that method call:</p>
+<pre class="prettyprint linenums"><code>[
+	[&quot;getStory&quot;, {&quot;path&quot;: &quot;/story1.html'}],
+	[&quot;getStory&quot;, {&quot;path&quot;: &quot;/story2.html&quot;}],
+	[&quot;healthcheck&quot;, {&quot;lastupdate&quot;: 1234567890, &quot;jsver&quot;: 1.76}]
+]</code></pre>
+<p>When the response is returned, the responses are in the same order as their respective requests.  The top level is an array of responses, each of which is an object with a status key indicating the success or otherwise of that part.  If it was successful, the value of the status property is &#8216;ok&#8217; and there is a data property containing the response data.  If not, there may be a detail property containing error information.</p>
+<pre class="prettyprint linenums"><code>[
+	{
+		&quot;status&quot;: &quot;ok&quot;, 
+		&quot;data&quot;:{
+			&quot;id&quot;: 545366,
+			&quot;title&quot;: &quot;Historic treaty agreement in sight&quot;,
+			&quot;pubdate&quot;: &quot;2012-12-01T10:04:45Z&quot;,
+			...
+		}
+	},
+	{
+		&quot;status&quot;: &quot;error&quot;, 
+		&quot;detail&quot;:&quot;Story not found&quot;
+	},
+	{
+		&quot;status&quot;: &quot;ok&quot;, 
+		&quot;data&quot;: true
+	}
+]</code></pre>
+<p>The API client object can therefore easily unpack this response, process each subresponse, and either resolve or reject each deferred object as appropriate, notifying disparate parts of our application JavaScript that their various requests have been fulfilled.</p>
+<h3>Server side</h3>
+<p>That leaves the small matter of routing this on the server.  Sending API requests in this way presents a number of challenges:</p>
+<ul>
+<li>Without conventional URL-based routing you risk creating a controller class that &#8216;does everything&#8217;</li>
+<li>Including multiple batched requests in a single HTTP call makes it less likely that the response will be cacheable (either in the browser or in edge caches such as <a href="http://varnish-cache.org" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://varnish-cache.org', 'Varnish');">Varnish</a>), and less likely that a given request will be a cache hit due to increased fragmentation.</li>
+</ul>
+<p>We deal with the first of these by creating a class for each API method, and a generic API controller that unpacks and routes each part of the request independently to each specific API method class.  The content returned can then be aggregated by the generic API controller.  Effectively we just add an packing/unpacking layer above a fairly conventional set of controller classes.</p>
+<p>Caching is more difficult.  The value you can get from network caches like Varnish is vastly reduced by this technique, so instead, its important to cache each individual API response.  Then a batched request might be fulfilled mostly from cache with maybe a couple of parts having to be generated.  <a href="http://memcached.org/" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://memcached.org/', 'Memcached');">Memcached</a> is pretty much made for this (be sure to use a parallel multi-get if your language&#8217;s memcached bindings support it, eg PHP&#8217;s <a href="http://php.net/manual/en/memcached.getmulti.php" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://php.net/manual/en/memcached.getmulti.php', 'getMulti');">getMulti</a> function).</p>
+<p>With this approach, and with a primed cache) we can often load and display a page with just one API request for all non-cacheable items or update checks.  The Economist HTML5 app, for example, starts up with just two: a request for the appcache manifest, and an API batch.  And for now, that&#8217;s as efficient as it gets.</p>
+									</article>
+				<div id='comments'></div>
+						</main>
+		</div>
+		<footer class="o-footer o-footer--theme-light" id="footer">
+			<div class="o-footer__row o-footer__copyright">
+				<div class="o-footer__col o-footer__col--full-width">
+					<span>© THE FINANCIAL TIMES LTD 2016.</span>
+					<span><abbr title="Financial Times">FT</abbr> and ‘Financial Times’ are trademarks of The Financial Times Ltd.</span>
+				</div>
+			</div>
+			<div class="o-footer__pearson">
+				<div class="o-footer__row">
+					<div class="o-footer__col o-footer__col--full-width">
+						<div class="o-footer__pearson-tagline" aria-label="Always Learning"></div>
+						<div class="o-footer__pearson-logo" aria-label="Pearson"></div>
+					</div>
+				</div>
+			</div>
+		</footer>
+	</div>
+	<script>window.onload = function() { prettyPrint(); }</script><script type='text/javascript' src='http://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.js?ver=4.6.4'></script>
+<script type='text/javascript' src='../../../wp-includes/js/wp-embed.min.js%3Fver=4.6.4'></script>
+		<!--
+	JIRA Issue collector seems v unreliable
+	<script type="text/javascript" src="https://jira.ft.com/s/522ea8c716f027c1d18693d0cb29a056-T/en_UK-7dt5dq/64016/3/1.4.25/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector.js?locale=en-UK&amp;collectorId=eb5e21bf"></script>-->
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en-GB"> <![endif]-->
+<!--[if IE 7]>		<html class="no-js lt-ie9 lt-ie8" lang="en-GB"> <![endif]-->
+<!--[if IE 8]>		<html class="no-js lt-ie9" lang="en-GB"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en-GB"> <!--<![endif]-->
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>Smooth CSS3 ticker jQuery plugin | FT Labs</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+	<script src="https://polyfill.webservices.ft.com/v2/polyfill.min.js"></script>
+	<script src="wp-content/themes/ftlabs-2016/main.js"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="wp-content/themes/ftlabs-2016/style.css" />
+
+	<link rel='dns-prefetch' href='http://cdnjs.cloudflare.com/' />
+<link rel='dns-prefetch' href='http://s.w.org/' />
+<link rel="alternate" type="application/rss+xml" title="FT Labs &raquo; Feed" href="feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="FT Labs &raquo; Comments Feed" href="comments/feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="FT Labs &raquo; Smooth CSS3 ticker jQuery plugin Comments Feed" href="2010/03/smooth-css3-ticker-jquery-plugin/feed/index.html" />
+<link rel='stylesheet' id='prettify-css'  href='wp-content/plugins/prettify-code-highlight/code.css%3Fver=4.6.4.css' type='text/css' media='all' />
+<!-- This site uses the Google Analytics by Yoast plugin v5.4.6 - Universal enabled - https://yoast.com/wordpress/plugins/google-analytics/ -->
+<script type="text/javascript">
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','__gaTracker');
+
+	__gaTracker('create', 'UA-32884353-1', 'labs.ft.com');
+	__gaTracker('set', 'forceSSL', true);
+	__gaTracker('send','pageview');
+
+</script>
+<!-- / Google Analytics by Yoast -->
+<link rel='https://api.w.org/' href='wp-json/index.html' />
+<link rel='prev' title='Disappearing text cursor in Firefox' href='index.html%3Fp=43.html' />
+<link rel='next' title='Thoughts on CSS transitions in Firefox' href='index.html%3Fp=129.html' />
+<link rel="canonical" href="index.html%3Fp=2408.html" />
+<link rel='shortlink' href='index.html%3Fp=2408.html' />
+<link rel="alternate" type="application/json+oembed" href="wp-json/oembed/1.0/embed%3Furl=http%253A%252F%252Flabs.ft.com%252F2010%252F03%252Fsmooth-css3-ticker-jquery-plugin%252F" />
+<link rel="alternate" type="text/xml+oembed" href="wp-json/oembed/1.0/embed%3Furl=http%253A%252F%252Flabs.ft.com%252F2010%252F03%252Fsmooth-css3-ticker-jquery-plugin%252F&amp;format=xml" />
+</head>
+<body class="single single-post postid-2408 single-format-standard">
+	<div class="app" ontouchstart="">
+		<div class='container'>
+			<div class='sidebar'>
+				<div class='logo-wrap'>
+					<a href='index.html' class='logo'>
+						<h1>FT Labs</h1>
+					</a>
+				</div>
+				<nav>
+					<ul id="menu-header-navigation" class="app-header_nav"><li id="menu-item-14082" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14082"><a href="index.html">Home</a></li>
+<li id="menu-item-14083" class="menu-item menu-item-type-post_type menu-item-object-page current_page_parent menu-item-14083"><a href="articles.1.html">Articles</a></li>
+<li id="menu-item-14084" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14084"><a href="jobs.1.html">Jobs</a></li>
+<li id="menu-item-14085" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14085"><a href="contact-us.1.html">Contact</a></li>
+</ul>				</nav>
+			</div>
+			<main>
+			<script> var page = 'article-view';
+			</script>
+				<article class="article_content body-text">
+									<h1>Smooth CSS3 ticker jQuery plugin</h1>
+					<div class="date">by <a href="author/andrew/index.html">Andrew Betts</a>, <time class="entry-date" datetime="2010-03-14T12:50:26+00:00" pubdate>14 March 2010</time></div>					<p><strong>This post was originally made on the Assanka blog. Assanka was acquired by the Financial Times in January 2012, and became what is now FT Labs. <a href="index.html%3Fp=1901.html">Learn more</a>.</strong></p>
+<p>I&#8217;ve recently been building a status display for the Assanka office, which shows us information like current Zabbix monitoring triggers, support requests from clients, Pingdom status alerts, and even naming and shaming Assankans who&#8217;ve failed to file their time-sheets on time.</p>
+<p>In the process, I was pointed at the gorgeous <a href="http://www.panic.com/blog/2010/03/the-panic-status-board/" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://www.panic.com/blog/2010/03/the-panic-status-board/', 'Panic status board');">Panic status board</a>. Our objectives were similar and I was attracted to the idea of adding the scrolling tickers (at least, we assume they are scrolling from Panic&#8217;s photograph), which run along the bottom of their board. I was reminded of the kind of tickers you get on 24 hour news channels (here&#8217;s one from BBC World):</p>
+<p><figure><img src="wp-content/uploads/2010/03/bbcworldcap42.jpg" alt="BBC World screen capture showing scrolling ticker" /></figure></p>
+<p>Tickers in web browsers are difficult for a number of reasons. First, continuously animating the <code>left</code> or <code>margin-left</code> properties of an element in JavaScript is computationally expensive, particularly if you want to reposition the element often enough to create a properly smooth animation. Sites that use Javascript for tickers in this manner tend to hog your computer&#8217;s CPU and feel slow and laggy as a result. Many sites give up on the traditional ticker and go for something that&#8217;s easier for the browser to animate, like a &#8216;type in&#8217; reveal (eg the BBC News homepage ticker), or a vertical &#8216;scroll up&#8217; ticker.</p>
+<p><figure><img src="wp-content/uploads/2010/03/Capture.jpg" alt="BBC News online ticker" /></figure></p>
+<p>Another issue with continuous tickers is making them loop properly. When your animation reaches the end of the text, you have to scroll it all the way off the left edge of the screen before it can be repositioned and re-enter the frame from the right. This leaves an ugly gap in your ticker.</p>
+<p>Finally, if your ticker is updating with new information in real time, making changes that are noticeable in the visible portion of the ticker is amateur hour stuff.  You rarely see TV tickers suddenly change mid-scroll, and yet stories are seamlessly added and removed as necessary, <em>outside of the visible frame</em>.</p>
+<p>Since Panic didn&#8217;t release any code (boo), I set out to produce a jQuery plugin that would enable news tickers to be easily added to a page, using CSS3 animation effects.  If it&#8217;s working for you, you should see a couple of tickers scrolling away right here:</p>
+<p><span style="line-height: 1.5;"><iframe src="https://ftlabs.wpengine.com/wp-content/uploads/2010/03/webkitscroller.html" height=85 width=590></iframe></span></p>
+<p><span style="line-height: 1.5;">If it&#8217;s not working, you&#8217;re probably not using a browser that supports CSS3 transitions.  Try it in Chrome, or Safari.  Support should be added to Firefox pretty soon.  But the objective here is not to get universal compatibility, since I can easily dictate which browser our status board will use.</span></p>
+<p>With CSS3 transitions, we substantially improve the performance issue of tickers.  And this will improve further with browsers implementing these effects at an increasingly lower level.  This leaves the looping and updating issues to resolve before we can claim a properly news-grade ticker.</p>
+<h2>Looping</h2>
+<p>There are two possible solutions to the looping problem.  The first is to target segments of the ticker just after they have left the frame on the left, and move them to the end of the ticker on the right.  The second is to make several copies of your ticker content, and when you get to the end of the second copy, reposition the entire ticker element so that the first copy lines up with where the second copy had got to, then scroll on into the second copy again and repeat.</p>
+<p>I chose the second approach, because you need several copies of the ticker anyway if it&#8217;s too short to fill the width of the frame with enough left over to sort the looping out.</p>
+<h2>Updates</h2>
+<p>In order to enable the ticker to be updated dynamically, and yet not suffer any noticeable changes in the visible portion, I added some public methods &#8211; addMessage() and removeMessage(), which allow you to pass a list element and have it queued for addition or removal at an appropriate moment.</p>
+<p>This does require breaking a rather holy tenet of jQuery, namely returning a reference to the ticker rather than returning the jQuery chain, so you have an object on which you can call the public methods.</p>
+<p>Every time the ticker hits the end of the text, it is repositioned with the penultimate copy in view, all copies of the ticker text are updated to match the copy to their right, and the final copy (the original set of elements) is updated with the queued additions and removals (out of view).   As a result, when you call the add or remove methods, you may have to wait some time before you see the effect, but the ticker will never judder or change while it is visible to the user.</p>
+<h2>How to use</h2>
+<p>Your ticker must be a block element containing a UL. This is because the ticker needs a frame to mask the content as it slides through.</p>
+<pre class="prettyprint linenums"><code>&lt;div id='ticker1'&gt;
+  &lt;ul&gt;
+    &lt;li&gt;Headline one&lt;/li&gt;
+    &lt;li&gt;Headline two&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;
+&lt;script type="text/javascript"&gt;
+  var ticker = $('#ticker1').ticker();
+  var newid = ticker.addMsg('Headline three');
+  setTimeout(function() {
+    ticker.removeMsg(newid);
+  }, 60000);
+&lt;/script&gt;</code></pre>
+<h2>Settings and methods</h2>
+<p>The following settings are available, which can be passed to the <code>ticker()</code> function in a standard json object:</p>
+<ul>
+<li><strong>pxpersec</strong>: Speed of the ticker in pixels per second (optional; default is 30)</li>
+</ul>
+<p>Calls to the <code>ticker()</code> function return a reference to the ticker, not the jQuery chain. The ticker reference exposes the following methods:</p>
+<ul>
+<li><strong>string addMsg(<em>msg</em>)</strong>: Add a new message to the ticker. Can be a jQuery object or raw list item element (which will be moved from its current location in the DOM), or a plain text string. Returns a string identifier for the message (to enable you to remove it later). If you pass an element that already has an ID attribute, that ID is used (and returned).</li>
+<li><strong>void removeMsg(<em>msg</em>)</strong>: Remove a message from the ticker. Can be a jQuery object or raw list item element (which must be in the ticker already), or a string identifier returned from the addMsg call that added the message to the ticker. Returns nothing.</li>
+</ul>
+<h2>Get the code</h2>
+<ul>
+<li><a href="http://ftlabs.wpengine.com/wp-content/uploads/2010/03/jquery.ticker.js" onclick="__gaTracker('send', 'event', 'download', 'http://ftlabs.wpengine.com/wp-content/uploads/2010/03/jquery.ticker.js');">Download development</a> (commented, 7KB)</li>
+<li><a href="http://labs.ft.com/wp-content/uploads/2010/03/jquery.ticker.min.js">Download production</a> (minified, 4KB)</li>
+</ul>
+									</article>
+				<div id='comments'></div>
+						</main>
+		</div>
+		<footer class="o-footer o-footer--theme-light" id="footer">
+			<div class="o-footer__row o-footer__copyright">
+				<div class="o-footer__col o-footer__col--full-width">
+					<span>© THE FINANCIAL TIMES LTD 2016.</span>
+					<span><abbr title="Financial Times">FT</abbr> and ‘Financial Times’ are trademarks of The Financial Times Ltd.</span>
+				</div>
+			</div>
+			<div class="o-footer__pearson">
+				<div class="o-footer__row">
+					<div class="o-footer__col o-footer__col--full-width">
+						<div class="o-footer__pearson-tagline" aria-label="Always Learning"></div>
+						<div class="o-footer__pearson-logo" aria-label="Pearson"></div>
+					</div>
+				</div>
+			</div>
+		</footer>
+	</div>
+	<script>window.onload = function() { prettyPrint(); }</script><script type='text/javascript' src='http://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.js?ver=4.6.4'></script>
+<script type='text/javascript' src='wp-includes/js/wp-embed.min.js%3Fver=4.6.4'></script>
+		<!--
+	JIRA Issue collector seems v unreliable
+	<script type="text/javascript" src="https://jira.ft.com/s/522ea8c716f027c1d18693d0cb29a056-T/en_UK-7dt5dq/64016/3/1.4.25/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector.js?locale=en-UK&amp;collectorId=eb5e21bf"></script>-->
+</body>
+</html>
