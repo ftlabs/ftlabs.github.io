@@ -21,11 +21,16 @@ for YEAR in 20??; do
         if [[ -n "$FULL_TITLE" ]]; then
           FULL_DIR=${NEW_POSTS_DIR}/${YEAR}/${MONTH}
           echo "FULL_DIR=$FULL_DIR"
-          FULL_FILENAME=${FULL_DIR}/${YEAR}-${MONTH}-01-${POST}
+          FULL_FILENAME=${FULL_DIR}/${YEAR}-${MONTH}-01-${POST}.html
           echo $"FULL_FILENAME=$FULL_FILENAME"
-          # mkdir -p $FULL_DIR
-          # echo "...front matter..." > $FULL_FILENAME
-          # cat $INDEX_FILE >> $FULL_FILENAME
+          mkdir -p $FULL_DIR
+          echo "---
+layout: null
+title: $FULL_TITLE
+date: ${YEAR}-${MONTH}-01
+permalink: /${YEAR}/${MONTH}/${POST}/
+---" > $FULL_FILENAME
+          cat $INDEX_FILE >> $FULL_FILENAME
         fi
       fi
     done
