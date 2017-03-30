@@ -21,6 +21,7 @@ for YEAR in 20??; do
       INDEX_FILE=$POST/index.html
       if [[ -f "$INDEX_FILE" ]]; then
         FULL_TITLE=$(cat $INDEX_FILE | grep '<h1>' | tail -1 | cut -d ">" -f2 | cut -d "<" -f 1)
+        FULL_TITLE=${FULL_TITLE/:/ -}
         if [[ -n "$FULL_TITLE" ]]; then
           FULL_FILENAME=${FULL_DIR}/${YEAR}-${MONTH}-01-${POST}.html
           echo "FULL_FILENAME=$FULL_FILENAME"
