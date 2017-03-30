@@ -13,17 +13,17 @@ for YEAR in 20??; do
   for MONTH in [01]?; do
     echo "MONTH=$MONTH"
     cd $MONTH || die "cannot cd to $MONTH"
+    FULL_DIR=${NEW_POSTS_DIR}/${YEAR}/${MONTH}
+    echo "FULL_DIR=$FULL_DIR"
+    mkdir -p $FULL_DIR
     for POST in *; do
       echo "POST=$POST"
       INDEX_FILE=$POST/index.html
       if [[ -f "$INDEX_FILE" ]]; then
         FULL_TITLE=$(cat $INDEX_FILE | grep '<h1>' | tail -1 | cut -d ">" -f2 | cut -d "<" -f 1)
         if [[ -n "$FULL_TITLE" ]]; then
-          FULL_DIR=${NEW_POSTS_DIR}/${YEAR}/${MONTH}
-          echo "FULL_DIR=$FULL_DIR"
           FULL_FILENAME=${FULL_DIR}/${YEAR}-${MONTH}-01-${POST}.html
-          echo $"FULL_FILENAME=$FULL_FILENAME"
-          mkdir -p $FULL_DIR
+          echo "FULL_FILENAME=$FULL_FILENAME"
           echo "---
 layout: null
 title: $FULL_TITLE
