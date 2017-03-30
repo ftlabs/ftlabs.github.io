@@ -27,12 +27,24 @@ gratifyingly, kinda worked
 
 ### process web sucked files
 
-* remove most of index?... files
-* rename index.html to index_origwp.html (and hence back to the default index with the one default post)
-*
+* write script to process WP posts into J posts
+   * obtain year, month, post name from dirs of wp post
+   * extract text title from wp post
+   * construct new dirs and copy file under \_posts/ex-wordpress
+   * with front matter prepended
+* tidy the WP pages into new dir, /ex-wordpress
 
 ## ToDo
 
-* put front matter in posts
-* split old front page into segments: header, LHS, footer, etc
+* fix http origami refs in new posts to work with https
+* tidy up refs to ?p=xxx files
+* move wp-\* dirs under /ex-wordpress
+   * and rewrite refs to them in posts
+* create new style/layout etc for posts
+* split posts into content + layout
+* strip out old styling and wp refs
+* add GA tracking back in
+* rethink front page
+* consider using collections
 * ...
+* redirect labs.ft.com to fastly to new blog
