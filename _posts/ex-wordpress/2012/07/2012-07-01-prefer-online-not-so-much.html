@@ -1,0 +1,114 @@
+---
+layout: null
+title: 'prefer-online? Not so much'
+date: 2012-07-01
+permalink: /2012/07/prefer-online-not-so-much/
+---
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en-GB"> <![endif]-->
+<!--[if IE 7]>		<html class="no-js lt-ie9 lt-ie8" lang="en-GB"> <![endif]-->
+<!--[if IE 8]>		<html class="no-js lt-ie9" lang="en-GB"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en-GB"> <!--<![endif]-->
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>prefer-online? Not so much | FT Labs</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+	<script src="https://polyfill.webservices.ft.com/v2/polyfill.min.js"></script>
+	<script src="../../../wp-content/themes/ftlabs-2016/main.js"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="../../../wp-content/themes/ftlabs-2016/style.css" />
+
+	<link rel='dns-prefetch' href='http://cdnjs.cloudflare.com/' />
+<link rel='dns-prefetch' href='http://s.w.org/' />
+<link rel="alternate" type="application/rss+xml" title="FT Labs &raquo; Feed" href="../../../feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="FT Labs &raquo; Comments Feed" href="../../../comments/feed/index.html" />
+<link rel='stylesheet' id='prettify-css'  href='../../../wp-content/plugins/prettify-code-highlight/code.css%3Fver=4.6.4.css' type='text/css' media='all' />
+<!-- This site uses the Google Analytics by Yoast plugin v5.4.6 - Universal enabled - https://yoast.com/wordpress/plugins/google-analytics/ -->
+<script type="text/javascript">
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','__gaTracker');
+
+	__gaTracker('create', 'UA-32884353-1', 'labs.ft.com');
+	__gaTracker('set', 'forceSSL', true);
+	__gaTracker('send','pageview');
+
+</script>
+<!-- / Google Analytics by Yoast -->
+<link rel='https://api.w.org/' href='../../../wp-json/index.html' />
+<link rel='prev' title='What exactly is an app?' href='../../../index.html%3Fp=231.html' />
+<link rel='next' title='Tutorial: How to make an offline HTML5 web app, FT style' href='../../../index.html%3Fp=2009.html' />
+<link rel="canonical" href="../../../index.html%3Fp=2373.html" />
+<link rel='shortlink' href='../../../index.html%3Fp=2373.html' />
+<link rel="alternate" type="application/json+oembed" href="../../../wp-json/oembed/1.0/embed%3Furl=http%253A%252F%252Flabs.ft.com%252F2012%252F07%252Fprefer-online-not-so-much%252F" />
+<link rel="alternate" type="text/xml+oembed" href="../../../wp-json/oembed/1.0/embed%3Furl=http%253A%252F%252Flabs.ft.com%252F2012%252F07%252Fprefer-online-not-so-much%252F&amp;format=xml" />
+</head>
+<body class="single single-post postid-2373 single-format-standard">
+	<div class="app" ontouchstart="">
+		<div class='container'>
+			<div class='sidebar'>
+				<div class='logo-wrap'>
+					<a href='../../../index.html' class='logo'>
+						<h1>FT Labs</h1>
+					</a>
+				</div>
+				<nav>
+					<ul id="menu-header-navigation" class="app-header_nav"><li id="menu-item-14082" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14082"><a href="../../../index.html">Home</a></li>
+<li id="menu-item-14083" class="menu-item menu-item-type-post_type menu-item-object-page current_page_parent menu-item-14083"><a href="../../../articles.1.html">Articles</a></li>
+<li id="menu-item-14084" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14084"><a href="../../../jobs.1.html">Jobs</a></li>
+<li id="menu-item-14085" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14085"><a href="../../../contact-us.1.html">Contact</a></li>
+</ul>				</nav>
+			</div>
+			<main>
+			<script> var page = 'article-view';
+			</script>
+				<article class="article_content body-text">
+									<h1>prefer-online? Not so much</h1>
+					<div class="date">by <a href="../../../author/andrew/index.html">Andrew Betts</a>, <time class="entry-date" datetime="2012-07-17T13:27:59+00:00" pubdate>17 July 2012</time></div>					<p>The standards process can be really frustrating, and for developers especially so when a problem is &#8216;fixed&#8217; in a way that&#8217;s unacceptable and means we end up continuing to use crazy hacks and workarounds, and invent new ones, rather than using something that was intended as a precise solution to that very problem.  I fear this is what we&#8217;re about to see with the <code>prefer-online</code> flag that was just <a href="http://html5.org/tools/web-apps-tracker?from=7135&#038;to=7136" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://html5.org/tools/web-apps-tracker?from=7135&#038;to=7136', 'added to appcache');">added to appcache</a>.</p>
+<p>In recent months much has been made of the limitations of the HTML5 app cache, particularly around certain common use cases that are particularly badly served by the current behaviour.  Tobie Langel highlighted <a href="http://www.w3.org/community/fixing-appcache/2012/01/18/appcache_use_cases/" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://www.w3.org/community/fixing-appcache/2012/01/18/appcache_use_cases/', 'some of these scenarios');">some of these scenarios</a> in the fixing appcache community group.  The one that caught my eye was:</p>
+<blockquote><p>A blog engine (e.g. WordPress) can have a very basic offline mode that caches its index page and the _n_ entries listed on it for offline use. This wouldn’t modify its behavior when online, so that visiting the index page would always display the last entries and not need a page refresh to do so.</p></blockquote>
+<p>You want the very latest available content to be displayed when a user visits your site, so if they&#8217;re online, that&#8217;s the latest content published, while if they&#8217;re offline it&#8217;s the most recent content that was available when they were last online.  This does not conceptually seem very hard.  The problem is this: In order to make a page available offline you must list it in your manifest, and by doing so, due to the current behaviour of App Cache, it will <em>always be fetched from cache, <strong>regardless</strong> of whether the user is online or not</em>.</p>
+<p>Many possible solutions to this exist.  The one that has made it into the spec is to add this to the cache manifest file format:</p>
+<pre class='brush:plain'>
+SETTINGS:
+prefer-online
+</pre>
+<p>This seems a simple solution to the problem.  If we&#8217;re offline, we get the cached resource, and if we&#8217;re online, we get the live one.  Hurrah.</p>
+<p>Oh wait.  Doesn&#8217;t that mean that for <em>every single request</em> made while offline, we have to wait for a network connection timeout before we are able to get it from the cache?!  Possibly.  What about resources that we <em>know</em> are not going to change?  The spec isn&#8217;t terribly clear on whether <code>prefer-online</code> makes the browser attempt a network connection for all types of cached resource (though from <a href="https://www.w3.org/Bugs/Public/show_bug.cgi?id=14702#c27" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.w3.org/Bugs/Public/show_bug.cgi?id=14702#c27', 'Ian Hickson&#8217;s definition of the feature');">Ian Hickson&#8217;s definition of the feature</a> it appears the answer is yes &#8211; see second bullet point under &#8216;New Proposal&#8217;)</p>
+<p>The reality also isn&#8217;t necessarily quite as bad, since even if the browser does go to the network first in every case, that request might get served from the ordinary browser cache, if the resource was originally served with a positive cache TTL.  But ordinary browser cache has no persistence guarantees, so we can&#8217;t rely on it having anything in it at all (it&#8217;s true that appCache also does not have a persistence guarantee, but in practice is far less volatile).</p>
+<p>This problem was raised by <a href="https://www.w3.org/Bugs/Public/show_bug.cgi?id=14702" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.w3.org/Bugs/Public/show_bug.cgi?id=14702', 'Bug #14702');">Bug #14702</a> (Always up to date web applications).  A number of solutions were proposed, including the <code>prefer-online</code> one Hickson added to the spec.  But many contributors called for something completely different, and posted increasingly detailed use cases explaining why.  I agree with them.</p>
+<h2>A better solution</h3>
+<p>Rather than suffering network latency on every request, we should be able to be much smarter about this.  We are trying to be responsible developers, creating websites that retain the URL metaphor for addressing unique pieces of content.  Therefore, there will be many (millions?) of unique URLs describing different pieces of content or distinct views of content on our website.  We cannot feasibly put all of these in the app cache, so we use the FALLBACK section to define a single generic client-side router page that can generate the appropriate view by reference to data stored elsewhere (localStorage, IndexedDB etc).  Since the home page of the website is no special case in this regard, it could easily be generated by the fallback router.  Therefore we would ideally simply <em>not include any content pages in the manifest at all</em>.</p>
+<p>Unfortunately, we&#8217;re forced to cache our content pages, because by adding the <code>manifest</code> attribute to an HTML tag, we mark a page as a master asset which will get cached regardless of whether it appears in the cache manifest.</p>
+<p>So, why not add a flag that instructs the app cache not to cache master entries?  Then we can avoid adding any additional complex and performance sapping logic to cache behaviour while offline &#8211; every page request would attempt one network request, and on failure, would then load the fallback, and all other resources would load from cache with no resort to the network.</p>
+<p>The <code>prefer-online</code> solution added a new SETTINGS section to the cache manifest language, so instead of using it for the <code>prefer-online</code> flag, we should be considering something like <code>no-master-cache</code> instead.</p>
+<p>Still, as I write, this is a fait accompli for <code>prefer-online</code> and it seems unlikely that there will be any move to change this.  I think this is a shame.</p>
+									</article>
+				<div id='comments'></div>
+						</main>
+		</div>
+		<footer class="o-footer o-footer--theme-light" id="footer">
+			<div class="o-footer__row o-footer__copyright">
+				<div class="o-footer__col o-footer__col--full-width">
+					<span>© THE FINANCIAL TIMES LTD 2016.</span>
+					<span><abbr title="Financial Times">FT</abbr> and ‘Financial Times’ are trademarks of The Financial Times Ltd.</span>
+				</div>
+			</div>
+			<div class="o-footer__pearson">
+				<div class="o-footer__row">
+					<div class="o-footer__col o-footer__col--full-width">
+						<div class="o-footer__pearson-tagline" aria-label="Always Learning"></div>
+						<div class="o-footer__pearson-logo" aria-label="Pearson"></div>
+					</div>
+				</div>
+			</div>
+		</footer>
+	</div>
+	<script>window.onload = function() { prettyPrint(); }</script><script type='text/javascript' src='http://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.js?ver=4.6.4'></script>
+<script type='text/javascript' src='../../../wp-includes/js/wp-embed.min.js%3Fver=4.6.4'></script>
+		<!--
+	JIRA Issue collector seems v unreliable
+	<script type="text/javascript" src="https://jira.ft.com/s/522ea8c716f027c1d18693d0cb29a056-T/en_UK-7dt5dq/64016/3/1.4.25/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector.js?locale=en-UK&amp;collectorId=eb5e21bf"></script>-->
+</body>
+</html>

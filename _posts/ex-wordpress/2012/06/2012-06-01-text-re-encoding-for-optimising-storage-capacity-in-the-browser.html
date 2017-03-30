@@ -1,0 +1,397 @@
+---
+layout: null
+title: 'Text re-encoding for optimising storage capacity in the browser'
+date: 2012-06-01
+permalink: /2012/06/text-re-encoding-for-optimising-storage-capacity-in-the-browser/
+---
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en-GB"> <![endif]-->
+<!--[if IE 7]>		<html class="no-js lt-ie9 lt-ie8" lang="en-GB"> <![endif]-->
+<!--[if IE 8]>		<html class="no-js lt-ie9" lang="en-GB"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en-GB"> <!--<![endif]-->
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>Text re-encoding for optimising storage capacity in the browser | FT Labs</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+	<script src="https://polyfill.webservices.ft.com/v2/polyfill.min.js"></script>
+	<script src="../../../wp-content/themes/ftlabs-2016/main.js"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="../../../wp-content/themes/ftlabs-2016/style.css" />
+
+	<link rel='dns-prefetch' href='http://cdnjs.cloudflare.com/' />
+<link rel='dns-prefetch' href='http://s.w.org/' />
+<link rel="alternate" type="application/rss+xml" title="FT Labs &raquo; Feed" href="../../../feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="FT Labs &raquo; Comments Feed" href="../../../comments/feed/index.html" />
+<link rel='stylesheet' id='prettify-css'  href='../../../wp-content/plugins/prettify-code-highlight/code.css%3Fver=4.6.4.css' type='text/css' media='all' />
+<!-- This site uses the Google Analytics by Yoast plugin v5.4.6 - Universal enabled - https://yoast.com/wordpress/plugins/google-analytics/ -->
+<script type="text/javascript">
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','__gaTracker');
+
+	__gaTracker('create', 'UA-32884353-1', 'labs.ft.com');
+	__gaTracker('set', 'forceSSL', true);
+	__gaTracker('send','pageview');
+
+</script>
+<!-- / Google Analytics by Yoast -->
+<link rel='https://api.w.org/' href='../../../wp-json/index.html' />
+<link rel='prev' title='Strike me pink!  Assanka and the FT' href='../../../index.html%3Fp=516.html' />
+<link rel='next' title='What exactly is an app?' href='../../../index.html%3Fp=231.html' />
+<link rel="canonical" href="../../../index.html%3Fp=31.html" />
+<link rel='shortlink' href='../../../index.html%3Fp=31.html' />
+<link rel="alternate" type="application/json+oembed" href="../../../wp-json/oembed/1.0/embed%3Furl=http%253A%252F%252Flabs.ft.com%252F2012%252F06%252Ftext-re-encoding-for-optimising-storage-capacity-in-the-browser%252F" />
+<link rel="alternate" type="text/xml+oembed" href="../../../wp-json/oembed/1.0/embed%3Furl=http%253A%252F%252Flabs.ft.com%252F2012%252F06%252Ftext-re-encoding-for-optimising-storage-capacity-in-the-browser%252F&amp;format=xml" />
+</head>
+<body class="single single-post postid-31 single-format-standard">
+	<div class="app" ontouchstart="">
+		<div class='container'>
+			<div class='sidebar'>
+				<div class='logo-wrap'>
+					<a href='../../../index.html' class='logo'>
+						<h1>FT Labs</h1>
+					</a>
+				</div>
+				<nav>
+					<ul id="menu-header-navigation" class="app-header_nav"><li id="menu-item-14082" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14082"><a href="../../../index.html">Home</a></li>
+<li id="menu-item-14083" class="menu-item menu-item-type-post_type menu-item-object-page current_page_parent menu-item-14083"><a href="../../../articles.1.html">Articles</a></li>
+<li id="menu-item-14084" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14084"><a href="../../../jobs.1.html">Jobs</a></li>
+<li id="menu-item-14085" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14085"><a href="../../../contact-us.1.html">Contact</a></li>
+</ul>				</nav>
+			</div>
+			<main>
+			<script> var page = 'article-view';
+			</script>
+				<article class="article_content body-text">
+									<h1>Text re-encoding for optimising storage capacity in the browser</h1>
+					<div class="date">by <a href="../../../author/andrew/index.html">Andrew Betts</a>, <time class="entry-date" datetime="2012-06-17T10:39:22+00:00" pubdate>17 June 2012</time></div>					<p>Web apps vs native apps. Sadly it&#8217;s not a fair fight, particularly when it comes to storage. A native app can use all the storage it wants, while a web app hits quotas and limits at every turn. Here&#8217;s a table of the restrictions by storage API and browser, which we determined by a combination of reading specs, consulting browser vendors and testing experimentally:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>WebSQL (w) / IndexedDB (i)</th>
+<th>Appcache</th>
+<th>localStorage</th>
+<th>Cookies</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Safari/iOS 5</td>
+<td>5MB / 50MB (w)</td>
+<td>10MB</td>
+<td>5MB</td>
+<td rowspan="8">4KB total<br />up to 50 per domain</td>
+</tr>
+<tr>
+<td>Android Browser / ICS</td>
+<td>?</td>
+<td>Unlimited</td>
+<td>5MB</td>
+</tr>
+<tr>
+<td>BB Browser / PlayBookOS</td>
+<td>?</td>
+<td>?</td>
+<td>?</td>
+</tr>
+<tr>
+<td>Safari 5.2</td>
+<td>5MB / Unlimited (w)</td>
+<td>Unlimited</td>
+<td>5MB</td>
+</tr>
+<tr>
+<td>Chrome 20</td>
+<td>Unlimited (wi)</td>
+<td>5MB</td>
+<td>5MB</td>
+</tr>
+<tr>
+<td>IE 10</td>
+<td>500MB (i)</td>
+<td>50MB</td>
+<td>10MB</td>
+</tr>
+<tr>
+<td>Opera 11</td>
+<td>5MB / Unlimited (w)</td>
+<td>50MB / Unlimited</td>
+<td>5MB / Unlimited</td>
+</tr>
+<tr>
+<td>Firefox 11</td>
+<td>50MB / Unlimited (i)</td>
+<td>Unlimited</td>
+<td>10MB</td>
+</tr>
+</tbody>
+</table>
+<p>You might look at these and think that actually they&#8217;re pretty generous &#8211; 50MB seems to be the lowest common denominator. But the FT publishes hundreds of stories a day, along with more than a hundred high resolution images, not to mention podcasts and videos. If a user wants anything like a reasonable chunk of the FT for offline reading, 50MB is nothing.</p>
+<p>So we need ways of trying to do more with less, and fortunately, there is an obvious place to start.</p>
+<p>Internally, JavaScript encodes text as UTF-16, a simple form of Unicode that allocates two bytes per character. Even characters from basic ASCII get two bytes. This is actually a pretty good choice &#8211; it allows JavaScript to be fully Unicode compliant and also makes string operations fast, because counting characters is just a matter of counting bytes.</p>
+<p>However, English speakers have always been spoiled by the ability to consider memory capacity in bytes to roughly equal the number of characters that can be stored, because English is typically encoded uisng ASCII (exactly one byte per character) or UTF-8 (typically one byte per character with occasional multi-byte characters). When we start encoding English text using UTF-16, and then store it somewhere with limited space, you quickly find you can only store half the number of characters that you thought you&#8217;d get.</p>
+<p>Here&#8217;s an illustration of how Hello World is stored in UTF-16:</p>
+<table>
+<tbody>
+<tr>
+<td>00</td>
+<td>48</td>
+<td>00</td>
+<td>45</td>
+<td>00</td>
+<td>4C</td>
+<td>00</td>
+<td>4C</td>
+<td>00</td>
+<td>4F</td>
+<td>00</td>
+<td>20</td>
+<td>00</td>
+<td>57</td>
+<td>00</td>
+<td>4F</td>
+<td>00</td>
+<td>52</td>
+<td>00</td>
+<td>4C</td>
+<td>00</td>
+<td>44</td>
+</tr>
+<tr>
+<td colspan=2>H</td>
+<td colspan=2>E</td>
+<td colspan=2>L</td>
+<td colspan=2>L</td>
+<td colspan=2>O</td>
+<td colspan=2> </td>
+<td colspan=2>W</td>
+<td colspan=2>O</td>
+<td colspan=2>R</td>
+<td colspan=2>L</td>
+<td colspan=2>D</td>
+</tr>
+</tbody>
+</table>
+<p>Disaster. Every other byte is a null byte and 50MB of storage just became effectively 25MB. So, if you, like us, are worried about storing more stuff offline, and you want your 25MB back, here are a few options:</p>
+<h2>1. Create a UTF-8 bytestream, and pretend it&#8217;s UTF-16</h2>
+<p>The obvious answer is to remove those null bytes by changing to UTF-8 encoding. But JavaScript doesn&#8217;t have UTF-8 encoding as an option, so whatever we do we have to pretend it&#8217;s UTF-16. That&#8217;s not particularly hard, as long as we can take the characters apart again afterwards and reassemble the correct ones from the byte values. Essentially we&#8217;re redrawing the boundaries between characters &#8211; two one-byte UTF-8 characters will turn into one UTF-16 character. A three byte UTF-8 character will be spread across two UTF-16 ones. This sounds complicated, but conceptually it&#8217;s actually quite simple. Here&#8217;s an illustration:</p>
+<table>
+<tbody>
+<tr>
+<th>Source string:</th>
+<td>R</td>
+<td>o</td>
+<td>y</td>
+<td>’</td>
+<td>s</td>
+</tr>
+<tr>
+<th>.charCodeAt():</th>
+<td>82</td>
+<td>111</td>
+<td>121</td>
+<td>8217</td>
+<td>115</td>
+</tr>
+<tr>
+<th>As binary</th>
+<td>01010010</td>
+<td>01101111</td>
+<td>01111001</td>
+<td>00100000 00011001</td>
+<td>01110011</td>
+</tr>
+<tr>
+<th>As UTF-8</th>
+<td><span style='color:red'>0</span>1010010</td>
+<td><span style='color:red'>0</span>1101111</td>
+<td><span style='color:red'>0</span>1111001</td>
+<td><span style='color:red'>1110</span>0010 <span style='color:red'>10</span>000000 <span style='color:red'>10</span>011001</td>
+<td><span style='color:red'>0</span>1110011</td>
+</tr>
+</tbody>
+</table>
+<table>
+<tbody>
+<tr>
+<th>Use in pairs</th>
+<td>01010010 01101111</td>
+<td>01111001 11100010</td>
+<td>10000000 10011001</td>
+<td>01110011 00000000</td>
+</tr>
+</tbody>
+</table>
+<p>The key bit here is converting the char codes, whose byte values make up a UTF-16 string, into UTF-8 byte values. Adding in the UTF-8 control bits changes the number that is being stored, because we have to spread the actual &#8216;value bits&#8217; out to accomodate the control bits.  The resulting number is much higher: <code>8217</code> for the apostrophe becomes <code>14844057</code>.</p>
+<p>Once you have the new UTF-16 string, you can write it to storage. If you look at it in Dev Tools, it will look like a bizarre mixture of a Eastern languages, but that&#8217;s only because the dev tools viewer is displaying it using UTF-16 encoding. If it interpreted it as UTF-8, you would see your source text.</p>
+<figure id="attachment_1671" class="wp-caption alignnone"><img alt='UTF-8 data being interpreted as UTF-16 in WebSQL' src="https://image.webservices.ft.com/v1/images/raw/http://ftlabs.wpengine.com/wp-content/uploads/2012/06/Capture.png" width="1091" class="size-full wp-image-1671" srcset="../../../wp-content/uploads/2012/06/Capture.png 1091w, ../../../wp-content/uploads/2012/06/Capture-300x83.png 300w, ../../../wp-content/uploads/2012/06/Capture-1024x283.png%3Fsource=ftlabs 1024w" sizes="(max-width: 1091px) 100vw, 1091px" /><figcaption class="wp-caption-text">UTF-8 data being interpreted as UTF-16 in WebSQL</figcaption></figure>
+<p>The problem with this approach is that making the conversion from the UTF-16 byte form to the UTF-8 one requires lots of code, and the overall algorithm is slow &#8211; we managed only 100KB per second at best in Chrome 17 on a MacBook Pro.</p>
+<h2>2. As you were, but with ASCII</h2>
+<p>So if working out the UTF-8 encoding for a character code is expensive, one option for simplifying the problem is to simplify the source text. Let&#8217;s assume that we&#8217;ve converted our source text to plain ASCII by representing multi-byte characters using HTML entities (eg &amp;raqo; instead of »).  Now we can just glue the existing character codes together rather than doing any conversion, because we know the sourc text contains only one-byte characters:</p>
+<table>
+<tbody>
+<tr>
+<th>Source string:</th>
+<td>S</td>
+<td>i</td>
+<td>m</td>
+<td>p</td>
+<td>l</td>
+<td>e</td>
+</tr>
+<tr>
+<th>.charCodeAt():</th>
+<td>83</td>
+<td>105</td>
+<td>109</td>
+<td>112</td>
+<td>108</td>
+<td>101</td>
+</tr>
+<tr>
+<th>As binary</th>
+<td>01010011</td>
+<td>01101001</td>
+<td>01101101</td>
+<td>01110000</td>
+<td>01101100</td>
+<td>01100101</td>
+</tr>
+</tbody>
+</table>
+<table>
+<tbody>
+<tr>
+<th>Use in pairs</th>
+<td>01010011 01101001</td>
+<td>01101101 01110000</td>
+<td>01101100 01100101</td>
+</tr>
+</tbody>
+</table>
+<p>By using an ASCII source text we eliminated a lot of bit shifting and UTF-8 encoding.  Much faster.  And shorter.  So short, in fact, that the entire algorithm is just this:</p>
+<pre class="prettyprint linenums"><code>function compress(s) {
+	var i, l, out='';
+	if (s.length % 2 !== 0) s += ' ';
+	for (i = 0, l = s.length; i &lt; l; i+=2) {
+		out += String.fromCharCode((s.charCodeAt(i)*256) + s.charCodeAt(i+1));
+	}
+
+	// Add a snowman prefix to mark the resulting string as encoded (more on this later)
+	return String.fromCharCode(9731)+out;
+}</code></pre>
+<p>It&#8217;s still not the best we can do though.   Many of our images are stored offline by creating base-64 encoded strings on the server, because JavaScript can&#8217;t store binary files offline (except using AppCache, which is not flexible enough for content images).  The process of encoding binary data as text using base-64 increases the volume of data by about 30%, because whilst an 8-bit byte can offer 256 possible values, we are only using 64 values, and 64 values would only need 6 bits to store efficiently.  Since you can&#8217;t store data in units of 6/8ths of a byte, the data grows larger.</p>
+<h2>3. Bit shifting base64 data into UTF-16</h2>
+<p>So, to option 3, which can only be applied to text that is base-64 encoded.  We start by mapping each character code used in base64 encoding (which are not contiguous and do not begin at zero) onto the range of numbers from 0 to 63.  Now we step through the source string, taking each character and converting it to the correct index in our range, which can be represented in binary using 6 bits (because two to the power of six is 64, six bits equals 64 possible values).  Since 6 does not divide into 16 we can&#8217;t fit a precise number of base64 characters in one UTF-16 character, so we have to convert in larger groups &#8211; every eight base64 characters can be precisely fitted into three UTF-16 characters.</p>
+<p>Here&#8217;s how that works:</p>
+<table>
+<tbody>
+<tr>
+<th>Source string:</th>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>o</td>
+<td>p</td>
+<td>q</td>
+<td>9</td>
+</tr>
+<tr>
+<th>b64 index</th>
+<td>0</td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td>40</td>
+<td>41</td>
+<td>42</td>
+<td>61</td>
+</tr>
+<tr>
+<th>As binary</th>
+<td>000000</td>
+<td>000001</td>
+<td>000010</td>
+<td>000011</td>
+<td>101000</td>
+<td>101001</td>
+<td>101010</td>
+<td>111101</td>
+</tr>
+</tbody>
+</table>
+<table>
+<tbody>
+<tr>
+<th>Groups of 16</th>
+<td>00000000 00010000</td>
+<td>10000011 10100010</td>
+<td>10011010 10111101</td>
+</tr>
+</tbody>
+</table>
+<p>This is not much more complicated than option 2, but delivers the best yet in storage efficiency &#8211; a full 63% less storage per character than UTF-16.  Here&#8217;s the code:</p>
+<pre class="prettyprint linenums"><code>function compress(s) {
+	var i, l, out='', map={A:0, B:1, C:2, ... &quot;+&quot;:62, &quot;/&quot;:63};
+	var bits = 16, chr = 0, rem = 0;
+	for (i = 0, l = s.length; i &lt; l; i++) {
+		if (bits &gt; 6) {
+			bits -= 6; chr += map[i] &lt; &lt; bits;
+ 		} else {
+			rem = 6 - bits;
+			chr += map[i] &gt;&gt; rem;
+			out += String.fromCharCode(chr);
+			chr = (map[i] % rem) &lt; &lt; (16-rem);
+			bits = 16 – rem;
+		}
+	}
+	return out;
+}</code></pre>
+<h2>Detecting encoded text and unpacking</h2>
+<p>Rather than add special cases around our code, and also because we need to be backwards compatibile with previously stored data that is not encoded, we decided to use a prefix to denote the kind of encoding that had been applied to stored data, so we know whether to decode it or not.  We figured that despite the creativity and renowned intellect of FT journalists, the snowman character is not likely to be used very much, so we now use this prefix to signal that we need to unpack encoded data.</p>
+<p><figure><img alt='Using a Unicode snowman to mark encoded data' src="https://image.webservices.ft.com/v1/images/raw/http://ftlabs.wpengine.com/wp-content/uploads/2012/06/snowmanencoding.png" width="426" class="alignnone size-full wp-image-1661" srcset="../../../wp-content/uploads/2012/06/snowmanencoding.png 426w, ../../../wp-content/uploads/2012/06/snowmanencoding-300x58.png%3Fsource=ftlabs 300w" sizes="(max-width: 426px) 100vw, 426px" /></figure></p>
+<p>To unpack then, just detect that the string starts with a snowman, and reverse the process.  Here&#8217;s the code to unpack an ASCII string packed using the first <code>compress</code> function above:</p>
+<pre class="prettyprint linenums"><code>function decompress(s) {
+	var i, l, n, m, out = '';
+
+	// If not prefixed with a snowman, just return the (already uncompressed) string
+	if (s.charCodeAt(0) !== 9731) return s;
+
+	for (i = 1, l = s.length; i &lt; l; i++) {
+		n = s.charCodeAt(i);
+		m = Math.floor(n/256);
+		out += String.fromCharCode(m, n%256);
+	}
+	return out;
+}</code></pre>
+									</article>
+				<div id='comments'></div>
+						</main>
+		</div>
+		<footer class="o-footer o-footer--theme-light" id="footer">
+			<div class="o-footer__row o-footer__copyright">
+				<div class="o-footer__col o-footer__col--full-width">
+					<span>© THE FINANCIAL TIMES LTD 2016.</span>
+					<span><abbr title="Financial Times">FT</abbr> and ‘Financial Times’ are trademarks of The Financial Times Ltd.</span>
+				</div>
+			</div>
+			<div class="o-footer__pearson">
+				<div class="o-footer__row">
+					<div class="o-footer__col o-footer__col--full-width">
+						<div class="o-footer__pearson-tagline" aria-label="Always Learning"></div>
+						<div class="o-footer__pearson-logo" aria-label="Pearson"></div>
+					</div>
+				</div>
+			</div>
+		</footer>
+	</div>
+	<script>window.onload = function() { prettyPrint(); }</script><script type='text/javascript' src='http://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.js?ver=4.6.4'></script>
+<script type='text/javascript' src='../../../wp-includes/js/wp-embed.min.js%3Fver=4.6.4'></script>
+		<!--
+	JIRA Issue collector seems v unreliable
+	<script type="text/javascript" src="https://jira.ft.com/s/522ea8c716f027c1d18693d0cb29a056-T/en_UK-7dt5dq/64016/3/1.4.25/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector.js?locale=en-UK&amp;collectorId=eb5e21bf"></script>-->
+</body>
+</html>

@@ -1,0 +1,135 @@
+---
+layout: null
+title: 'Polyfills as a service'
+date: 2014-09-01
+permalink: /2014/09/polyfills-as-a-service/
+---
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en-GB"> <![endif]-->
+<!--[if IE 7]>		<html class="no-js lt-ie9 lt-ie8" lang="en-GB"> <![endif]-->
+<!--[if IE 8]>		<html class="no-js lt-ie9" lang="en-GB"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en-GB"> <!--<![endif]-->
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>Polyfills as a service | FT Labs</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+	<script src="https://polyfill.webservices.ft.com/v2/polyfill.min.js"></script>
+	<script src="../../../wp-content/themes/ftlabs-2016/main.js"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="../../../wp-content/themes/ftlabs-2016/style.css" />
+
+	<link rel='dns-prefetch' href='http://cdnjs.cloudflare.com/' />
+<link rel='dns-prefetch' href='http://s.w.org/' />
+<link rel="alternate" type="application/rss+xml" title="FT Labs &raquo; Feed" href="../../../feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="FT Labs &raquo; Comments Feed" href="../../../comments/feed/index.html" />
+<link rel='stylesheet' id='prettify-css'  href='../../../wp-content/plugins/prettify-code-highlight/code.css%3Fver=4.6.4.css' type='text/css' media='all' />
+<!-- This site uses the Google Analytics by Yoast plugin v5.4.6 - Universal enabled - https://yoast.com/wordpress/plugins/google-analytics/ -->
+<script type="text/javascript">
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','__gaTracker');
+
+	__gaTracker('create', 'UA-32884353-1', 'labs.ft.com');
+	__gaTracker('set', 'forceSSL', true);
+	__gaTracker('send','pageview');
+
+</script>
+<!-- / Google Analytics by Yoast -->
+<link rel='https://api.w.org/' href='../../../wp-json/index.html' />
+<link rel='prev' title='Not everything is awesome' href='../../../index.html%3Fp=11181.html' />
+<link rel='next' title='Caching User-Agent specific responses with Fastly' href='../../../index.html%3Fp=11651.html' />
+<link rel="canonical" href="../../../index.html%3Fp=10901.html" />
+<link rel='shortlink' href='../../../index.html%3Fp=10901.html' />
+<link rel="alternate" type="application/json+oembed" href="../../../wp-json/oembed/1.0/embed%3Furl=http%253A%252F%252Flabs.ft.com%252F2014%252F09%252Fpolyfills-as-a-service%252F" />
+<link rel="alternate" type="text/xml+oembed" href="../../../wp-json/oembed/1.0/embed%3Furl=http%253A%252F%252Flabs.ft.com%252F2014%252F09%252Fpolyfills-as-a-service%252F&amp;format=xml" />
+</head>
+<body class="single single-post postid-10901 single-format-standard">
+	<div class="app" ontouchstart="">
+		<div class='container'>
+			<div class='sidebar'>
+				<div class='logo-wrap'>
+					<a href='../../../index.html' class='logo'>
+						<h1>FT Labs</h1>
+					</a>
+				</div>
+				<nav>
+					<ul id="menu-header-navigation" class="app-header_nav"><li id="menu-item-14082" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14082"><a href="../../../index.html">Home</a></li>
+<li id="menu-item-14083" class="menu-item menu-item-type-post_type menu-item-object-page current_page_parent menu-item-14083"><a href="../../../articles.1.html">Articles</a></li>
+<li id="menu-item-14084" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14084"><a href="../../../jobs.1.html">Jobs</a></li>
+<li id="menu-item-14085" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14085"><a href="../../../contact-us.1.html">Contact</a></li>
+</ul>				</nav>
+			</div>
+			<main>
+			<script> var page = 'article-view';
+			</script>
+				<article class="article_content body-text">
+									<h1>Polyfills as a service</h1>
+					<div class="date">by <a href="../../../author/ftlabs/index.html">FT Labs</a>, <time class="entry-date" datetime="2014-09-08T18:55:29+00:00" pubdate>8 September 2014</time></div>					<p class='standfirst'>When you use reusable components (whether through convention, a framework like <a href="https://github.com/ftlabs/fruitmachine" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://github.com/ftlabs/fruitmachine', 'Fruit Machine');">Fruit Machine</a> or <a href="http://facebook.github.io/react/" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://facebook.github.io/react/', 'React');">React</a>, or directly using the emerging Web Components standard), you might find that components ship with polyfills. Your page may end up containing multiple polyfills for the same feature. You might also find that these polyfills all use slightly different implementations, and it&#8217;s not immediately obvious which is a faithful emulation of the missing feature. Even the packaging format and file structure is likely to vary between polyfills and make each one a special case.</p>
+<p>This is far from ideal.  We need some way of polyfilling browsers that avoids this duplication.</p>
+<p>At the FT, we have a convention-based front end component system called <a href='http://origami.ft.com'>Origami</a>, designed to be forwards compatible with Web Components, and in designing all the various different pieces of UI, we didn&#8217;t want to end up having to embed polyfills everywhere. Instead, we built a polyfills-on-demand delivery system based on an existing open source service written by <a href="http://www.jonathantneal.com/" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://www.jonathantneal.com/', 'Jonathan Neal');">Jonathan Neal</a>.</p>
+<ul>
+<li><a href="https://cdn.polyfill.io" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://cdn.polyfill.io', 'Try it now at cdn.polyfill.io');">Try it now at cdn.polyfill.io</a></li>
+</ul>
+<p>Essentially, what you want from a polyfill delivery system is a way of sending one single copy of each of the best polyfills, in the right order (respecting dependencies), to just the browsers that lack a native implementation. The polyfill service does this by reading the User-Agent HTTP header and then using it to find the list of polyfills that are suitable for that browser and its specific version.  Typically once a browser version is released, its feature set does not change until its next release.</p>
+<p>We’ve written a new backend in Node.JS, added aliasing features specifically to use <a href="http://modernizr.com/" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://modernizr.com/', 'Modernizr');">Modernizr</a> feature-detect names to selectively include required polyfills, and various features to make the service easier to deliver to a high level of availability, such as metrics, health checks, tests, load balancing and hosted documentation.</p>
+<p>We&#8217;re still working on improving the API and adding more polyfills, but the service is already available to use, and thanks to the kind support and sponsorship of <a href="http://www.fastly.com/" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://www.fastly.com/', 'Fastly');">Fastly</a>, we&#8217;re delighted to make it available to everyone, so you can use it too.</p>
+<p>So, if you want some ES6 in your IE7, pop this tag into your HTML page today:</p>
+<pre class="prettyprint linenums"><code>&lt;script src="//cdn.polyfill.io/v1/polyfill.min.js"&gt;&lt;/script&gt;</code></pre>
+<p>In the latest version of Chrome, this produces a virtually empty file. In IE7, it gives you a huge amount of code. This is what it produces in your browser:</p>
+<figure style='width:100%'>
+<iframe width="100%" height="300" src='http://cdn.polyfill.io/v1/polyfill.min.js'></iframe><br />
+</figure>
+<h2>Performance: Keep going forwards</h2>
+<p>Our focus for legacy browsers should be compatibility, not performance. If you sacrifice the performance of modern browsers in order to improve performance in legacy browsers, you&#8217;re doing something wrong. The best thing that a user of a legacy browser can do to improve performance would be to upgrade to a newer one. If they can&#8217;t or won&#8217;t, they still deserve to get a working website that they can read, but it stands to reason that it&#8217;s not going to be the fastest experience they&#8217;ve ever had.</p>
+<p>So, by using the polyfill service developers can code using the latest standards that give the fastest performance in the latest browsers, and still be compatible with older browsers while they are hanging around.</p>
+<p>But what about the blocking request that would need to be made on each page load?  That is a problem, but it can be overcome by either using the polyfill service as a Node JS library or, if you’re not running a Node app, using it as a service and passing an extra ‘ua’ parameter to override the user agent.  This allows you to inline your Javascript rather than requiring an extra request at the top of your page (though this prevents public caching of the page unless the cache can vary by User-Agent).</p>
+<h2>Debuggable</h2>
+<p>We realised that it would be important for developers to understand which polyfills were being included in the bundle and why. At the top of every response we include a comment that lists all the polyfills we included, their licence and the feature name that caused their inclusion:</p>
+<pre class='prettyprint linenums'><code>/* Polyfill bundle includes the following polyfills.  For detailed credits
+ * and licence information see http://github.com/financial-times/polyfill-service.
+ * 
+ * Detected: chrome/37.0.2062
+ * 
+ * - Array.isArray, License: CC0  (required by modernizr:es5array)
+ * - Array.prototype.every, License: CC0  (required by modernizr:es5array)
+ * - Array.prototype.filter, License: CC0  (required by modernizr:es5array)
+ * - Array.prototype.forEach, License: CC0  (required by modernizr:es5array)
+ * - Array.prototype.indexOf, License: CC0  (required by modernizr:es5array)
+ * - Array.prototype.lastIndexOf, License: CC0  (required by modernizr:es5array)
+ * - Array.prototype.map, License: CC0  (required by modernizr:es5array)
+ * - Array.prototype.reduce, License: CC0  (required by modernizr:es5array)
+ * - Array.prototype.reduceRight, License: CC0  (required by modernizr:es5array)
+ * - Array.prototype.some, License: CC0  (required by modernizr:es5array)
+ */
+</code></pre>
+<h2>We need your help</h2>
+<p>The beauty of a canonical library of polyfills is that it becomes a much more valuable community tool than all the individual polyfills that make it up. We don&#8217;t use all the polyfills at the FT, so we need your help &#8211; if you&#8217;re a polyfill author, please take a moment to see whether we have a solution for the feature you&#8217;ve polyfilled, and let us know if yours is better (and whether we can use it!). If we don&#8217;t have it, consider <a href="https://github.com/Financial-Times/polyfill-service/pulls" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://github.com/Financial-Times/polyfill-service/pulls', 'making a pull request');">making a pull request</a> to add it to our library.</p>
+									</article>
+				<div id='comments'></div>
+						</main>
+		</div>
+		<footer class="o-footer o-footer--theme-light" id="footer">
+			<div class="o-footer__row o-footer__copyright">
+				<div class="o-footer__col o-footer__col--full-width">
+					<span>© THE FINANCIAL TIMES LTD 2016.</span>
+					<span><abbr title="Financial Times">FT</abbr> and ‘Financial Times’ are trademarks of The Financial Times Ltd.</span>
+				</div>
+			</div>
+			<div class="o-footer__pearson">
+				<div class="o-footer__row">
+					<div class="o-footer__col o-footer__col--full-width">
+						<div class="o-footer__pearson-tagline" aria-label="Always Learning"></div>
+						<div class="o-footer__pearson-logo" aria-label="Pearson"></div>
+					</div>
+				</div>
+			</div>
+		</footer>
+	</div>
+	<script>window.onload = function() { prettyPrint(); }</script><script type='text/javascript' src='http://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.js?ver=4.6.4'></script>
+<script type='text/javascript' src='../../../wp-includes/js/wp-embed.min.js%3Fver=4.6.4'></script>
+		<!--
+	JIRA Issue collector seems v unreliable
+	<script type="text/javascript" src="https://jira.ft.com/s/522ea8c716f027c1d18693d0cb29a056-T/en_UK-7dt5dq/64016/3/1.4.25/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector.js?locale=en-UK&amp;collectorId=eb5e21bf"></script>-->
+</body>
+</html>

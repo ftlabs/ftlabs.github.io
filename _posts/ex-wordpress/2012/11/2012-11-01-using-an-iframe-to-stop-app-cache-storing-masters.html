@@ -1,0 +1,485 @@
+---
+layout: null
+title: 'Tutorial 3: &#8216;Fixing&#8217; the application cache with an iframe'
+date: 2012-11-01
+permalink: /2012/11/using-an-iframe-to-stop-app-cache-storing-masters/
+---
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en-GB"> <![endif]-->
+<!--[if IE 7]>		<html class="no-js lt-ie9 lt-ie8" lang="en-GB"> <![endif]-->
+<!--[if IE 8]>		<html class="no-js lt-ie9" lang="en-GB"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en-GB"> <!--<![endif]-->
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>Tutorial 3: &#8216;Fixing&#8217; the application cache with an iframe | FT Labs</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+	<script src="https://polyfill.webservices.ft.com/v2/polyfill.min.js"></script>
+	<script src="../../../wp-content/themes/ftlabs-2016/main.js"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="../../../wp-content/themes/ftlabs-2016/style.css" />
+
+	<link rel='dns-prefetch' href='http://cdnjs.cloudflare.com/' />
+<link rel='dns-prefetch' href='http://s.w.org/' />
+<link rel="alternate" type="application/rss+xml" title="FT Labs &raquo; Feed" href="../../../feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="FT Labs &raquo; Comments Feed" href="../../../comments/feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="FT Labs &raquo; Tutorial 3: &#8216;Fixing&#8217; the application cache with an iframe Comments Feed" href="feed/index.html" />
+<link rel='stylesheet' id='prettify-css'  href='../../../wp-content/plugins/prettify-code-highlight/code.css%3Fver=4.6.4.css' type='text/css' media='all' />
+<!-- This site uses the Google Analytics by Yoast plugin v5.4.6 - Universal enabled - https://yoast.com/wordpress/plugins/google-analytics/ -->
+<script type="text/javascript">
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','__gaTracker');
+
+	__gaTracker('create', 'UA-32884353-1', 'labs.ft.com');
+	__gaTracker('set', 'forceSSL', true);
+	__gaTracker('send','pageview');
+
+</script>
+<!-- / Google Analytics by Yoast -->
+<link rel='https://api.w.org/' href='../../../wp-json/index.html' />
+<link rel='prev' title='Kosovo Software Freedom conference' href='../../../index.html%3Fp=3801.html' />
+<link rel='next' title='Batching decoupled API requests' href='../../../index.html%3Fp=6831.html' />
+<link rel="canonical" href="../../../index.html%3Fp=3601.html" />
+<link rel='shortlink' href='../../../index.html%3Fp=3601.html' />
+<link rel="alternate" type="application/json+oembed" href="../../../wp-json/oembed/1.0/embed%3Furl=http%253A%252F%252Flabs.ft.com%252F2012%252F11%252Fusing-an-iframe-to-stop-app-cache-storing-masters%252F" />
+<link rel="alternate" type="text/xml+oembed" href="../../../wp-json/oembed/1.0/embed%3Furl=http%253A%252F%252Flabs.ft.com%252F2012%252F11%252Fusing-an-iframe-to-stop-app-cache-storing-masters%252F&amp;format=xml" />
+</head>
+<body class="single single-post postid-3601 single-format-standard">
+	<div class="app" ontouchstart="">
+		<div class='container'>
+			<div class='sidebar'>
+				<div class='logo-wrap'>
+					<a href='../../../index.html' class='logo'>
+						<h1>FT Labs</h1>
+					</a>
+				</div>
+				<nav>
+					<ul id="menu-header-navigation" class="app-header_nav"><li id="menu-item-14082" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14082"><a href="../../../index.html">Home</a></li>
+<li id="menu-item-14083" class="menu-item menu-item-type-post_type menu-item-object-page current_page_parent menu-item-14083"><a href="../../../articles.1.html">Articles</a></li>
+<li id="menu-item-14084" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14084"><a href="../../../jobs.1.html">Jobs</a></li>
+<li id="menu-item-14085" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14085"><a href="../../../contact-us.1.html">Contact</a></li>
+</ul>				</nav>
+			</div>
+			<main>
+			<script> var page = 'article-view';
+			</script>
+				<article class="article_content body-text">
+									<h1>Tutorial 3: &#8216;Fixing&#8217; the application cache with an iframe</h1>
+					<div class="date">by <a href="../../../author/matthew/index.html">Matthew Andrews</a>, <time class="entry-date" datetime="2012-11-01T00:00:49+00:00" pubdate>1 November 2012</time></div>					<p>This is part 3 of a <a href="../../../category/tutorial/index.html">tutorial series</a> on how to make an FT style offline web app. <strong>If you haven’t already, please read <a href="../../../index.html%3Fp=2009.html">part 1</a> and <a href="../../../index.html%3Fp=2532.html">part 2</a> first.</strong></p>
+<p>One of the most important aspects of the web is the URL, and the direct connection between a URL and a single item of content. Currently for a number of reasons we break this rule and the demo app delivers the whole experience through a single URL. To fix this we need to deal with the problem with the application cache which caused us to adopt a single URL in the first place.</p>
+<p>As I mentioned in Tutorial 1, one of the ill thought out features of the HTML5 application cache is that the page which points to the manifest in its HTML tag – <code>&lt;html manifest="myappcache.manifest"&gt;</code> – will itself also be cached, whether you like it or not. This is a problem because each time a user arrives on the demo web app from a different URL (which in the case of the FT is several million articles) their browser will attempt to add that URL into the application cache, indefinitely until the application cache runs out of space. So we have to find a solution that will allow users to begin to use the demo app from any URL without littering their browser’s application cache with unwanted content.</p>
+<p><a href="https://github.com/matthew-andrews/ft-style-offline-web-app-part-3" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://github.com/matthew-andrews/ft-style-offline-web-app-part-3', 'Forks, stars, pulls and even issue reports all welcome on GitHub.com.');">Forks, stars, pulls and even issue reports all welcome on GitHub.com.</a></p>
+<p><a href="http://dev.labs.ft.com/matthew/pt3/" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://dev.labs.ft.com/matthew/pt3/', 'Experience the demo app working here');">Experience the demo app working here</a>.</p>
+<h2>Getting Started</h2>
+<p>Start by cloning (<a href="https://github.com/matthew-andrews/ft-style-offline-web-app-part-2/zipball/master" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://github.com/matthew-andrews/ft-style-offline-web-app-part-2/zipball/master', 'or downloading');">or downloading</a>) the GitHub repository from Part 2.</p>
+<pre class="prettyprint linenums"><code>git clone https://github.com/matthew-andrews/ft-style-offline-web-app-part-2.git</code></pre>
+<h2>Requirements</h2>
+<ul>
+<li>Maintain compatibility with all previous browsers and devices</li>
+<li>Allow the demo app to be loaded from any URL (except those beginning with <code>api</code>) in preparation of switching from hashtag URLs to real URLs.</li>
+<li>Maintain control of what is in the application cache.</li>
+</ul>
+<h2>Preventing the application cache from storing masters with an iframe</h2>
+<p>We worked around this application cache problem on the <a href="../../../index.html%3Fp=291.html"><strong>Economist HTML5 app</strong></a> by using an <code>IFRAME</code>. The trick is rather than include a manifest attribute on the html tag of the page loaded, instead load an almost empty page (empty except for a little Javascript) that has the manifest attribute in its html tag in a hidden iframe. This means no matter which page your users load the demo web app, the browser will only store one unique master entry and therefore the files stored by the application cache are also always the same.</p>
+<p>We then rely on <code>FALLBACK</code> rules inside the application cache manifest to ensure that every URL within the demo web app, including the URL the user initially loaded the web app on, can be loaded without an internet connection.</p>
+<p><strong>The new and changed files required in this tutorial:-<br />
+</strong></p>
+<table>
+<tr>
+<td>/source/appcache.js</td>
+<td>The code in the web app responsible for loading the iframe</td>
+</tr>
+<tr>
+<td>/api/resources/index.php</td>
+<td>Adding the above file into the web app Javascript; also setting a new app global <code>APP_ROOT</code> which will be the absolute path to the root of the web app.</td>
+</tr>
+<tr>
+<td>/offline.manifest.php</td>
+<td>Changes required by the iframe solution and to prepare for the History API (coming in Tutorial 4)</td>
+</tr>
+<tr>
+<td>/manifest.html</td>
+<td>The file to be loaded by the iframe</td>
+</tr>
+<tr>
+<td>/api/offline/index.html</td>
+<td>A fallback for any request starting /api when no connection is available. All other requests will fallback to the root file (index.php).</td>
+</tr>
+<tr>
+<td>/source/applicationcontroller.js</td>
+<td>Updating the web app to use the new iframe application cache solution</td>
+</tr>
+<tr>
+<td>/source/articles/articlescontroller.js</td>
+<td>Updating the path to the articles api call to make use of the <code>APP_ROOT</code> global – we can no longer rely on relative paths because the subfolder of the page the user is viewing can vary.</td>
+</tr>
+<tr>
+<td>/index.php (renamed from index.html)</td>
+<td>Preventing the bootstrap (<a href="../../../index.html%3Fp=2009.html">discussed in Tutorial 1</a>) from using the old, non-iframe based offline caching solution as well as changing all the relative paths to absolute paths.</td>
+</tr>
+<tr>
+<td>/.htaccess</td>
+<td>A simple mod rewrite to route all requests not beginning with <strong>/api</strong> to index.php.</td>
+</tr>
+</table>
+<p><strong>/source/appcache.js</strong><br />
+This file will take care of informing the user that the website is capable of working offline and will request permission to do so. This is a good idea, because it means we can control at least the first part of the offline permission prompt experience and prepare the user for <a href="http://mattandre.ws/2012/09/firefox-a-bit-too-polite/" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://mattandre.ws/2012/09/firefox-a-bit-too-polite/', 'any odd things the browser may do');">any odd things the browser may do</a>.</p>
+<p>Once it has permission this code will also be responsible for managing the iframe – both adding it to the DOM and removing it once the application cache is populated.</p>
+<p>You might also have noticed on line 17 we are making use of a new app-wide global variable <code>APP_ROOT</code>. This will be set in <strong>api/resources/index.php</strong> and will be the path to the root of the web app (simply “/” if it is sitting at the top of a domain, like app.ft.com, or the path to subfolder that contains the demo app)</p>
+<p><span style="font-size: 80%; line-height: 1em;">Huge amount of credit to <a href="https://github.com/georgecrawford" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://github.com/georgecrawford', 'George Crawford');">George Crawford</a>, lead developer of <a href="../../../index.html%3Fp=291.html">The Economist HTML5 app</a> and <a href="../../../index.html%3Fp=311.html">FT columnflow</a>, for this and <strong>manifest.html</strong> that I&#8217;ve butchered for the purposes of this tutorial.</span></p>
+<pre class="prettyprint linenums"><code>APP.appcache = (function () {
+	'use strict';
+
+	var statuses = {
+		&quot;-1&quot;: 'timeout',
+		&quot;0&quot;: 'uncached',
+		&quot;1&quot;: 'idle',
+		&quot;2&quot;: 'checking',
+		&quot;3&quot;: 'downloading',
+		&quot;4&quot;: 'updateready',
+		&quot;5&quot;: 'obsolete'
+	}, offlineEnabled;
+
+	function innerLoad() {
+		var iframe = document.createElement('IFRAME');
+		iframe.setAttribute('style', 'width:0px; height:0px; visibility:hidden; position:absolute; border:none');
+		iframe.src = APP_ROOT + 'manifest.html';
+		iframe.id = 'appcacheloader';
+		document.body.appendChild(iframe);
+	}
+
+	function logEvent(evtcode, hasChecked) {
+		var s = statuses[evtcode], loaderEl;
+		if (hasChecked || s === 'timeout') {
+			if (s === 'uncached' || s === 'idle' || s === 'obsolete' || s === 'timeout' || s === 'updateready') {
+				loaderEl = document.getElementById('appcacheloader');
+				loaderEl.parentNode.removeChild(loaderEl);
+			}
+		}
+	}
+
+	function requestOffline() {
+		return confirm(&quot;This website is capable of working offline. Would you like to enable this feature?&quot;);
+	}
+
+	function start() {
+		if (offlineEnabled !== true &amp;&amp; offlineEnabled !== false) {
+			offlineEnabled = requestOffline();
+			if (offlineEnabled) {
+				localStorage.offlineEnabled = true;
+			}
+		}
+		if (offlineEnabled === true) {
+			innerLoad();
+		}
+	}
+
+	// If offline mode already enabled, run innerLoad
+	offlineEnabled = localStorage.offlineEnabled;
+
+	if (offlineEnabled !== undefined) {
+		offlineEnabled = (offlineEnabled === &quot;true&quot;);
+	}
+
+	return {
+		start: start,
+		logEvent: logEvent
+	};
+}());</code></pre>
+<p><strong>/api/resources/index.php</strong><br />
+We need to add <strong>appcache.js</strong> into the application Javascript (the new line is line 14).</p>
+<p>So that the web app can work from inside a subfolder we also need to set the new global variable, <code>APP_ROOT</code>, which I introduced earlier.</p>
+<pre class="prettyprint linenums"><code>&lt;?php
+// Concatenate the files in the /source/ directory
+// This would be a sensible point to compress your Javascript.
+$js = '';
+$js = $js . file_get_contents('../../libraries/client/fastclick.js');
+$js = $js . 'window.APP={}; (function (APP) {';
+$js = $js . file_get_contents('../../source/application/applicationcontroller.js');
+$js = $js . file_get_contents('../../source/articles/articlescontroller.js');
+$js = $js . file_get_contents('../../source/articles/article.js');
+$js = $js . file_get_contents('../../source/datastores/network.js');
+$js = $js . file_get_contents('../../source/datastores/indexeddb.js');
+$js = $js . file_get_contents('../../source/datastores/websql.js');
+$js = $js . file_get_contents('../../source/templates.js');
+$js = $js . file_get_contents('../../source/appcache.js');
+$js = $js . '}(APP)),';
+
+// Detect and set the absolute path to the root of the web app
+// First get a clean version of the current directory (will include api/resources)
+$appRoot = trim(dirname($_SERVER['SCRIPT_NAME']), '/');
+
+// Strip of api/resources from the end of the path
+$appRoot = trim(preg_replace('/api/resources$/i', '', $appRoot), '/');
+
+// Ensure the path starts and ends with a slash or just / if on the root of domain
+$appRoot = '/' . ltrim($appRoot . '/', '/');
+
+$js = $js . 'APP_ROOT = &quot;' . $appRoot . '&quot;;';
+
+$output['js'] = $js;
+
+// Concatenate the files in the /css/ directory
+// This would be a sensible point to compress your css
+$css = '';
+$css = $css . file_get_contents('../../css/global.css');
+$output['css'] = $css;
+
+// Encode with JSON (PHP 5.2.0+) &amp; output the resources
+echo json_encode($output);</code></pre>
+<p><strong>/offline.manifest.php</strong><br />
+There&#8217;s only one change to the manifest file. I&#8217;ve added a <code>FALLBACK</code> section. The <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/offline.html#concept-appcache-manifest-fallback" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://www.whatwg.org/specs/web-apps/current-work/multipage/offline.html#concept-appcache-manifest-fallback', 'FALLBACK section of the HTML5 application cache');"><code>FALLBACK</code> section of the HTML5 application cache</a> uses basic pattern matching (something like Apache&#8217;s .htaccess’ mod rewrite) to provide an offline response for resources that aren&#8217;t specifically cached in the application cache. In our example, we don’t want to list every single article we have ever published (because there are too many) – but even if we are offline, and therefore can’t display an article the user may have requested, we’d like the ability to display a branded “Article not found” error instead.</p>
+<p>Under these new fallback rules, if a user does not have an internet connection and navigates to any URL that doesn’t begin with <strong>/api</strong> the browser should* return (“fallback to using”) the root page of our web app. Any URL beginning with <strong>/api</strong> should* get <strong>api/offline</strong> – which is just a file that contains the single word &#8220;offline&#8221;.</p>
+<p>* With the exception of Internet Explorer 10. Although Internet Explorer 10 does support fallbacks, it only supports them for subresources – it can’t load a page via a fallback directly if the application cache doesn’t explicitly have that page cached offline.</p>
+<pre class="prettyprint linenums"><code>&lt;?php
+header(&quot;Content-Type: text/cache-manifest&quot;);
+
+// Detect the demo app root (taken from api/resources/index.php)
+$appRoot = trim(dirname($_SERVER['SCRIPT_NAME']), '/');
+$appRoot = '/' . ltrim($appRoot . '/', '/');
+?&gt;
+CACHE MANIFEST
+# 2012-10-29 v1
+jquery.min.js
+
+FALLBACK:
+&lt;?php echo $appRoot; ?&gt;api &lt;?php echo $appRoot; ?&gt;api/offline/
+&lt;?php echo $appRoot; ?&gt; &lt;?php echo $appRoot; ?&gt;
+
+
+NETWORK:
+*</code></pre>
+<p><strong>/manifest.html</strong><br />
+This is the file that will be included by the demo app in the iframe. It intentionally has no content to minimise its size (it will count towards the application cache’s storage limit) and because the contents of the iframe will never be shown to the user. This is only file in the project that will have a <code>manifest</code> attribute set in the html tag.</p>
+<p>We have also implemented some basic Javascript event listeners to listen for application cache events in order to pass notifications up to <code>parent</code> (the page in which the iframe is contained).</p>
+<pre class="prettyprint linenums"><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot; manifest=&quot;offline.manifest.php&quot;&gt;
+	&lt;head&gt;
+		&lt;script type=&quot;text/javascript&quot; src=&quot;jquery.min.js&quot;&gt;&lt;/script&gt;
+		&lt;script type=&quot;text/javascript&quot;&gt;
+			$(document).ready(function () {
+				'use strict';
+
+				var checkTimer, status, hasChecked, loopMax = 60;
+
+				function check() {
+					if (applicationCache.status === applicationCache.CHECKING
+							|| applicationCache.status === applicationCache.DOWNLOADING
+							|| applicationCache.status === applicationCache.UPDATEREADY) {
+						hasChecked = true;
+					}
+					if (applicationCache.status !== status) {
+						status = applicationCache.status;
+						parent.APP.appcache.logEvent(status, hasChecked);
+					}
+					loopMax = loopMax - 1;
+					if (loopMax &gt; 0) {
+						if (checkTimer) {
+							clearTimeout(checkTimer);
+						}
+						setTimeout(check, 1000);
+					} else {
+						parent.APP.appcache.logEvent(-1, hasChecked);
+					}
+				}
+
+				if (parent.APP) {
+					$(applicationCache).bind('updateready cached checking downloading error noupdate obsolete progress updateready', check);
+					setTimeout(check, 250);
+				}
+			});
+		&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p><strong>/api/offline/index.html</strong><br />
+This is the page that the application cache will return for any api request if the network request fails. The reason why we have to have to have a specific api fallback is so that we don’t accidentally allow the application cache to return the bootstrap html page in response to our api requests.</p>
+<pre class="prettyprint linenums"><code>offline</code></pre>
+<p><strong>/source/applicationcontroller.js</strong><br />
+There is only a tiny change required in the application controller, which to run the <code>APP.appcache.start();</code> method within the <strong>initialize</strong> method, which will ask permission from the user to enable the demo app to load offline and enable that feature if the user says yes. See line 26 for the new code required.</p>
+<pre class="prettyprint linenums"><code>... etc ...
+
+ function initialize(resources) {
+
+        // Listen to the hash tag changing
+        if (&quot;onhashchange&quot; in window) {
+            $(window).bind(&quot;hashchange&quot;, route);
+            
+        // Support for old IE (which didn't have hash change)
+        } else {
+            (function () {
+                var lastHash = window.location.hash;
+                window.setInterval(function () {
+                    if (window.location.hash !== lastHash) {
+                        lastHash = window.location.hash;
+                        route();
+                    }
+                }, 100);
+            }());
+        }
+
+        // Set up FastClick
+        fastClick = new FastClick(document.body);
+
+        // Initalise appcache
+        APP.appcache.start();	
+
+        // Inject CSS Into the DOM
+        $(&quot;head&quot;).append(&quot;&lt;style&gt;&quot; + resources.css + &quot;&lt;/style&gt;&quot;);
+
+        // Create app elements
+        $(&quot;body&quot;).append(APP.templates.application());
+
+        // Remove our loading splash screen
+        $(&quot;#loading&quot;).remove();
+
+        route();
+    }
+
+... etc ...</code></pre>
+<p><strong>/source/articles/articlescontroller.js</strong></p>
+<p>Again a very small change (line 6) to change <code>url: 'api/articles'</code> to <code>url: APP_ROOT + 'api/articles/'</code>.</p>
+<pre class="prettyprint linenums"><code>... etc ...
+
+    function synchronizeWithServer(failureCallback) {
+        $.ajax({
+            dataType: 'json',
+            url: APP_ROOT + 'api/articles/',
+            success: function (articles) {
+                APP.article.deleteArticles(function () {
+                    APP.article.insertArticles(articles, function () {
+                        /*
+                         * Instead of the line below we *could* just run showArticeList() but since
+                         * we already have the articles in scope we needn't make another call to the
+                         * database and instead just render the articles straight away.
+                         */
+                        $(&quot;#headlines&quot;).html(APP.templates.articleList(articles));
+                    });
+                });
+            },
+            type: &quot;GET&quot;,
+            error: function () {
+                if (failureCallback) {
+                  failureCallback();
+                }
+            }
+        });
+    }
+
+... etc ...</code></pre>
+<p><strong>/index.php (renamed from index.html)</strong><br />
+Because this file will no longer just be able to be loaded from the root of the demo app (it will also be served from any request to the web app &#8211; except for requests starting with /api) it has to be know where the demo app’s root is so that it can load jQuery (see line 10) and the demo app’s resources (see line 55).</p>
+<pre class="prettyprint linenums"><code>&lt;?php
+// Detect the demo app root (taken from api/resources/index.php)
+$appRoot = trim(dirname($_SERVER['SCRIPT_NAME']), '/');
+$appRoot = '/' . ltrim($appRoot . '/', '/');
+?&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+	&lt;head&gt;
+		&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no&quot; /&gt;
+		&lt;script type=&quot;text/javascript&quot; src=&quot;&lt;?php echo $appRoot; ?&gt;jquery.min.js&quot;&gt;&lt;/script&gt;
+		&lt;script type=&quot;text/javascript&quot;&gt;
+			$(document).ready(function () {
+
+				var APP_START_FAILED = &quot;I'm sorry, the app can't start right now.&quot;;
+				function startWithResources(resources, storeResources) {
+
+					// Try to execute the Javascript
+					try {
+						eval(resources.js);
+						APP.applicationController.start(resources, storeResources);
+
+					// If the Javascript fails to launch, stop execution!
+					} catch (e) {
+						if (typeof console !== &quot;undefined&quot;) {
+							console.log(e);
+						}
+						alert(APP_START_FAILED);
+					}
+				}
+				function startWithOnlineResources(resources) {
+					startWithResources(resources, true);
+				}
+
+				function startWithOfflineResources(e) {
+					var resources;
+
+					// If we have resources saved from a previous visit, use them
+					if (localStorage &amp;&amp; localStorage.resources) {
+						resources = JSON.parse(localStorage.resources);
+						startWithResources(resources, false);
+
+					// Otherwise, apologize and let the user know
+					} else {
+						alert(APP_START_FAILED);
+					}
+				}
+
+				// If we know the device is offline, don't try to load new resources
+				if (navigator &amp;&amp; navigator.onLine === false) {
+					startWithOfflineResources();
+
+				// Otherwise, download resources, eval them, if successful push them into local storage.
+				} else {
+					$.ajax({
+						url: '&lt;?php echo $appRoot; ?&gt;api/resources/',
+						success: startWithOnlineResources,
+						error: startWithOfflineResources,
+						dataType: 'json'
+					});
+				}
+
+			});
+		&lt;/script&gt;
+		&lt;title&gt;News&lt;/title&gt;
+	&lt;/head&gt;
+&lt;body&gt;
+	&lt;div id=&quot;loading&quot;&gt;Loading&amp;hellip;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p><strong>/.htaccess</strong><br />
+Finally, use Apache&#8217;s htaccess’s <code>mod_rewrite</code> (assuming you are using an Apache server with this feature enabled) to route every request to index.php except requests for specific files or folders or requests to the api.</p>
+<pre class="prettyprint linenums"><code>&lt;IfModule mod_rewrite.c&gt;
+        RewriteEngine On
+        RewriteCond %{REQUEST_FILENAME} !-f
+        RewriteCond %{REQUEST_FILENAME} !-d
+        
+        # Match everything not under /api/ to index.php
+        RewriteRule !^api/. index.php [L]
+&lt;/IfModule&gt;</code></pre>
+<h2>Wrapping Up</h2>
+<p>Users can now load the demo app from any URL – ie. where previously users could only access the demo app from the root of our web app, which for example could be <strong>example.com/path/to/app/</strong>, they can now access it from, say, <strong>example.com/path/to/app/any-article</strong> or <strong>example.com/path/to/app/subfolder/2012/11/01/another-article</strong> and we stay in complete control of what is stored inside our user’s application cache and we don’t break our the rules of what to store in the application cache, which we set out in <a href="../../../index.html%3Fp=2009.html">Tutorial 1</a>.</p>
+<p>But at the moment the demo app isn’t aware of there being any difference between these URLs so it will always return the same content. In next month’s article we will implement the <strong>History API</strong> – which will allow us to remove hash tag URLs and be one step closer to getting the initial load of app rendered on the server, use real URLs and allow the demo app to be crawlable by search engines.</p>
+<p>If you think you’d like to work on this sort of thing and live (or would like to live) in London, <a href="../../../jobs.1.html">we’re hiring!</a></p>
+<p><span style="font-size: 80%; line-height: 1em;">By <a href="http://mattandre.ws" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://mattandre.ws', 'Matt Andrews');">Matt Andrews</a> – @andrewsmatt on <a href="http://twitter.com/andrewsmatt" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://twitter.com/andrewsmatt', 'Twitter');">Twitter</a> &amp; <a href="http://weibo.com/andrewsmatt" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://weibo.com/andrewsmatt', 'Weibo');">Weibo</a>.</span></p>
+<p align="right"><strong><a href="../../../index.html%3Fp=7951.html">Continue to part 4 &#8211; Putting the web back into web app <span class="meta-nav">→</span></a></strong></p>
+									</article>
+				<div id='comments'></div>
+						</main>
+		</div>
+		<footer class="o-footer o-footer--theme-light" id="footer">
+			<div class="o-footer__row o-footer__copyright">
+				<div class="o-footer__col o-footer__col--full-width">
+					<span>© THE FINANCIAL TIMES LTD 2016.</span>
+					<span><abbr title="Financial Times">FT</abbr> and ‘Financial Times’ are trademarks of The Financial Times Ltd.</span>
+				</div>
+			</div>
+			<div class="o-footer__pearson">
+				<div class="o-footer__row">
+					<div class="o-footer__col o-footer__col--full-width">
+						<div class="o-footer__pearson-tagline" aria-label="Always Learning"></div>
+						<div class="o-footer__pearson-logo" aria-label="Pearson"></div>
+					</div>
+				</div>
+			</div>
+		</footer>
+	</div>
+	<script>window.onload = function() { prettyPrint(); }</script><script type='text/javascript' src='http://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.js?ver=4.6.4'></script>
+<script type='text/javascript' src='../../../wp-includes/js/wp-embed.min.js%3Fver=4.6.4'></script>
+		<!--
+	JIRA Issue collector seems v unreliable
+	<script type="text/javascript" src="https://jira.ft.com/s/522ea8c716f027c1d18693d0cb29a056-T/en_UK-7dt5dq/64016/3/1.4.25/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector.js?locale=en-UK&amp;collectorId=eb5e21bf"></script>-->
+</body>
+</html>
