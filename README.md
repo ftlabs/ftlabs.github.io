@@ -1,5 +1,7 @@
 # Notes on the Jeykll-ifying of labs.ft.com
 
+https://ftlabs.github.io/
+
 ## steps
 
 ### recursive web suck of labs.ft.com
