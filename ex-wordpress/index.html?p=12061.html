@@ -1,0 +1,151 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en-GB"> <![endif]-->
+<!--[if IE 7]>		<html class="no-js lt-ie9 lt-ie8" lang="en-GB"> <![endif]-->
+<!--[if IE 8]>		<html class="no-js lt-ie9" lang="en-GB"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en-GB"> <!--<![endif]-->
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>Polyfill service 1.1 | FT Labs</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+	<script src="https://polyfill.webservices.ft.com/v2/polyfill.min.js"></script>
+	<script src="wp-content/themes/ftlabs-2016/main.js"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="wp-content/themes/ftlabs-2016/style.css" />
+
+	<link rel='dns-prefetch' href='http://cdnjs.cloudflare.com/' />
+<link rel='dns-prefetch' href='http://s.w.org/' />
+<link rel="alternate" type="application/rss+xml" title="FT Labs &raquo; Feed" href="feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="FT Labs &raquo; Comments Feed" href="comments/feed/index.html" />
+<link rel='stylesheet' id='prettify-css'  href='wp-content/plugins/prettify-code-highlight/code.css%3Fver=4.6.4.css' type='text/css' media='all' />
+<!-- This site uses the Google Analytics by Yoast plugin v5.4.6 - Universal enabled - https://yoast.com/wordpress/plugins/google-analytics/ -->
+<script type="text/javascript">
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','__gaTracker');
+
+	__gaTracker('create', 'UA-32884353-1', 'labs.ft.com');
+	__gaTracker('set', 'forceSSL', true);
+	__gaTracker('send','pageview');
+
+</script>
+<!-- / Google Analytics by Yoast -->
+<link rel='https://api.w.org/' href='wp-json/index.html' />
+<link rel='prev' title='Polyfill service 1.0' href='index.html%3Fp=11881.html' />
+<link rel='next' title='Debateworthy' href='index.html%3Fp=13811.html' />
+<link rel="canonical" href="index.html%3Fp=12061.html" />
+<link rel='shortlink' href='index.html%3Fp=12061.html' />
+<link rel="alternate" type="application/json+oembed" href="wp-json/oembed/1.0/embed%3Furl=http%253A%252F%252Flabs.ft.com%252F2015%252F01%252Fpolyfill-service-1-1%252F" />
+<link rel="alternate" type="text/xml+oembed" href="wp-json/oembed/1.0/embed%3Furl=http%253A%252F%252Flabs.ft.com%252F2015%252F01%252Fpolyfill-service-1-1%252F&amp;format=xml" />
+</head>
+<body class="single single-post postid-12061 single-format-standard">
+	<div class="app" ontouchstart="">
+		<div class='container'>
+			<div class='sidebar'>
+				<div class='logo-wrap'>
+					<a href='index.html' class='logo'>
+						<h1>FT Labs</h1>
+					</a>
+				</div>
+				<nav>
+					<ul id="menu-header-navigation" class="app-header_nav"><li id="menu-item-14082" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14082"><a href="index.html">Home</a></li>
+<li id="menu-item-14083" class="menu-item menu-item-type-post_type menu-item-object-page current_page_parent menu-item-14083"><a href="articles.1.html">Articles</a></li>
+<li id="menu-item-14084" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14084"><a href="jobs.1.html">Jobs</a></li>
+<li id="menu-item-14085" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14085"><a href="contact-us.1.html">Contact</a></li>
+</ul>				</nav>
+			</div>
+			<main>
+			<script> var page = 'article-view';
+			</script>
+				<article class="article_content body-text">
+									<h1>Polyfill service 1.1</h1>
+					<div class="date">by <a href="author/andrew/index.html">Andrew Betts</a>, <time class="entry-date" datetime="2015-01-08T00:08:06+00:00" pubdate>8 January 2015</time></div>					<p>We&#8217;re pleased to announce the release of a major update to the polyfill service, with our first CI-validated build, many improved polyfills and 8 new ones, support for callbacks and improvements in our documentation.  This update added 4,883 lines and deleted 2,222 across 196 files.  Here&#8217;s some more detail on the highlights.</p>
+<h2>Build: passing!</h2>
+<p>In 1.0, we added an extensive test harness and reporting system, and we added tests to a lot of polyfills.  This showed that while a lot of the polyfills worked fine, there were edge cases where they didn&#8217;t.  We&#8217;ve been working to fix those, and with 1.1 we have our first release of a 100% passing build, as well as even more test coverage: 315 tests across 82 browser features, tested in 24 browsers.  That means up to <strong>7,560 tests run on every push</strong>.</p>
+<p><figure><img alt='Travis CI showing passing build for polyfill service' src="https://image.webservices.ft.com/v1/images/raw/http://ftlabs.wpengine.com/wp-content/uploads/2015/01/Screen-Shot-2015-01-08-at-00.04.32.png" width="647" class="alignnone size-full wp-image-12131" srcset="wp-content/uploads/2015/01/Screen-Shot-2015-01-08-at-00.04.32.png 647w, wp-content/uploads/2015/01/Screen-Shot-2015-01-08-at-00.04.32-300x47.png%3Fsource=ftlabs 300w" sizes="(max-width: 647px) 100vw, 647px" /></figure></p>
+<p>We also updated the browsers that we use for testing to reflect new releases of Chrome and Firefox.</p>
+<h2>More polyfills</h2>
+<p>We&#8217;ve added polyfills for more features, based on requests from FT devs and the community, as well as contributions people have made via pull requests.  Here are the new browser features now polyfillable:</p>
+<ul>
+<li><code>Array.prototype.contains</code></li>
+<li><code>Array.prototype.find</code></li>
+<li><code>Array.prototype.findIndex</code></li>
+<li><code>Element.prototype.cloneNode</code></li>
+<li><code>Node.prototype.contains</code></li>
+<li><code>screen.orientation</code></li>
+<li><code>setImmediate</code></li>
+<li><code>WeakSet</code></li>
+</ul>
+<p>And the following existing polyfills have been improved:</p>
+<ul>
+<li><code>Array.from</code></li>
+<li><code>Array.isArray</code></li>
+<li><code>Array.of</code></li>
+<li><code>CustomEvent</code></li>
+<li><code>DOMTokenList</code></li>
+<li><code>Date.prototype.toISOString</code></li>
+<li><code>Document</code></li>
+<li><code>Element</code></li>
+<li><code>Element.prototype.mutation</code></li>
+<li><code>Event.DOMContentLoaded</code></li>
+<li><code>Event.focusin</code></li>
+<li><code>Event.hashchange</code></li>
+<li><code>Event</code></li>
+<li><code>HTMLDocument</code></li>
+<li><code>Object.defineProperty</code></li>
+<li><code>Object.keys</code></li>
+<li><code>Promise</code></li>
+<li><code>String.prototype.repeat</code></li>
+</ul>
+<h2>More browsers</h2>
+<p>We can now recognise and target polyfills at <a href="http://browser.yandex.com/" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://browser.yandex.com/', 'Yandex browser');">Yandex browser</a> (aliased to Chrome) and <a href="http://en.wikipedia.org/wiki/Mozilla_Corporation_software_rebranded_by_the_Debian_project#Iceweasel" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://en.wikipedia.org/wiki/Mozilla_Corporation_software_rebranded_by_the_Debian_project#Iceweasel', 'Iceweasel');">Iceweasel</a> (aliased to Firefox).  This release also reduces the granularity of our version matching from patch to minor: we&#8217;ve lost the ability to distinguish between version 1.2.3 and 1.2.4 of the same browser &#8211; but we found we have no need to be this granular and limiting variance to the minor level will improve cache performance.</p>
+<h2>Callback support</h2>
+<p>We now support a <code>callback</code> argument on the query string, to add a function call to the end of the resulting polyfill bundle.  This provides a simple and legacy-compatible way for you to load your own scripts asynchronously but execute them only when the required polyfills have been installed:</p>
+<pre class="prettyprint linenums"><code>&lt;script src="//cdn.polyfill.io/v1/polyfill.min.js?callback=init" defer async>&lt;/script>
+&lt;script>
+  function init() {
+    // I only get called when polyfills have been loaded
+  }
+&lt;/script></code></pre>
+<h2>Better feature docs</h2>
+<p>We now provide links in our documentation, for each feature, to the polyfill source code and to the test runner to run the test suite.  We also show the minifed size of the polyfill and flag it with a star if it&#8217;s in the default set.</p>
+<p><figure><img alt='Polyfill service 1.1 feature matrix' src="https://image.webservices.ft.com/v1/images/raw/http://ftlabs.wpengine.com/wp-content/uploads/2015/01/Screen-Shot-2015-01-07-at-23.31.37.png" width="688" class="alignnone size-full wp-image-12071" srcset="wp-content/uploads/2015/01/Screen-Shot-2015-01-07-at-23.31.37.png 688w, wp-content/uploads/2015/01/Screen-Shot-2015-01-07-at-23.31.37-300x93.png%3Fsource=ftlabs 300w" sizes="(max-width: 688px) 100vw, 688px" /></figure></p>
+<p>The visual style of the different indicators in the feature matrix has also been updated to make the distinction clearer and ensure it is visible to colour blind users.</p>
+<p>Because Gzipping of a concatenated bundle will compress polyfills by a different amount depending on how many are in the bundle, you can now <a href="https://cdn.polyfill.io/v1/docs/features/#understanding-polyfill-sizes" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://cdn.polyfill.io/v1/docs/features/#understanding-polyfill-sizes', 'see the total bundle size');">see the total bundle size</a> of the default feature set in all our test browsers:</p>
+<p><figure><img alt='Bundle sizes' src="https://image.webservices.ft.com/v1/images/raw/http://ftlabs.wpengine.com/wp-content/uploads/2015/01/Screen-Shot-2015-01-07-at-23.34.08.png" width="1016" class="alignnone size-full wp-image-12081" srcset="wp-content/uploads/2015/01/Screen-Shot-2015-01-07-at-23.34.08.png 1016w, wp-content/uploads/2015/01/Screen-Shot-2015-01-07-at-23.34.08-300x91.png%3Fsource=ftlabs 300w" sizes="(max-width: 1016px) 100vw, 1016px" /></figure></p>
+<h2>No more automatic feature expansion</h2>
+<p>Starting with this release the service will no longer auto-expand feature names.  Previously if you requested <code>Array</code> you would get <code>Array.*</code>, but this made it impossible to load just the constructor polyfills for <code>Window</code> and <code>Document</code>.  No requests in the last 7 days had used the service in a way that would have depended on this feature, so we feel we&#8217;re safe to remove it.</p>
+<h2>Better debug output</h2>
+<p>If you omit the <code>.min</code> from your request path, the comment at the top of the response will now additionally include the full resolved list of features requested.  This should be identical to the value of your <code>features</code> argument (albeit sorted into alphabetical order), and makes it easy to verify that you are receiving the correct response.</p>
+<p><figure><img alt='Feature list in debug header' src="https://image.webservices.ft.com/v1/images/raw/http://ftlabs.wpengine.com/wp-content/uploads/2015/01/Screen-Shot-2015-01-07-at-23.34.57.png" width="645" class="alignnone size-full wp-image-12091" srcset="wp-content/uploads/2015/01/Screen-Shot-2015-01-07-at-23.34.57.png 645w, wp-content/uploads/2015/01/Screen-Shot-2015-01-07-at-23.34.57-300x54.png%3Fsource=ftlabs 300w" sizes="(max-width: 645px) 100vw, 645px" /></figure></p>
+<h2>On the way: ES6</h2>
+<p>In our next release we hope to support polyfill sources written in ES6 syntax, along with more ES6 features like <code>WeakMap</code>.</p>
+<p>If you find the polyfill service useful, we&#8217;d love to hear from you, and we&#8217;d love to get you involved.  You can <a href="http://cdn.polyfill.io/v1/docs/contributing" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://cdn.polyfill.io/v1/docs/contributing', 'read more about contributing to the project');">read more about contributing to the project</a> in the service docs.</p>
+									</article>
+				<div id='comments'></div>
+						</main>
+		</div>
+		<footer class="o-footer o-footer--theme-light" id="footer">
+			<div class="o-footer__row o-footer__copyright">
+				<div class="o-footer__col o-footer__col--full-width">
+					<span>© THE FINANCIAL TIMES LTD 2016.</span>
+					<span><abbr title="Financial Times">FT</abbr> and ‘Financial Times’ are trademarks of The Financial Times Ltd.</span>
+				</div>
+			</div>
+			<div class="o-footer__pearson">
+				<div class="o-footer__row">
+					<div class="o-footer__col o-footer__col--full-width">
+						<div class="o-footer__pearson-tagline" aria-label="Always Learning"></div>
+						<div class="o-footer__pearson-logo" aria-label="Pearson"></div>
+					</div>
+				</div>
+			</div>
+		</footer>
+	</div>
+	<script>window.onload = function() { prettyPrint(); }</script><script type='text/javascript' src='http://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.js?ver=4.6.4'></script>
+<script type='text/javascript' src='wp-includes/js/wp-embed.min.js%3Fver=4.6.4'></script>
+		<!--
+	JIRA Issue collector seems v unreliable
+	<script type="text/javascript" src="https://jira.ft.com/s/522ea8c716f027c1d18693d0cb29a056-T/en_UK-7dt5dq/64016/3/1.4.25/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector.js?locale=en-UK&amp;collectorId=eb5e21bf"></script>-->
+</body>
+</html>
