@@ -115,7 +115,7 @@ permalink: /2015/11/url-sharing/
 <p>We generate a cryptographic signature of the share details string with the article UUID briefly appended. To form the <code>sharecode</code>, the first 8 characters of the signature are appended to the share details string. There is no need to include the article UUID in the actual <code>sharecode</code> because we have that in the URL itself.</p>
 <p>At this stage, we have a share code which is hard to modify without corrupting it. However, the contents of the sharecode are clearly readable, exposing the sharer’s UUID and sundry details. So one further step is taken to render the sharecode hard(er) to read: a seeded shuffle, using the secret key and article UUID as the seed.</p>
 <p>And now, at last, we have the sharecode. This is appended to the article URL to produce a URL which can be shared with anyone, enabling them to view the article, whether subscribed or not.</p>
-<pre class="prettyprint linenums"><code>(minus hyphens) User UUID = ABCDEFG123                        
+<pre class="prettyprint linenums"><code>(minus hyphens) User UUID = ABCDEFG123
           Share Timestamp =           1446809468
        Max Article Shares =                     0001
                   Context =                         1
@@ -123,7 +123,7 @@ permalink: /2015/11/url-sharing/
 
              Article UUID = 5562d69c-83b5-11e5-8095-ed1a37d1e096
 
-         (full) Signature = a4f5d3e2. . . . . . . 
+         (full) Signature = a4f5d3e2. . . . . . .
    (8 chars of) Signature =                          a4f5d3e2   &lt;-- Nearly there
    (unshuffled) Sharecode = ABCD123EFG144680946800011a4f5d3e2   &lt;-- This is it!</code></pre>
 <h3>Decrypting a share code</h3>
@@ -141,7 +141,7 @@ permalink: /2015/11/url-sharing/
 <li>it is attached to the correct article</li>
 </ul>
 <h3>Architecture</h3>
-<p>We extended an existing <a href="http://origami.ft.com/" target="_blank">Origami</a> component, <a href="http://registry.origami.ft.com/components/o-share" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://registry.origami.ft.com/components/o-share', 'o-share');" target="_blank">o-share</a>, which already knows about the various social sharing sites, to append the sharecode to the article URL, and allow the power-sharer to refine the maximum number of &#8216;gifted&#8217; shares of the URL. This will be hidden behind a flag; only FT staff and selected external clients will be able to generate share codes during the experiment.</p>
+<p>We extended an existing <a href="http://origami.ft.com/" target="_blank">Origami</a> component, <a href="https://registry.origami.ft.com/components/o-share" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://registry.origami.ft.com/components/o-share', 'o-share');" target="_blank">o-share</a>, which already knows about the various social sharing sites, to append the sharecode to the article URL, and allow the power-sharer to refine the maximum number of &#8216;gifted&#8217; shares of the URL. This will be hidden behind a flag; only FT staff and selected external clients will be able to generate share codes during the experiment.</p>
 <p>The share code generator service was hosted on Heroku (receiving requests from the o-share component), generating both the default share URL which appears in the browser bar and the user-configured variants when they click on the “Share” link.</p>
 <p>We also needed a &#8216;share store&#8217;, a database of gift credit balances, and a record of redemptions, so that we can make judgements about whether a shared URL is still valid for access. This is another simple Heroku-hosted postgres DB with API which records each redemption of a shared url, keeping track of the gift credits of each user, and the remaining credits for each URL they shared (and has been received), decrementing them as appropriate.</p>
 <p>Finally, we needed a hook in our main access/authorisation logic (internally known as ‘pre-flight’), which calls the share store to determine whether an attempt to redeem a sharecode-adorned link should succeed.</p>

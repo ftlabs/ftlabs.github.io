@@ -85,9 +85,9 @@
 <li>Each component must have a single &#8216;main&#8217; file for each language, and declare it in a <code>bower.json</code> file</li>
 </ul>
 <p>The Build service resolves module names to Git repos using the public bower registry and our own private bower registry, which allows us to specify Origami components using short names even though they&#8217;re not in the public registry (though most of them <em>are</em> public, on our GitHub account, so feel free to go have a look if you want).</p>
-<p>Here&#8217;s an example, which you get by loading the URL <code>http://build.origami.ft.com/bundles/css?modules=o-grid</code>:</p>
+<p>Here&#8217;s an example, which you get by loading the URL <code>https://build.origami.ft.com/bundles/css?modules=o-grid</code>:</p>
 <figure style='width:100%'>
-<iframe width="100%" height="300" src='http://build.origami.ft.com/bundles/css?modules=o-grid'></iframe><br />
+<iframe width="100%" height="300" src='https://build.origami.ft.com/bundles/css?modules=o-grid'></iframe><br />
 </figure>
 <p>That should show the source of the <a href="http://github.com/Financial-Times/o-grid" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://github.com/Financial-Times/o-grid', 'o-grid');">o-grid</a> component, our CSS grid.  As I write this, we&#8217;re on version 2.0.7, but, because I didn&#8217;t specify a version number in the <code>modules</code> parameter, the code above will change every time we tag a new version of Grid.</p>
 <h2>Granular upgrades</h2>
