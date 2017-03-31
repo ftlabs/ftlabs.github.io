@@ -33,15 +33,14 @@ gratifyingly, kinda worked
    * construct new dirs and copy file under \_posts/ex-wordpress
    * with front matter prepended
 * tidy the WP pages into new dir, /ex-wordpress
+* fix http origami+cloudflare+brightcove refs in new posts to use https
+* split posts into content + layout
+   * with new layout: wp-post
 
 ## ToDo
 
-* fix http origami refs in new posts to work with https
 * tidy up refs to ?p=xxx files
-* move wp-\* dirs under /ex-wordpress
-   * and rewrite refs to them in posts
 * create new style/layout etc for posts
-* split posts into content + layout
 * strip out old styling and wp refs
 * add GA tracking back in
 * rethink front page
