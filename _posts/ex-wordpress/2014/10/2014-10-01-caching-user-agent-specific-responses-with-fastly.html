@@ -1,71 +1,10 @@
 ---
-layout: null
+layout: wp-post
 title: 'Caching User-Agent specific responses with Fastly'
 date: 2014-10-01
 categories: ex-wordpress
 permalink: /2014/10/caching-user-agent-specific-responses-with-fastly/
 ---
-<!doctype html>
-<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en-GB"> <![endif]-->
-<!--[if IE 7]>		<html class="no-js lt-ie9 lt-ie8" lang="en-GB"> <![endif]-->
-<!--[if IE 8]>		<html class="no-js lt-ie9" lang="en-GB"> <![endif]-->
-<!--[if gt IE 8]><!--> <html lang="en-GB"> <!--<![endif]-->
-<head>
-	<meta charset="UTF-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<title>Caching User-Agent specific responses with Fastly | FT Labs</title>
-	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
-	<script src="https://polyfill.webservices.ft.com/v2/polyfill.min.js"></script>
-	<script src="../../../wp-content/themes/ftlabs-2016/main.js"></script>
-	<link rel="stylesheet" type="text/css" media="all" href="../../../wp-content/themes/ftlabs-2016/style.css" />
-
-	<link rel='dns-prefetch' href='https://cdnjs.cloudflare.com/' />
-<link rel='dns-prefetch' href='http://s.w.org/' />
-<link rel="alternate" type="application/rss+xml" title="FT Labs &raquo; Feed" href="../../../feed/index.html" />
-<link rel="alternate" type="application/rss+xml" title="FT Labs &raquo; Comments Feed" href="../../../comments/feed/index.html" />
-<link rel='stylesheet' id='prettify-css'  href='../../../wp-content/plugins/prettify-code-highlight/code.css%3Fver=4.6.4.css' type='text/css' media='all' />
-<!-- This site uses the Google Analytics by Yoast plugin v5.4.6 - Universal enabled - https://yoast.com/wordpress/plugins/google-analytics/ -->
-<script type="text/javascript">
-	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	})(window,document,'script','//www.google-analytics.com/analytics.js','__gaTracker');
-
-	__gaTracker('create', 'UA-32884353-1', 'labs.ft.com');
-	__gaTracker('set', 'forceSSL', true);
-	__gaTracker('send','pageview');
-
-</script>
-<!-- / Google Analytics by Yoast -->
-<link rel='https://api.w.org/' href='../../../wp-json/index.html' />
-<link rel='prev' title='Polyfills as a service' href='../../../index.html%3Fp=10901.html' />
-<link rel='next' title='Polyfill service 1.0' href='../../../index.html%3Fp=11881.html' />
-<link rel="canonical" href="../../../index.html%3Fp=11651.html" />
-<link rel='shortlink' href='../../../index.html%3Fp=11651.html' />
-<link rel="alternate" type="application/json+oembed" href="../../../wp-json/oembed/1.0/embed%3Furl=http%253A%252F%252Flabs.ft.com%252F2014%252F10%252Fcaching-user-agent-specific-responses-with-fastly%252F" />
-<link rel="alternate" type="text/xml+oembed" href="../../../wp-json/oembed/1.0/embed%3Furl=http%253A%252F%252Flabs.ft.com%252F2014%252F10%252Fcaching-user-agent-specific-responses-with-fastly%252F&amp;format=xml" />
-</head>
-<body class="single single-post postid-11651 single-format-standard">
-	<div class="app" ontouchstart="">
-		<div class='container'>
-			<div class='sidebar'>
-				<div class='logo-wrap'>
-					<a href='../../../index.html' class='logo'>
-						<h1>FT Labs</h1>
-					</a>
-				</div>
-				<nav>
-					<ul id="menu-header-navigation" class="app-header_nav"><li id="menu-item-14082" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14082"><a href="../../../index.html">Home</a></li>
-<li id="menu-item-14083" class="menu-item menu-item-type-post_type menu-item-object-page current_page_parent menu-item-14083"><a href="../../../articles.1.html">Articles</a></li>
-<li id="menu-item-14084" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14084"><a href="../../../jobs.1.html">Jobs</a></li>
-<li id="menu-item-14085" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14085"><a href="../../../contact-us.1.html">Contact</a></li>
-</ul>				</nav>
-			</div>
-			<main>
-			<script> var page = 'article-view';
-			</script>
-				<article class="article_content body-text">
-									<h1>Caching User-Agent specific responses with Fastly</h1>
 					<div class="date">by <a href="../../../author/andrew/index.html">Andrew Betts</a>, <time class="entry-date" datetime="2014-10-04T12:49:59+00:00" pubdate>4 October 2014</time></div>					<p class='standfirst'>The new <a href="https://cdn.polyfill.io" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://cdn.polyfill.io', 'FT polyfill service');">FT polyfill service</a> uses the Fastly CDN to provide faster and more reliable access to Polyfills for everyone.  But with responses varying by user-agent, it&#8217;s a caching nightmare.  We set out to fix this with a little help from Fastly&#8217;s engineers and custom Varnish VCL.</p>
 <p>There is so much variety in the User-Agent header that many will only be seen once.  The website <a href="http://useragentstring.com" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://useragentstring.com', 'UserAgentString');">UserAgentString</a> identifies over 11,000 unique user agent strings, and in fact that&#8217;s a huge underestimate (a friend at Akamai told me that they see millions of unique values <em>every day</em>).  Worse, they&#8217;re impossible to trivially analyse:</p>
 <figure id="attachment_11741" class="wp-caption alignnone"><img alt='Windows Phone 8.1 IE user agent' src="https://image.webservices.ft.com/v1/images/raw/http://ftlabs.wpengine.com/wp-content/uploads/2014/09/Screen-Shot-2014-09-27-at-19.12.42.png" width="1148" class="size-full wp-image-11741" srcset="../../../wp-content/uploads/2014/09/Screen-Shot-2014-09-27-at-19.12.42.png 1148w, ../../../wp-content/uploads/2014/09/Screen-Shot-2014-09-27-at-19.12.42-300x45.png 300w, ../../../wp-content/uploads/2014/09/Screen-Shot-2014-09-27-at-19.12.42-1024x153.png%3Fsource=ftlabs 1024w" sizes="(max-width: 1148px) 100vw, 1148px" /><figcaption class="wp-caption-text">Well, this is depressing.</figcaption></figure>
@@ -93,7 +32,7 @@ Normalized-User-Agent: chrome%2F37.0.2062
 <h2>Step 2: Write some custom VCL</h2>
 <p>Now we need to override Fastly&#8217;s default behaviour, to enable normalising of requests before passing them to the backend.  I created an empty text file and wrote this:</p>
 <pre class="prettyprint linenums"><code>sub vcl_recv {
-  
+
   # Template tag for rules created in the Fastly UI
   #FASTLY recv
 
@@ -207,31 +146,3 @@ Vary: Accept-Encoding, User-Agent
 </ul>
 <p>As for the polyfill service, we&#8217;re now enjoying a near perfect cache-hit ratio!</p>
 <p><figure><img alt='Cache hit ratio for polyfill service in  September 2014' src="https://image.webservices.ft.com/v1/images/raw/http://ftlabs.wpengine.com/wp-content/uploads/2014/09/Screen-Shot-2014-09-27-at-18.36.24.png" width="951" class="alignnone size-full wp-image-11691" srcset="../../../wp-content/uploads/2014/09/Screen-Shot-2014-09-27-at-18.36.24.png 951w, ../../../wp-content/uploads/2014/09/Screen-Shot-2014-09-27-at-18.36.24-300x60.png%3Fsource=ftlabs 300w" sizes="(max-width: 951px) 100vw, 951px" /></figure></p>
-									</article>
-				<div id='comments'></div>
-						</main>
-		</div>
-		<footer class="o-footer o-footer--theme-light" id="footer">
-			<div class="o-footer__row o-footer__copyright">
-				<div class="o-footer__col o-footer__col--full-width">
-					<span>© THE FINANCIAL TIMES LTD 2016.</span>
-					<span><abbr title="Financial Times">FT</abbr> and ‘Financial Times’ are trademarks of The Financial Times Ltd.</span>
-				</div>
-			</div>
-			<div class="o-footer__pearson">
-				<div class="o-footer__row">
-					<div class="o-footer__col o-footer__col--full-width">
-						<div class="o-footer__pearson-tagline" aria-label="Always Learning"></div>
-						<div class="o-footer__pearson-logo" aria-label="Pearson"></div>
-					</div>
-				</div>
-			</div>
-		</footer>
-	</div>
-	<script>window.onload = function() { prettyPrint(); }</script><script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.js?ver=4.6.4'></script>
-<script type='text/javascript' src='../../../wp-includes/js/wp-embed.min.js%3Fver=4.6.4'></script>
-		<!--
-	JIRA Issue collector seems v unreliable
-	<script type="text/javascript" src="https://jira.ft.com/s/522ea8c716f027c1d18693d0cb29a056-T/en_UK-7dt5dq/64016/3/1.4.25/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector.js?locale=en-UK&amp;collectorId=eb5e21bf"></script>-->
-</body>
-</html>
