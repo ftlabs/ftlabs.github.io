@@ -1,72 +1,10 @@
 ---
-layout: null
+layout: wp-post
 title: '(Re)simplifying front-end build process with a build service'
 date: 2014-03-01
 categories: ex-wordpress
 permalink: /2014/03/resimplifying-front-end-build-process-with-a-build-service/
 ---
-<!doctype html>
-<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en-GB"> <![endif]-->
-<!--[if IE 7]>		<html class="no-js lt-ie9 lt-ie8" lang="en-GB"> <![endif]-->
-<!--[if IE 8]>		<html class="no-js lt-ie9" lang="en-GB"> <![endif]-->
-<!--[if gt IE 8]><!--> <html lang="en-GB"> <!--<![endif]-->
-<head>
-	<meta charset="UTF-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<title>(Re)simplifying front-end build process with a build service | FT Labs</title>
-	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
-	<script src="https://polyfill.webservices.ft.com/v2/polyfill.min.js"></script>
-	<script src="../../../wp-content/themes/ftlabs-2016/main.js"></script>
-	<link rel="stylesheet" type="text/css" media="all" href="../../../wp-content/themes/ftlabs-2016/style.css" />
-
-	<link rel='dns-prefetch' href='https://cdnjs.cloudflare.com/' />
-<link rel='dns-prefetch' href='http://s.w.org/' />
-<link rel="alternate" type="application/rss+xml" title="FT Labs &raquo; Feed" href="../../../feed/index.html" />
-<link rel="alternate" type="application/rss+xml" title="FT Labs &raquo; Comments Feed" href="../../../comments/feed/index.html" />
-<link rel="alternate" type="application/rss+xml" title="FT Labs &raquo; (Re)simplifying front-end build process with a build service Comments Feed" href="feed/index.html" />
-<link rel='stylesheet' id='prettify-css'  href='../../../wp-content/plugins/prettify-code-highlight/code.css%3Fver=4.6.4.css' type='text/css' media='all' />
-<!-- This site uses the Google Analytics by Yoast plugin v5.4.6 - Universal enabled - https://yoast.com/wordpress/plugins/google-analytics/ -->
-<script type="text/javascript">
-	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	})(window,document,'script','//www.google-analytics.com/analytics.js','__gaTracker');
-
-	__gaTracker('create', 'UA-32884353-1', 'labs.ft.com');
-	__gaTracker('set', 'forceSSL', true);
-	__gaTracker('send','pageview');
-
-</script>
-<!-- / Google Analytics by Yoast -->
-<link rel='https://api.w.org/' href='../../../wp-json/index.html' />
-<link rel='prev' title='Client side layout engines: React vs FruitMachine' href='../../../index.html%3Fp=9071.html' />
-<link rel='next' title='Edge 3: back in London' href='../../../index.html%3Fp=9781.html' />
-<link rel="canonical" href="../../../index.html%3Fp=9471.html" />
-<link rel='shortlink' href='../../../index.html%3Fp=9471.html' />
-<link rel="alternate" type="application/json+oembed" href="../../../wp-json/oembed/1.0/embed%3Furl=http%253A%252F%252Flabs.ft.com%252F2014%252F03%252Fresimplifying-front-end-build-process-with-a-build-service%252F" />
-<link rel="alternate" type="text/xml+oembed" href="../../../wp-json/oembed/1.0/embed%3Furl=http%253A%252F%252Flabs.ft.com%252F2014%252F03%252Fresimplifying-front-end-build-process-with-a-build-service%252F&amp;format=xml" />
-</head>
-<body class="single single-post postid-9471 single-format-standard">
-	<div class="app" ontouchstart="">
-		<div class='container'>
-			<div class='sidebar'>
-				<div class='logo-wrap'>
-					<a href='../../../index.html' class='logo'>
-						<h1>FT Labs</h1>
-					</a>
-				</div>
-				<nav>
-					<ul id="menu-header-navigation" class="app-header_nav"><li id="menu-item-14082" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14082"><a href="../../../index.html">Home</a></li>
-<li id="menu-item-14083" class="menu-item menu-item-type-post_type menu-item-object-page current_page_parent menu-item-14083"><a href="../../../articles.1.html">Articles</a></li>
-<li id="menu-item-14084" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14084"><a href="../../../jobs.1.html">Jobs</a></li>
-<li id="menu-item-14085" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14085"><a href="../../../contact-us.1.html">Contact</a></li>
-</ul>				</nav>
-			</div>
-			<main>
-			<script> var page = 'article-view';
-			</script>
-				<article class="article_content body-text">
-									<h1>(Re)simplifying front-end build process with a build service</h1>
 					<div class="date">by <a href="../../../author/andrew/index.html">Andrew Betts</a>, <time class="entry-date" datetime="2014-03-17T00:10:29+00:00" pubdate>17 March 2014</time></div>					<p class='standfirst'>Ever thought it would be a good idea to have a <strong>build process as a service</strong>, so that doing SASS, browserify, minification and caching of front end dependencies is as easy as writing a &lt;script> or &lt;link /> tag? We did, so we built one.</p>
 <p>We are in the midst of developing a new way of building websites for the FT, which we call <a href="http://origami.ft.com">Origami</a>, and because we didn&#8217;t want to build anything monolithic, or yet another framework, it involves a lot of small components. We also have an eye on the implementation of support for <a href="http://www.w3.org/TR/components-intro/" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://www.w3.org/TR/components-intro/', 'Web Components');">Web Components</a>, so when it becomes practical to use those, we&#8217;ll be able to turn our components into Web Components.</p>
 <p>This does, however, leave us with a problem. We have a lot of websites, and most either don&#8217;t have a build process, or have a process that&#8217;s incompatible with the build pipeline that we have standardised for Origami components (<a href="http://bower.io" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://bower.io', 'Bower');">Bower</a>, <a href="http://sass-lang.com/" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://sass-lang.com/', 'SASS');">SASS</a>, <a href="http://browserify.org/" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://browserify.org/', 'Browserify');">Browserify</a> with <a href="https://github.com/eugeneware/debowerify" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://github.com/eugeneware/debowerify', 'debowerify');">debowerify</a> and <a href="https://github.com/substack/brfs" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://github.com/substack/brfs', 'brfs');">brfs</a>, and <a href="https://developers.google.com/closure/compiler/" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://developers.google.com/closure/compiler/', 'Closure compiler');">Closure compiler</a>). And even for new sites, we have teams building using a wide variety of server-side technologies some of whom are not familiar with the front end build tools which are mainly coming out of the NodeJS community.</p>
@@ -123,31 +61,3 @@ permalink: /2014/03/resimplifying-front-end-build-process-with-a-build-service/
 <p>Obviously, once a bundle has been built, it will be cached, and next time the same bundle is requested, the service will be able to return the built version quickly.  We can also reuse existing module installations if we&#8217;re building a different module set but which contains some or all of the same modules that we&#8217;ve already installed in order to build other bundles.</p>
 <p>If the build service server doesn&#8217;t have a cached version, it returns a <code>202 Accepted</code> response and starts building the bundle asynchronously.  That means we can also put a caching load balancer, which we deploy on a global CDN, in front of multiple build service nodes, which all operate independently.</p>
 <p>Linking this back to Origami in general, the Build service is an example of how we are preferring tools over frameworks, and decentralisation over monoliths.  Time will tell if this is a good strategy.  We&#8217;ll let you know!</p>
-									</article>
-				<div id='comments'></div>
-						</main>
-		</div>
-		<footer class="o-footer o-footer--theme-light" id="footer">
-			<div class="o-footer__row o-footer__copyright">
-				<div class="o-footer__col o-footer__col--full-width">
-					<span>© THE FINANCIAL TIMES LTD 2016.</span>
-					<span><abbr title="Financial Times">FT</abbr> and ‘Financial Times’ are trademarks of The Financial Times Ltd.</span>
-				</div>
-			</div>
-			<div class="o-footer__pearson">
-				<div class="o-footer__row">
-					<div class="o-footer__col o-footer__col--full-width">
-						<div class="o-footer__pearson-tagline" aria-label="Always Learning"></div>
-						<div class="o-footer__pearson-logo" aria-label="Pearson"></div>
-					</div>
-				</div>
-			</div>
-		</footer>
-	</div>
-	<script>window.onload = function() { prettyPrint(); }</script><script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.js?ver=4.6.4'></script>
-<script type='text/javascript' src='../../../wp-includes/js/wp-embed.min.js%3Fver=4.6.4'></script>
-		<!--
-	JIRA Issue collector seems v unreliable
-	<script type="text/javascript" src="https://jira.ft.com/s/522ea8c716f027c1d18693d0cb29a056-T/en_UK-7dt5dq/64016/3/1.4.25/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector.js?locale=en-UK&amp;collectorId=eb5e21bf"></script>-->
-</body>
-</html>
