@@ -36,6 +36,7 @@ gratifyingly, kinda worked
 * fix http origami+cloudflare+brightcove refs in new posts to use https
 * split posts into content + layout
    * with new layout: wp-post
+* ported some pages (contact-us, jobs) into wp-post layout
 
 ## ToDo
 
