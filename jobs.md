@@ -7,13 +7,7 @@ We are looking for people who want to make world-class websites that help our re
 
 Currently no vacancies within FT Labs.
 
-Vacancies within Origami
-
-* [Intern developer (Origami)](index.html%3Fp=12191.html) - help our most advanced front end development team for a summer, earn money and work on open source projects using the latest modern web tooling (FT position)
-
-For general vacancies within the FT:
-
-* [aboutus.ft.com/careers](http://aboutus.ft.com/careers)
+For general vacancies within the FT: [aboutus.ft.com/careers](http://aboutus.ft.com/careers)
 
 ## Working at FT
 
