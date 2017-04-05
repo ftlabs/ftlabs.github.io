@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: wp-post
 title: About
 permalink: /about/
 ---
