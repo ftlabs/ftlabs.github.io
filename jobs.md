@@ -7,7 +7,7 @@ We are looking for people who want to make world-class websites that help our re
 
 Currently no vacancies within FT Labs.
 
-Vacancies within Origami</p>
+Vacancies within Origami
 
 * [Intern developer (Origami)](index.html%3Fp=12191.html) - help our most advanced front end development team for a summer, earn money and work on open source projects using the latest modern web tooling (FT position)
 
@@ -17,7 +17,10 @@ For general vacancies within the FT:
 
 ## Working at FT
 
-<figure><img alt='financial_times_cityscape' src="https://image.webservices.ft.com/v1/images/raw/http://ftlabs.wpengine.com/wp-content/uploads/2012/06/financial_times_cityscape.jpg" width="1200" class="alignnone size-full wp-image-11071" srcset="wp-content/uploads/2012/06/financial_times_cityscape.jpg 1200w, wp-content/uploads/2012/06/financial_times_cityscape-300x120.jpg 300w, wp-content/uploads/2012/06/financial_times_cityscape-1024x408.jpg%3Fsource=ftlabs 1024w" sizes="(max-width: 1200px) 100vw, 1200px" /></figure>
+{% include figure.html src="http://ftlabs.wpengine.com/wp-content/uploads/2012/06/financial_times_cityscape.jpg"
+alt="Big wrap Hong Kong"
+width="1200"
+%}
 
 Being part of the *FT* team is a commitment to push yourself and those around you to do better, constantly adapt and learn new technologies, and be able to apply yourself to any challenge, whether you're just starting out or a veteran of the industry.  Our mission is to transform the FT with better ways of digitally delivering our content to a worldwide audience.
 
@@ -29,7 +32,9 @@ At the FT building in London we host the monthly [London Web Performance meetup]
 I read the Financial Times before other people read the Financial Times. Now it’s trendy and everybody carries around a Financial Times.<br />
 <cite class='author'>Barack Obama, 27 March 2009</cite>
 </p></blockquote>
-<figure style='float:right; margin-left:15px;'><img alt='Big wrap Hong Kong' src="https://image.webservices.ft.com/v1/images/raw/http://ftlabs.wpengine.com/wp-content/uploads/2012/06/the-financial-times-ft-big-wrap-small-67643.jpg" width="321" class="alignright size-full wp-image-10951" srcset="/wp-content/uploads/2012/06/the-financial-times-ft-big-wrap-small-67643.jpg 321w, /wp-content/uploads/2012/06/the-financial-times-ft-big-wrap-small-67643-246x300.jpg%3Fsource=ftlabs 246w" sizes="(max-width: 321px) 100vw, 321px" /></figure>
+
+{% include figure.html src="http://ftlabs.wpengine.com/wp-content/uploads/2012/06/the-financial-times-ft-big-wrap-small-67643.jpg"
+alt="Big wrap Hong Kong" %}
 
 Here are some of the benefits you'll receive:
 
@@ -87,7 +92,12 @@ Yes, of course. We use [Git](http://git-scm.com/) universally, and most projects
 1. Do you do hallway usability testing?
    * Yes.
 
-<figure><img alt='Inflating the FT 125 balloon' src="https://image.webservices.ft.com/v1/images/raw/http://ftlabs.wpengine.com/wp-content/uploads/2012/06/ft-125-1.jpg" width="922" class="alignnone size-full wp-image-10931" srcset="wp-content/uploads/2012/06/ft-125-1.jpg 922w, wp-content/uploads/2012/06/ft-125-1-300x126.jpg%3Fsource=ftlabs 300w" sizes="(max-width: 922px) 100vw, 922px" /></figure>
+ {% include figure.html
+   src="http://ftlabs.wpengine.com/wp-content/uploads/2012/06/ft-125-1.jpg"
+   alt="Inflating the FT 125 balloon"
+   width="922"
+%}
+
 
 ## The right opportunity
 

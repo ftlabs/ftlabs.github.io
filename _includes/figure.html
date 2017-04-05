@@ -1,0 +1,7 @@
+<figure style=''>
+  <img alt="{{ include.alt }}"
+       src="https://image.webservices.ft.com/v1/images/raw/{{ include.src }}?source={{ site.image-service-id }}"
+       width="{{ include.width | default: site.default-image-width }}"
+       class="{{ include.class | default: "aligncenter size-full" }}"
+    />
+</figure>

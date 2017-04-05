@@ -21,6 +21,7 @@ baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: ftlabs
 github_username:  ftlabs
+image-service-id: ftlabsblogjekyll
 
 # Build settings
 markdown: kramdown
@@ -31,3 +32,4 @@ exclude:
   - Gemfile
   - Gemfile.lock
   - scripts
+default-image-width: 300
