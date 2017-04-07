@@ -4,7 +4,7 @@ title:  "Moving to Jekyll"
 date:   2017-04-07 14:05:03 +0100
 categories: jekyll
 ---
-A small marker to indicate we have ported the FT Labs blog from Wordpress to Jekyll.
+A brief note to indicate we have ported the FT Labs blog from Wordpress to Jekyll.
 
 ## Why?
 
@@ -23,5 +23,3 @@ A variety reasons, including
 * We have striven to persist the permalinks of the old FT Labs posts.
 * We are slowly teasing out all the WordPress-isms which resulted from the initial, fairly brutal, [recursive web-suck](http://www.krazyworks.com/wget-examples-and-scripts/)
 * Does not yet seem to have lead to a marked increase in the rate at which we write new posts, so may simply have been a fine example of [Yak Shaving](https://en.wiktionary.org/wiki/yak_shaving).
-
-```
