@@ -35,3 +35,4 @@ exclude:
   - Gemfile.lock
   - scripts
 default-image-width: 300
+excerpt_separator: <!-- more -->

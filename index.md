@@ -1,8 +1,18 @@
 ---
-# You don't need to edit this file, it's empty on purpose.
-# Edit theme's home layout instead if you wanna make some changes
-# See: https://jekyllrb.com/docs/themes/#overriding-theme-defaults
 layout: wp-post
+title: FT labs.ft.com
 ---
-# Porting labs.ft.com from Wordpress to Jekyll
-## the early years
+FT Labs is a small team at the [Financial Times](http://www.ft.com), striving to reach and engage readers with the world’s finest journalism, by looking for gaps, opportunities, concerns, and the unknown. ([...more](/about/))
+
+We write up our work on a semi-irregular basis.
+
+The most recent posts are:
+
+{% for post in site.posts limit:3 %}
+* {{ post.date | date: "%b %-d, %Y" }} [{{ post.title | escape }}]({{ post.url | relative_url }})
+> {{ post.excerpt | strip_html }}
+
+{% endfor %}
+* [...more](/articles/).
+
+{% include figure-noimgservice.html src="/assets/imgs/labs_poster_postits_2017_04_07_1538.jpg" %}
