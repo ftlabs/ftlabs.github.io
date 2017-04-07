@@ -40,7 +40,8 @@ gratifyingly, kinda worked
 
 ## ToDo
 
-* tidy up refs to ?p=xxx files
+* tidy up refs to ?p=xxx / %3Fp= files
+* refactor/rewrite "This post was originally made on the Assanka blog"
 * create new style/layout etc for posts
 * strip out old styling and wp refs
 * add GA tracking back in
