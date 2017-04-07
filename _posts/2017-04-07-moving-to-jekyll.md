@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Welcome to Jekyll!"
+title:  "Moving to Jekyll"
 date:   2017-04-07 14:05:03 +0100
 categories: jekyll
 ---
@@ -14,7 +14,7 @@ A variety reasons, including
 * Wordpress, whilst being largely fine, involved too much peripheral noise.
 * Jekyll gives us easy access to all parts of the blog.
 * By using our GitHub accounts for Jekyll admin access, we can remove the need to maintain accounts in Wordpress.
-* Increased visibility of the blog and its workings to FT tech people.
+* Increased visibility of the blog and [its workings](https://github.com/ftlabs/ftlabs.github.io) to FT tech people.
 * We can use the lovely GitHub Pages as a host, and remove another system from the list of Things We Have To Worry About (tm).
 * Jekyll+Liquid is fun.
 
