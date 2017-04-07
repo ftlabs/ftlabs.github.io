@@ -23,6 +23,8 @@ twitter_username: ftlabs
 github_username:  ftlabs
 image-service-id: ftlabsblogjekyll
 
+google_analytics: UA-32884353-1
+
 # Build settings
 markdown: kramdown
 theme: minima
