@@ -41,6 +41,10 @@ gratifyingly, kinda worked
 ## ToDo
 
 * tidy up refs to ?p=xxx / %3Fp= files
+* remove wp-json/oembed files
+* replace refs to ftlabs.wpengine.com
+* poss remove use of imageservice (for now)
+* replace all filenames containing ?
 * refactor/rewrite "This post was originally made on the Assanka blog"
 * create new style/layout etc for posts
 * strip out old styling and wp refs
