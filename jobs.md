@@ -11,7 +11,7 @@ For general vacancies within the FT: [aboutus.ft.com/careers](http://aboutus.ft.
 
 ## Working at FT
 
-{% include figure.html src="http://ftlabs.wpengine.com/wp-content/uploads/2012/06/financial_times_cityscape.jpg"
+{% include figure.html src="/wp-content/uploads/2012/06/financial_times_cityscape.jpg"
 alt="Big wrap Hong Kong"
 width="1200"
 %}
@@ -27,7 +27,7 @@ I read the Financial Times before other people read the Financial Times. Now itâ
 <cite class='author'>Barack Obama, 27 March 2009</cite>
 </p></blockquote>
 
-{% include figure.html src="http://ftlabs.wpengine.com/wp-content/uploads/2012/06/the-financial-times-ft-big-wrap-small-67643.jpg"
+{% include figure.html src="/wp-content/uploads/2012/06/the-financial-times-ft-big-wrap-small-67643.jpg"
 alt="Big wrap Hong Kong" %}
 
 Here are some of the benefits you'll receive:
@@ -87,7 +87,7 @@ Yes, of course. We use [Git](http://git-scm.com/) universally, and most projects
    * Yes.
 
  {% include figure.html
-   src="http://ftlabs.wpengine.com/wp-content/uploads/2012/06/ft-125-1.jpg"
+   src="/wp-content/uploads/2012/06/ft-125-1.jpg"
    alt="Inflating the FT 125 balloon"
    width="922"
 %}
