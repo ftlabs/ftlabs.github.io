@@ -37,10 +37,12 @@ gratifyingly, kinda worked
 * split posts into content + layout
    * with new layout: wp-post
 * ported some pages (contact-us, jobs) into wp-post layout
+* tidy up refs to ?p=xxx / %3Fp= files
 
 ## ToDo
 
-* tidy up refs to ?p=xxx / %3Fp= files
+* recover missing pages: /articles/(ft-fastclick,the-economist,ft-columnflow)
+* recover missing category pages, e.g. /category/technote 
 * refactor/rewrite "This post was originally made on the Assanka blog"
 * create new style/layout etc for posts
 * strip out old styling and wp refs
