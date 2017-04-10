@@ -1,6 +1,14 @@
+{% assign checkurl = include.src | prepend: '???' %}
+{% if checkurl contains '???http' %}
+  {% assign escapedincludesrc = include.src | uri_escape %}
+  {% assign src = "https://image.webservices.ft.com/v1/images/raw/" | append: escapedincludesrc | append: ?source= | append: site.image-service-id %}
+{% else %}
+  {% assign src = include.src %}
+{% endif %}
+
 <figure style=''>
   <img alt="{{ include.alt }}"
-       src="https://image.webservices.ft.com/v1/images/raw/{{ include.src }}?source={{ site.image-service-id }}"
+       src="{{ src }}"
        width="{{ include.width | default: site.default-image-width }}"
        class="{{ include.class | default: "aligncenter size-full" }}"
     />
