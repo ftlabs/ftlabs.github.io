@@ -39,10 +39,11 @@ gratifyingly, kinda worked
 * ported some pages (contact-us, jobs) into wp-post layout
 * tidy up refs to ?p=xxx / %3Fp= files
 * recover missing pages: /articles/(ft-fastclick,the-economist,ft-columnflow)
+* recover missing category pages, e.g. /category/technote
 
 ## ToDo
 
-* recover missing category pages, e.g. /category/technote
+* tag missing category pages (technote, labs, tutorial, news)
 * refactor/rewrite "This post was originally made on the Assanka blog"
 * create new style/layout etc for posts
 * strip out old styling and wp refs
