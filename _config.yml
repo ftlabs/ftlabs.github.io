@@ -34,5 +34,6 @@ exclude:
   - Gemfile
   - Gemfile.lock
   - scripts
+  - README.md
 default-image-width: 300
 excerpt_separator: <!-- more -->
