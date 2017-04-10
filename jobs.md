@@ -87,7 +87,7 @@ Yes, of course. We use [Git](http://git-scm.com/) universally, and most projects
    * Yes.
 
  {% include figure.html
-   src="http://ftlabs.wpengine.com/wp-content/uploads/2012/06/ft-125-1.jpg"
+   src="/wp-content/uploads/2012/06/ft-125-1.jpg"
    alt="Inflating the FT 125 balloon"
    width="922"
 %}
