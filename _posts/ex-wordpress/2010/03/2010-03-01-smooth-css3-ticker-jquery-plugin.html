@@ -14,7 +14,7 @@ permalink: /2010/03/smooth-css3-ticker-jquery-plugin/
 <p>Another issue with continuous tickers is making them loop properly. When your animation reaches the end of the text, you have to scroll it all the way off the left edge of the screen before it can be repositioned and re-enter the frame from the right. This leaves an ugly gap in your ticker.</p>
 <p>Finally, if your ticker is updating with new information in real time, making changes that are noticeable in the visible portion of the ticker is amateur hour stuff.  You rarely see TV tickers suddenly change mid-scroll, and yet stories are seamlessly added and removed as necessary, <em>outside of the visible frame</em>.</p>
 <p>Since Panic didn&#8217;t release any code (boo), I set out to produce a jQuery plugin that would enable news tickers to be easily added to a page, using CSS3 animation effects.  If it&#8217;s working for you, you should see a couple of tickers scrolling away right here:</p>
-<p><span style="line-height: 1.5;"><iframe src="https://ftlabs.wpengine.com/wp-content/uploads/2010/03/webkitscroller.html" height=85 width=590></iframe></span></p>
+<p><span style="line-height: 1.5;"><iframe src="/wp-content/uploads/2010/03/webkitscroller.html" height=85 width=590></iframe></span></p>
 <p><span style="line-height: 1.5;">If it&#8217;s not working, you&#8217;re probably not using a browser that supports CSS3 transitions.  Try it in Chrome, or Safari.  Support should be added to Firefox pretty soon.  But the objective here is not to get universal compatibility, since I can easily dictate which browser our status board will use.</span></p>
 <p>With CSS3 transitions, we substantially improve the performance issue of tickers.  And this will improve further with browsers implementing these effects at an increasingly lower level.  This leaves the looping and updating issues to resolve before we can claim a properly news-grade ticker.</p>
 <h2>Looping</h2>
@@ -51,6 +51,6 @@ permalink: /2010/03/smooth-css3-ticker-jquery-plugin/
 </ul>
 <h2>Get the code</h2>
 <ul>
-<li><a href="http://ftlabs.wpengine.com/wp-content/uploads/2010/03/jquery.ticker.js" onclick="__gaTracker('send', 'event', 'download', 'http://ftlabs.wpengine.com/wp-content/uploads/2010/03/jquery.ticker.js');">Download development</a> (commented, 7KB)</li>
+<li><a href="/wp-content/uploads/2010/03/jquery.ticker.js" onclick="__gaTracker('send', 'event', 'download', '/wp-content/uploads/2010/03/jquery.ticker.js');">Download development</a> (commented, 7KB)</li>
 <li><a href="http://labs.ft.com/wp-content/uploads/2010/03/jquery.ticker.min.js">Download production</a> (minified, 4KB)</li>
 </ul>
