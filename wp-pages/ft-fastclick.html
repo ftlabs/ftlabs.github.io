@@ -1,0 +1,47 @@
+---
+layout: wp-post
+title: 'FT Fastclick'
+date: 2011-08-01
+categories: [ex-wordpress]
+permalink: /articles/ft-fastclick/
+---
+				<p class='standfirst'>Native apps react fast.  Websites feel slow.  This is one of the problems we&#8217;ve tried hard to address in making web applications that feel as smooth and elegant as a native app.  In solving this problem, we&#8217;ve created a simple polyfill that will speed up the responsiveness of most web applications used on touchscreen devices.</p>
+<p>The JavaScript APIs for handling touch events and gestures in JavaScript are simple and intuitive enough to grasp on first try, and the increasingly excellent support for web standards in Webkit browsers means we can create highly touch optimised web apps that look and feel like native apps. But that doesn’t mean there won’t be any hitches when you get deeper into web app development, and one of those hitches only becomes apparent when users stop thinking of your app as a website.</p>
+<p>Probably because touchscreen devices weren’t nearly as popular in 1995 as they are today, JavaScript DOM events tend to reflect the mouse ‘click’ paradigm, where each event neatly corresponds to a single, deliberate click of the button. Take the onClick event, for example. How does that translate to a touchscreen device? Not easily, as it turns out.</p>
+<p>Treating a ‘tap’ as a ‘click’ is the practical approach. On iOS at least, there’s no onTap event – <code>onClick</code> has been repurposed for that role. But in order to properly handle multiple-touch gestures like pinching or even double-taps, some compromises have to be made. One of these is the roughly 300ms delay between a tap and the firing of a click event, which can make your apps feel laggy and unresponsive even when it’s not technically so.</p>
+<p>The technique we use to get around this problem is to track all <code>TouchStart</code> events in our app and fire a click event as soon as we receive a <code>TouchEnd</code> event (unless some application-specific exception is satisfied).</p>
+<p>As we refined our fast-clicking code, we turned it into a small and efficient library, which we call FastClick. This code has been tried and tested by hundreds of thousands of users, and so far has proved to be very robust. We’d love to know what others are doing to address this challenge and find ways of improving our own approach, and to help kick off that process, we’re open-sourcing FastClick today. We’d encourage you to try it out, and let us know what you think.</p>
+<p>To use FastClick, instantiate it on the layer you’d like to be fast-clickable – we use <code>document.body</code> because we want all our buttons and links to receive fast clicks. In your event listeners, ‘click’ events synthesised by FastClick will have the <code>forwardedTouchEvent</code> property set to true.</p>
+<p>If you use buttons and iOS-style menus in your app then there’s a good chance your interface feels unresponsive on touchscreen devices. Here’s a simple example of how we solve that problem for a single button by instantiating FastClick on it:</p>
+<pre class="prettyprint linenums"><code>&lt;button class=”fastclick” onclick=”someHandler()”&gt;Fast click&lt;/button&gt;
+&lt;button onclick=”someHandler()”&gt;Slow click&lt;/button&gt;
+&lt;script type='text/javascript'&gt;
+var button = document.querySelector(&quot;.fastclick&quot;);
+new FastClick(button);
+&lt;/script&gt;</code></pre>
+<p>In the example, the button with a <code>fastclick</code> class will have its click handler called as soon as your finger is lifted off the screen, while tapping on any other buttons on the page will trigger the same handler after a noticeable delay. Try the <a href="../../wp-content/uploads/2011/08/fastclickdemo.html">live demo</a>.</p>
+<p>Unfortunately, the <code>select</code> element doesn’t behave normally when receiving (synthesised) programmatic clicks, so if you apply FastClick to an element that contains selects, FastClick will ignore clicks on the select and allow the normal click event to fire.</p>
+<p>If you want any other elements (besides selects) in your FastClick layer to receive non-programmatic clicks, you’ll need to use one of two classes: <code>clickevent</code> or <code>touchandclickevent</code>. For any clickable element in a FastClick layer, tapping the element will cause different effects depending on how you use these classes:</p>
+<ul>
+<li>No class: The element will receive only a programmatic click from FastClick. The default click event triggered by the user will be suppressed.</li>
+<li><code>clickevent</code>: The element will receive only the default click event, and will be ignored by FastClick</li>
+<li><code>touchandclickevent</code>: The element will receive both the default click event AND a programmatic click from FastClick (the FastClick one will be triggered first). This is only safe if your handler’s action is idempotent.</li>
+</ul>
+<p>Here’s an example of all three:</p>
+<pre class="prettyprint linenums"><code>&lt;div class=&quot;fastclick&quot;&gt;
+    &lt;button onclick=&quot;someHandler()&quot;&gt;
+        Will receive programmatic click event
+    &lt;/button&gt;
+    &lt;button class=&quot;clickevent&quot; onclick=&quot;someHandler()&quot;&gt;
+        Will receive non-programmatic click event
+    &lt;/button&gt;
+    &lt;button class=&quot;touchandclickevent&quot; onclick=&quot;someHandler()&quot;&gt;
+        Will receive both click events
+    &lt;/button&gt;
+&lt;/div&gt;
+&lt;script type='text/javascript'&gt;
+var button = document.querySelector(&quot;.fastclick&quot;);
+new FastClick(button);
+&lt;/script&gt;</code></pre>
+<p>When is this useful? Try the <a href="../../wp-content/uploads/2011/08/fastclickdemo-input.html">other live demo</a> we’ve built using a click event handler that attempts to trigger focus on an <code>input</code> element. iOS will only allow focus to be triggered on other elements within a handler function if the event that triggered it was non-programmatic.</p>
+<p>Fastclick is an open source project.  Please feel free to <a href="https://github.com/ftlabs/fastclick" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://github.com/ftlabs/fastclick', 'download the code');">download the code</a>, and get involved, over on <a href="https://github.com/ftlabs/fastclick" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://github.com/ftlabs/fastclick', 'Github');">Github</a>.</p>
