@@ -7,8 +7,8 @@ permalink: /2013/04/offline-html5-history-api/
 author: matthewandrews
 ---
 					<div class="date">by <a href="../../../author/matthew/index.html">Matthew Andrews</a>, <time class="entry-date" datetime="2013-04-24T21:19:42+00:00" pubdate>24 April 2013</time></div>					<h2>Putting the web back into web app</h2>
-<p>This is part 4 of a <a href="../../../category/tutorial/index.html">tutorial series</a> on how to make an FT style offline web app. <strong>If you haven&#8217;t already, <a href="../../../index.html%3Fp=2009.html">read part 1 first</a>.</strong></p>
-<p>We left off last time with an app that delivers offline news on most modern browsers &#8211; and degrades gracefully on older browsers. But if we look back to our list of <strong>ideas for further development</strong> in the <a href="../../../index.html%3Fp=2009.html">first tutorial</a> we still have work to do to make it work <strong>just as well as a website as it does as an app</strong>.</p>
+<p>This is part 4 of a <a href="../../../category/tutorial/index.html">tutorial series</a> on how to make an FT style offline web app. <strong>If you haven&#8217;t already, <a href="/2012/08/basic-offline-html5-web-app/">read part 1 first</a>.</strong></p>
+<p>We left off last time with an app that delivers offline news on most modern browsers &#8211; and degrades gracefully on older browsers. But if we look back to our list of <strong>ideas for further development</strong> in the <a href="/2012/08/basic-offline-html5-web-app/">first tutorial</a> we still have work to do to make it work <strong>just as well as a website as it does as an app</strong>.</p>
 <p>In other words how to use the HTML5 History API make the web app render <strong>both on the server and the client</strong> so that it starts up fast whilst still being able to work offline.</p>
 <h2>Requirements for the tutorial &#8211; Part 4</h2>
 <ul>
@@ -28,7 +28,7 @@ author: matthewandrews
 <p>At FT Labs we refer to this kind of application cache behaviour as <em>prefer offline</em>, where the application cache &#8211; if populated &#8211; will <em>always</em> be the preferred source for the app to load itself from, rather than the network. This means that the amount of time the demo app will take to start up will always be the same &#8211; no matter what kind of connection the user&#8217;s device has to the internet.</p>
 <p>We can achieve this either by listing the root of the app explicitly in the <code>CACHE</code> section of the app cache manifest. Or, as we do in our demo app, listing it as the 2nd part of a fallback within the <code>FALLBACK</code> section.</p>
 <p>(In an ideal world we would like for the application cache to be configured so that every request (even ones not listed in the application cache) are <em>always</em> prefer offline unless we say otherwise, but that is not currently possible with the current spec or any browser implementation :-(. Given the home page is the likeliest entry point to your application, we prioritise that.)</p>
-<p>This means the web server must serve the root of your application (in the FT&#8217;s case that&#8217;s <code>http://app.ft.com/</code>) with the bootstrap code &#8211; explained in the <a href="../../../index.html%3Fp=2009.html">first tutorial</a>.</p>
+<p>This means the web server must serve the root of your application (in the FT&#8217;s case that&#8217;s <code>http://app.ft.com/</code>) with the bootstrap code &#8211; explained in the <a href="/2012/08/basic-offline-html5-web-app/">first tutorial</a>.</p>
 <p>However, in order to achieve the server side render of the HTML for the first time the user visits the app (which makes for a much faster initial app start; allows our app to be crawled by search engines and work without javascript) that same application root URL sometimes also needs, in the case of our demo app, to return the current latest blog posts.</p>
 <p>To summarise:</p>
 <ul>
@@ -36,7 +36,7 @@ author: matthewandrews
 <li>Otherwise yourapp.com/ should be the rendered HTML content.</li>
 </ul>
 <p>Given we have no Javascript control over either these requests (the former is made by the application cache&#8217;s update mechanism, the latter by the user typing the URL into their browser / clicking a link from another site) we only have one solution.</p>
-<p>* By bootstrap I mean the bootstrap of the sort we described in <a href="../../../index.html%3Fp=2009.html">Tutorial 1</a> &#8211; just enough Javascript and HTML to pull your Javascript&#8217;s application logic out of <code>localStorage</code> and <code>eval</code> it but no more. Not to be confused with <a href="http://twitter.github.io/bootstrap/" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://twitter.github.io/bootstrap/', 'any other kind of bootstrap');">any other kind of bootstrap</a>, of course.</p>
+<p>* By bootstrap I mean the bootstrap of the sort we described in <a href="/2012/08/basic-offline-html5-web-app/">Tutorial 1</a> &#8211; just enough Javascript and HTML to pull your Javascript&#8217;s application logic out of <code>localStorage</code> and <code>eval</code> it but no more. Not to be confused with <a href="http://twitter.github.io/bootstrap/" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://twitter.github.io/bootstrap/', 'any other kind of bootstrap');">any other kind of bootstrap</a>, of course.</p>
 <h3>The solution</h3>
 <p>We already have quite precise control over how and when the application cache is loaded through the iframe (implemented in the previous tutorial) so solving this problem is actually quite easy.</p>
 <p>Before adding the iframe, simply set a cookie and when we receive a notification from the Javascript within that iframe (which is listening to the application cache events) that the application cache has finished updating we unset the cookie.</p>
@@ -165,7 +165,7 @@ $appcacheUpdate = isset($_COOKIE['appcacheUpdate']);
 	} ?&gt;
 &lt;/body&gt;
 &lt;/html&gt;</code></pre>
-<p>As I explained above in the <strong>More app cache hacking</strong> section this file needs to be able to return the latest blog items for ordinary requests and it should return the bootstrap we created in <a href="../../../index.html%3Fp=2009.html">Tutorial 1</a> when requested during an application cache update.</p>
+<p>As I explained above in the <strong>More app cache hacking</strong> section this file needs to be able to return the latest blog items for ordinary requests and it should return the bootstrap we created in <a href="/2012/08/basic-offline-html5-web-app/">Tutorial 1</a> when requested during an application cache update.</p>
 <p>We detect whether the cookie is set at the top of the file via the PHP <code>isset</code> function:-</p>
 <p><code>$appcacheUpdate = isset($_COOKIE['appcacheUpdate']);</code></p>
 <p>The code we return if we&#8217;re not doing an app cache update can be a normal web page that follows all the best practises, such as:</p>
