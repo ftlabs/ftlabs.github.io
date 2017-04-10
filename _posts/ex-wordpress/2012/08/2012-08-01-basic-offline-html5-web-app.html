@@ -48,7 +48,7 @@ author: matthewandrews
 </ul>
 </li>
 </ul>
-<p>31/08/2012 Edit: <a href="../../../index.html%3Fp=2782.html">Read about our efforts to fix app cache!</a></p>
+<p>31/08/2012 Edit: <a href="/2012/08/fixing-app-cache/">Read about our efforts to fix app cache!</a></p>
 <p><strong>So this is what we do instead</strong></p>
 <p>We use the appcache to store just enough Javascript, CSS and HTML to get the web app started (we call this the bootstrap) then deliver the rest through an ajax request, <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/eval" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/eval', 'eval()');">eval()</a> it, then store it in <a href="https://developer.mozilla.org/en/DOM/Storage#localStorage" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://developer.mozilla.org/en/DOM/Storage#localStorage', 'localStorage');">localStorage</a>*.</p>
 <p>This is a powerful approach as it means that if, for whatever reason, a mistake or corruption creeps into the Javascript code which prevents the app from starting then that broken Javascript will not be cached and the next time the user tries to launch the app their browser will attempt to get a fresh copy of the code from the server.</p>
@@ -309,7 +309,7 @@ The client side database technology which we will use to store article content w
 <li><code>open</code> will open (or create a new) 5MB* database and ensure a table called <strong>articles</strong> with some appropriate fields exists so that the app can store the articles for offline reading.</li>
 <li><code>runQuery</code> is just a simple helper method that makes running queries on the database a little simpler.</li>
 </ul>
-<p><span style="font-size: 80%; line-height: 1em;">* <a href="../../../index.html%3Fp=31.html">See our article on offline storage</a> for more details on database size limits.</span></p>
+<p><span style="font-size: 80%; line-height: 1em;">* <a href="/2012/06/text-re-encoding-for-optimising-storage-capacity-in-the-browser/">See our article on offline storage</a> for more details on database size limits.</span></p>
 <p><strong>/source/templates.js</strong><br />
 We will keep all <strong>view</strong> or <strong>template</strong> type functions together here.</p>
 <pre class="prettyprint linenums"><code>APP.templates = (function () {
@@ -628,4 +628,4 @@ And finally we will need to update applicationcontroller.js so that all the new 
 <p>Clearly our demo web app leaves a lot of room for improvement. However, by organising our code in a clean and structured way, we&#8217;ve created a platform that almost any kind of application could be built upon and by using a short script (which we called the bootstrap) to download and eval the application&#8217;s code, we don&#8217;t need to worry about dealing with the app cache&#8217;s problems. This leaves us free to get on with building great web applications.</p>
 <p>Finally, if you think you&#8217;d like to work on this sort of thing and live (or would like to live) in London, <a href="../../../jobs.1.html">we&#8217;re hiring!</a></p>
 <p><span style="font-size: 80%; line-height: 1em;">By <a href="http://mattandre.ws" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://mattandre.ws', 'Matt Andrews');">Matt Andrews</a> – @andrewsmatt on <a href="http://twitter.com/andrewsmatt" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://twitter.com/andrewsmatt', 'Twitter');">Twitter</a> &amp; <a href="http://weibo.com/andrewsmatt" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://weibo.com/andrewsmatt', 'Weibo');">Weibo</a>.<br />Also available in <a href="http://science.webhostinggeeks.com/ftlabs-tutorial" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://science.webhostinggeeks.com/ftlabs-tutorial', 'Serbo-Croatian');">Serbo-Croatian</a> thanks to Jovana Milutinovich.</span></p>
-<p align="right"><strong><a href="../../../index.html%3Fp=2532.html">Continue to part 2 &#8211; Going cross platform with an FT style web app <span class="meta-nav">→</span></a></strong></p>
+<p align="right"><strong><a href="/2012/09/ft-style-web-app-on-firefox-and-ie6-to-ie10/">Continue to part 2 &#8211; Going cross platform with an FT style web app <span class="meta-nav">→</span></a></strong></p>
