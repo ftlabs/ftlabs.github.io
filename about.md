@@ -21,10 +21,10 @@ In January 2012, Assanka, [the web and application development company acquired 
 From 2012 to 2015, pieces of this original FT Labs group split off into separate products and teams, merging into the larger FT organisation. These include:
 
 * [Origami](http://origami.ft.com)
-* Web App team
-* Blogs team
-* Alphaville
-* MBA Rankings
+* [Web App](https://app.ft.com)
+* Blogs
+* [Alphaville](https://ftalphaville.ft.com/)
+* [MBA Rankings](http://rankings.ft.com/businessschoolrankings/rankings)
 * and a long tail of smaller products
 
 Since January 2015, FT Labs (2.0) been the small R&D team within the FT as described above, rising from the ashes of the former inhabitants of the brand name.
