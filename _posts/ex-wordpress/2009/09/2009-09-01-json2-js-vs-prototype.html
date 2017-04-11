@@ -4,8 +4,9 @@ title: 'JSON2.js vs Prototype'
 date: 2009-09-01
 categories: [ex-wordpress]
 permalink: /2009/09/json2-js-vs-prototype/
+author: andrew
 ---
-					<div class="date">by <a href="../../../author/andrew/index.html">Andrew Betts</a>, <time class="entry-date" datetime="2009-09-02T17:24:23+00:00" pubdate>2 September 2009</time></div>					<p><strong>This post was originally made on the Assanka blog.  Assanka was acquired by the Financial Times in January 2012, and became what is now FT Labs.  <a href="/about">Learn more</a>.</strong></p>
+<p><strong>This post was originally made on the Assanka blog.  Assanka was acquired by the Financial Times in January 2012, and became what is now FT Labs.  <a href="/about">Learn more</a>.</strong></p>
 <p>We use <a href="http://crockford.com/" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://crockford.com/', 'Douglas Crockford');" title="Douglas Crockford" rel="homepage">Douglas Crockford</a>&#8216;s json2.js frequently in our web apps.  Its stringify method allows JavaScript data structures to be trivially serialised before submission via AJAX to a web service.   It works by descending through the structure, calling the <code>toJSON()</code> method on anything it finds.  It also creates <code>toJSON</code> methods for data types that do not already have them, on the basis that future browsers will introduce <code>toJSON()</code> support &#8211; at which point the native implementation can be used because it&#8217;s likely to be a lot faster.</p>
 <p>Recently I needed to use this method to serialise some data in a JavaScript library that might be used in &#8216;foreign&#8217; web pages.  My own library was nicely encapsulated, and didn&#8217;t interfere with any other JavaScript that might be running on the page, and it included Douglas Crockford&#8217;s JSON2.js implementation.</p>
 <p>But on one of our clients&#8217; sites, it didn&#8217;t work.  I got this:</p>
