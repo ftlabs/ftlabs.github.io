@@ -18,7 +18,7 @@ author: matthewandrews
 <li>We should use the <a href="http://diveintohtml5.info/history.html" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://diveintohtml5.info/history.html', 'History API');">History API</a> instead of hash tag URLs so that the URL in the user&#8217;s browser address page always matches the page that they are viewing.</li>
 </ul>
 <p>These might not sound like groundbreaking features &#8211; websites have been doing the first three since forever &#8211; but as usual the <em>HTML5 application cache</em> gets in the way.</p>
-<p>As always, the <a href="https://github.com/matthew-andrews/ft-style-offline-web-app-part-4" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://github.com/matthew-andrews/ft-style-offline-web-app-part-4', 'full code is up on GitHub');">full code is up on GitHub</a> and you can <a href="http://dev.labs.ft.com/matthew/pt4/" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://dev.labs.ft.com/matthew/pt4/', 'preview the working app');">preview the working app</a>.</p>
+<p>As always, the <a href="https://github.com/matthew-andrews/ft-style-offline-web-app-part-4" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://github.com/matthew-andrews/ft-style-offline-web-app-part-4', 'full code is up on GitHub');">full code is up on GitHub</a>.</p>
 <h2>On and off &#8211; not always a switch</h2>
 <p>Product managers often come up with feature requests with descriptions along the lines of: <em>when the app is online do this, when it&#8217;s offline do that</em>. Unfortunately, it&#8217;s rarely that black and white.</p>
 <p>Connections can be weak and very slow, they can be flaky &#8211; disconnecting frequently. Devices can even be tricked into thinking they&#8217;re online when they&#8217;re not &#8211; they could be behind a captive portal in a coffee shop or hotel; or the device could have a perfect connection to a wifi router that isn&#8217;t connected to anything else. Requests to your website may be being blocked or somehow mangled by a government or corporate proxy. Or, of course, the device could actually be completely offline.</p>
@@ -406,7 +406,7 @@ var fastClick,
 }</code></pre>
 <p>Notice that we&#8217;re also adding our code to hook into the <strong>HTML5 History API</strong> here.</p>
 <ul>
-<li>Replace the <code>initialize</code> and <code>start</code> methods with ones that are able to boot the app either from our locally cached bootstrap (discussed in <a href="labs.ft.com/2012/08/basic-offline-html5-web-app/index.html">Tutorial 1</a>) or from the network.</li>
+<li>Replace the <code>initialize</code> and <code>start</code> methods with ones that are able to boot the app either from our locally cached bootstrap (discussed in <a href="/2012/08/basic-offline-html5-web-app/">Tutorial 1</a>) or from the network.</li>
 </ul>
 <pre class="prettyprint linenums"><code>function initialize(resources) {
 
