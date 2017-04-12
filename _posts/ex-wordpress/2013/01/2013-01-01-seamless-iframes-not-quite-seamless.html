@@ -4,8 +4,9 @@ title: 'Seamless IFRAMEs: not quite seamless?'
 date: 2013-01-01
 categories: [ex-wordpress]
 permalink: /2013/01/seamless-iframes-not-quite-seamless/
+author: andrew
 ---
-					<div class="date">by <a href="../../../author/andrew/index.html">Andrew Betts</a>, <time class="entry-date" datetime="2013-01-29T11:50:40+00:00" pubdate>29 January 2013</time></div>					<p>Another day, another new exciting web technology.</p>
+<p>Another day, another new exciting web technology.</p>
 <p>I was first alerted to this spec by Luke Kavanagh in our interactive graphics team, and found an <a href="http://benvinegar.github.com/seamless-talk/" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://benvinegar.github.com/seamless-talk/', 'excellent presentation on seamless by Ben Vinegar');">excellent presentation on seamless by Ben Vinegar</a>.  The premise of seamless is pretty simple: make it possible for an IFRAME to resize itself to fit its content, and inherit style rules from the parent frame.  People have been wanting this for years, because the lack of these two features are effectively negative side effects that we endure in order to get the major benefit of an iframe &#8211; sandboxing.</p>
 <p>Interactive graphics is a great example of a use case &#8211; say you have a really complex web application, like the <a href='http://app.ft.com'>FT web app</a>, and for a single story, you want to embed some kind of interactive chart widget thing.  But the interactive thing needs to be designed and built quickly, possibly by a third party, and frankly you don&#8217;t trust these rapidly built interactives not to mortally wound your beloved app.  Solution &#8211; pop the interactive in an IFRAME.  And with seamless we potentially avoid the need for the IFRAME and the parent page to do some awkward cross-domain postMessage to negotiate the resizing of the frame, or the iframe needing to load CSS files that the parent already has.</p>
 <p>So, what&#8217;s the problem?</p>

@@ -4,8 +4,9 @@ title: 'Auto growing textareas'
 date: 2009-05-01
 categories: [ex-wordpress]
 permalink: /2009/05/auto-growing-textareas/
+author: andrew
 ---
-					<div class="date">by <a href="../../../author/andrew/index.html">Andrew Betts</a>, <time class="entry-date" datetime="2009-05-04T17:24:52+00:00" pubdate>4 May 2009</time></div>					<p><strong>This post was originally made on the Assanka blog.  Assanka was acquired by the Financial Times in January 2012, and became what is now FT Labs.  <a href="/about">Learn more</a>.</strong></p>
+<p><strong>This post was originally made on the Assanka blog.  Assanka was acquired by the Financial Times in January 2012, and became what is now FT Labs.  <a href="/about">Learn more</a>.</strong></p>
 <p>This feels like a topic that&#8217;s been explored to death already, but I really don&#8217;t like most implementations of this technique, so here&#8217;s how we do it.</p>
 <p>First, in case anyone has just arrived from Mars, or even more unlikely, isn&#8217;t familiar with Facebook, the auto-growing textarea is a text box that gets bigger as you type into it, so that you never see a scroll bar (unless you&#8217;re typing war and peace).</p>
 <p>There are lots of ways of doing each part of this.  The parts I&#8217;ll look at are (a) what triggers a review of the text box&#8217;s size, (b) how to determine whether a resize is required, and (c) how to perform a resize.</p>

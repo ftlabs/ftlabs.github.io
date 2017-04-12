@@ -37,3 +37,8 @@ exclude:
   - README.md
 default-image-width: 300
 excerpt_separator: <!-- more -->
+collections:
+  author:
+    output: true
+    permalink: /author/:path
+    default: FT Labs

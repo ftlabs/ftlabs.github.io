@@ -4,8 +4,9 @@ title: 'Batching decoupled API requests'
 date: 2012-12-01
 categories: [ex-wordpress]
 permalink: /2012/12/batching-decoupled-api-requests/
+author: andrew
 ---
-					<div class="date">by <a href="../../../author/andrew/index.html">Andrew Betts</a>, <time class="entry-date" datetime="2012-12-03T22:52:55+00:00" pubdate>3 December 2012</time></div>					<p>If you&#8217;re developing websites for mobile, by now you probably have a healthy hatred for HTTP requests.  The growth in the number of people wanting to use the web on cellular connections has introduced developers to a new kind of network: one with high bandwidth, but very high latency and low reliability.  The more HTTP requests your site requires to load, the longer your page will take to become interactive, regardless of how small they are.</p>
+<p>If you&#8217;re developing websites for mobile, by now you probably have a healthy hatred for HTTP requests.  The growth in the number of people wanting to use the web on cellular connections has introduced developers to a new kind of network: one with high bandwidth, but very high latency and low reliability.  The more HTTP requests your site requires to load, the longer your page will take to become interactive, regardless of how small they are.</p>
 <p>We realised that in order to really cut down on our HTTP requests, we needed to batch very disparate requests together.  Ideally we should be able to send one single request to fetch an image, log some analytics, and get the content of an article.  Another important realisation is that we don&#8217;t need to send all requests immediately.  Some, like analytics, can be done not just asynchronously, but can also be deferred until there&#8217;s an opportunity to send a request for some other reason.</p>
 <p>The main problem with all of this is that it threatens to play havoc with both your server side and client side application architecture.  We don&#8217;t want the need for this behaviour to affect the way we write our code, or make disparate parts of our application needlessly aware of one another.</p>
 <h2>Client side</h2>

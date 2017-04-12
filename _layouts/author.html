@@ -1,0 +1,15 @@
+---
+layout: wp-post
+title-prefix: 'Author: '
+---
+{% unless page.content == '' %}
+  <p>{{ page.content }}</p>
+{% endunless %}
+
+{% assign handle = page.path | remove_first: "_author/" | remove_first: '.md' %}
+{% assign posts = site.posts | where:"author", handle %}
+<ul>
+{% for post in posts %}
+<li>{{ post.date | date: "%b %-d, %Y" }} <a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a></li>
+{% endfor %}
+</ul>
