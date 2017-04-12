@@ -42,10 +42,10 @@ gratifyingly, kinda worked
 * recover missing category pages, e.g. /category/technote
 * rewrite About
 * handle authors?
+* tidy /author/ftlabs (default author)
 
 ## ToDo
 
-* tidy /author/ftlabs (default author)
 * tag missing category pages (technote, labs, tutorial, news)
 * refactor/rewrite "This post was originally made on the Assanka blog"
 * create new style/layout etc for posts
