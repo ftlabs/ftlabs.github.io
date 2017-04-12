@@ -41,12 +41,13 @@ gratifyingly, kinda worked
 * recover missing pages: /articles/(ft-fastclick,the-economist,ft-columnflow)
 * recover missing category pages, e.g. /category/technote
 * rewrite About
+* handle authors?
 
 ## ToDo
 
+* tidy /author/ftlabs (default author)
 * tag missing category pages (technote, labs, tutorial, news)
 * refactor/rewrite "This post was originally made on the Assanka blog"
-* handle authors?
 * create new style/layout etc for posts
 * strip out old styling and wp refs
 * add GA tracking back in
