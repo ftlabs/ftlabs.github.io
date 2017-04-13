@@ -48,7 +48,7 @@ gratifyingly, kinda worked
 
 ## ToDo
 
-* tag missing category pages (technote-DONE, labs, tutorial-DONE, news)
+* tag missing category pages (technote-DONE, labs, tutorial-DONE, news-DONE)
 * MAYBE: refactor/rewrite "This post was originally made on the Assanka blog". category=Assanka?
 * create new style/layout etc for posts
 * strip out old styling and wp refs
