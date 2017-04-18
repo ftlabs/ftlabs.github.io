@@ -21,6 +21,9 @@ In January 2012, Assanka, [the web and application development company acquired 
 From 2012 to 2015, pieces of this original FT Labs group split off into separate products and teams, merging into the larger FT organisation. These include:
 
 * [Origami](http://origami.ft.com)
+   * [Origami Build Service](https://www.ft.com/__origami/service/build/v2/)
+   * [Image Service](https://www.ft.com/__origami/service/image/v2/)
+* [polyfill.io](https://polyfill.io)
 * [Web App](https://app.ft.com)
 * Blogs
 * [Alphaville](https://ftalphaville.ft.com/)
