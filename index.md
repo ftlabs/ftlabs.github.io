@@ -8,11 +8,18 @@ We write up our work on a semi-irregular basis.
 
 The most recent posts are:
 
-{% for post in site.posts limit:3 %}
-* {{ post.date | date: "%b %-d, %Y" }} [{{ post.title | escape }}]({{ post.url | relative_url }})
-> {{ post.excerpt | strip_html }}
+<ul>
+{% for post in site.posts limit:4 %}
+<li>{{ post.date | date: "%b %-d, %Y" }} <a href="{{ post.url | relative_url }}">{{ post.title | escape }}
+<blockquote>{{ post.excerpt | strip_html }}</blockquote>
 
+  {% if post.excerpt-image %}
+    {% include figure-noimgservice.html src=post.excerpt-image %}
+  {% endif %}
+  </a>
+</li>
 {% endfor %}
-* [...more](/articles/).
+<li> <a href="/articles/">...more</a>.</li>
+</ul>
 
 {% include figure-noimgservice.html src="/assets/imgs/labs_poster_postits_2017_04_07_1538.jpg" %}
