@@ -64,7 +64,7 @@ $on-laptop:        800px;
   // align-content: stretch;
 }
 
-.grid-of-posts li {
+.pig { // post-in-grid
   list-style: none;
   margin-left: 0;
   max-width: 240px;
@@ -92,7 +92,7 @@ $on-laptop:        800px;
   margin-bottom: 1em;
   margin-left: 1em;
   margin-right: 1em;
-  min-height: 3em;
+  min-height: 4em;
 }
 
 .grid-of-posts li blockquote {
@@ -100,7 +100,7 @@ $on-laptop:        800px;
 }
 
 .pig-img {
-  min-height: 6em;
+  min-height: 10em;
 }
 
 .pig-date {
@@ -113,6 +113,6 @@ $on-laptop:        800px;
   min-height: 200px;
 }
 
-.pig-dotdotdot a:hover {
+.pig a:hover {
   text-decoration:  none;
 }

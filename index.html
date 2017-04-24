@@ -14,29 +14,29 @@ title: labs.FT.com
 <div class="grid-of-posts">
 {% for post in site.posts limit:5 %}
   {% unless post.categories contains "links" %}
-    <li>
+    <div class="pig">
       <a href="{{ post.url | relative_url }}">
         <h2 class="pig-title">
           {{ post.title | escape }}
         </h2>
         <blockquote class="pig-excerpt">{{ post.excerpt | strip_html }}</blockquote>
-      <div class="pig-img">
+        <div class="pig-img">
     {% if post.excerpt-image %}
-            <img src="{{ post.excerpt-image }}"/>
+          <img src="{{ post.excerpt-image }}"/>
     {% endif %}
         </div>
         <div class="pig-date">
           {{ post.date | date: "%b %-d, %Y" }}
         </div>
       </a>
-    </li>
+    </div>
   {% endunless %}
 {% endfor %}
-  <li>
+  <div class="pig">
     <div class="pig-dotdotdot">
       <a href="/articles/">...</a>
     </div>
-  </li>
+  </div>
 </div>
 
 <h2>Some collections</h2>
@@ -44,19 +44,19 @@ title: labs.FT.com
 <div class="grid-of-posts">
 {% for post in site.categories['links'] limit:2 %}
   <a href="{{ post.url | relative_url }}">
-    <li>
+    <div class="pig">
       <h2 class="pig-title">
         {{ post.title | escape }}
       </h2>
-    <div class="pig-img">
+      <div class="pig-img">
   {% if post.excerpt-image %}
-          <img src="{{ post.excerpt-image }}"/>
+        <img src="{{ post.excerpt-image }}"/>
   {% endif %}
       </div>
       <div class="pig-date">
         {{ post.date | date: "%b %-d, %Y" }}
       </div>
-    </li>
+    </div>
   </a>
 {% endfor %}
 </div>
