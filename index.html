@@ -11,7 +11,7 @@ title: FT labs.ft.com
   The most recent posts are:
 
 <div class="grid-of-posts">
-{% for post in site.posts limit:4 %}
+{% for post in site.posts limit:5 %}
   <a href="{{ post.url | relative_url }}">
     <li>
       <div class="pig-title">
@@ -30,7 +30,9 @@ title: FT labs.ft.com
   </a>
 {% endfor %}
   <li>
-    <a class="pig-dotdotdot" href="/articles/">...</a>
+    <div class="pig-dotdotdot">
+      <a href="/articles/">...</a>
+    </div>
   </li>
 </div>
 

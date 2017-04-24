@@ -41,15 +41,27 @@ $on-laptop:        800px;
 // aditional stuff for WP->Jekyll port
 
 .grid-of-posts {
-  display: flex;
   width: 100%;
   padding: 0;
   margin: 0;
   justify-content: space-around;
-  flex-wrap: wrap;
   // border: 1px solid black;
   // border-width: 1px 0 0px 0;
   padding-top: 1em;
+
+  display: flex;
+  flex-wrap: wrap;
+
+  // display: -webkit-flex;
+  // display: flex;
+  // -webkit-align-items: center;
+  // align-items: center;
+  // -webkit-justify-content: center;
+  // justify-content: center;
+  // -webkit-flex-flow: column wrap;
+  // flex-flow: column wrap;
+  // -webkit-align-content: stretch;
+  // align-content: stretch;
 }
 
 .grid-of-posts li {
@@ -89,9 +101,11 @@ $on-laptop:        800px;
 }
 
 .pig-dotdotdot {
-  font-size: 10em;
+  font-size: 20em;
+  min-width: 230px;
+  min-height: 200px;
 }
 
-.pig-dotdotdot:hover {
+.pig-dotdotdot a:hover {
   text-decoration:  none;
 }
