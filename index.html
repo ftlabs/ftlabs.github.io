@@ -8,30 +8,34 @@ title: FT labs.ft.com
 <p>
   Our work (and posts, on a semi-irregular basis) cover myriad topics, ranging from attempts to tackle specific problems (Ad Blocking, OCR, ...), via actively looking for upcoming concerns and opportunities (text-to-speech, conversation APIs, ...), to simply exploring new technologies (Amazon Alexa, Google Home, ...).
 </p>
-<p>
   The most recent posts are:
 
-  <div class="grid-of-posts">
+<div class="grid-of-posts">
 {% for post in site.posts limit:4 %}
-    <li class="post-in-grid">
-      <a href="{{ post.url | relative_url }}">
-        <div class="pig-title">
-          {{ post.date | date: "%b %-d, %Y" }}
-          {{ post.title | escape }}
-        </div>
-        <blockquote class="pig-excerpt">{{ post.excerpt | strip_html }}</blockquote>
-  {% if post.excerpt-image %}
-        <div class="pig-image">
-          {% include figure-noimgservice.html src=post.excerpt-image %}
-        </div>
-  {% endif %}
-      </a>
-    </li>
-{% endfor %}
+  <a href="{{ post.url | relative_url }}">
     <li>
-      <a href="/articles/">...more</a>.
+      <div class="pig-title">
+        {{ post.title | escape }}
+      </div>
+      <blockquote class="pig-excerpt">{{ post.excerpt | strip_html }}</blockquote>
+    <div class="pig-second-last">
+{% if post.excerpt-image %}
+          <img src="{{ post.excerpt-image }}"/>
+{% endif %}
+      </div>
+      <div class="pig-date">
+        {{ post.date | date: "%b %-d, %Y" }}
+      </div>
     </li>
-  </div>
+  </a>
+{% endfor %}
+  <li>
+    <a class="pig-dotdotdot" href="/articles/">...</a>
+  </li>
+</div>
+
+<p>
+    .
 </p>
 
-{% include figure-noimgservice.html src="/assets/imgs/labs_poster_postits_2017_04_07_1538.jpg" %}
+<img src="/assets/imgs/labs_poster_postits_2017_04_07_1538.jpg"/>

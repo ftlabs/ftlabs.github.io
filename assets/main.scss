@@ -41,21 +41,57 @@ $on-laptop:        800px;
 // aditional stuff for WP->Jekyll port
 
 .grid-of-posts {
-    display: flex;
-    width: 100%;
-    padding: 0;
-    margin: 0;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    border: 1px solid black;
-    border-width: 1px 0 0px 0;
-    padding-top: 3em;
+  display: flex;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  // border: 1px solid black;
+  // border-width: 1px 0 0px 0;
+  padding-top: 1em;
 }
 
 .grid-of-posts li {
-    max-width: 150px;
-    text-align: center;
-    margin-left: 5px;
-    margin-right: 5px;
-    margin-bottom: 3em;
+  list-style: none;
+  margin-left: 0;
+  max-width: 250px;
+  text-align: center;
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-bottom: 1em;
+
+  padding: 1%;
+
+  border: 1px solid lightgrey;
+  border-width: 1px;
+  border-radius: 5%;
+
+  -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.55);
+  -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.55);
+  box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.55);
+
+  display: flex;
+  flex-direction: column;
+}
+
+.pig-title {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.pig-second-last {
+  // flex-grow: 1; // assuming none of the other have flex-grow set
+}
+
+.pig-date {
+  margin-bottom: 1em;
+}
+
+.pig-dotdotdot {
+  font-size: 10em;
+}
+
+.pig-dotdotdot:hover {
+  text-decoration:  none;
 }
