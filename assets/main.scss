@@ -77,11 +77,11 @@ $on-laptop:        800px;
 
   border: 1px solid lightgrey;
   border-width: 1px;
-  border-radius: 5%;
+  border-radius: 5px;
 
-  -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.55);
-  -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.55);
-  box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.55);
+  -webkit-box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.25);
 
   display: flex;
   flex-direction: column;
