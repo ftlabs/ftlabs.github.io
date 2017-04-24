@@ -6,28 +6,31 @@ title: FT labs.ft.com
   FT Labs is a small team at the <a href="http://www.ft.com">Financial Times</a>, striving to reach and engage readers with the world’s finest journalism, by looking for gaps, opportunities, concerns, and the unknown. (<a href="/about/">...more</a>)
 </p>
 <p>
-  Our work (and posts, on a semi-irregular basis) cover myriad topics, ranging from attempts to tackle specific problems (Ad Blocking, OCR, ...), via actively looking for upcoming concerns and opportunities (text-to-speech, conversation APIs, ...), to simply exploring new technologies (Amazon Alexa, Google Home, ...).
+  Our work (and posts, on a semi-irregular basis) cover myriad topics, ranging from specific problems (Ad Blocking, OCR, ...), via upcoming concerns and opportunities (text-to-speech, conversation APIs, ...), to simply exploring new technologies (Amazon Alexa, Google Home, ...).
 </p>
-  The most recent posts are:
+
+<h2>Recent Posts</h2>
 
 <div class="grid-of-posts">
 {% for post in site.posts limit:5 %}
-  <a href="{{ post.url | relative_url }}">
+  {% unless post.categories contains "links" %}
     <li>
-      <div class="pig-title">
-        {{ post.title | escape }}
-      </div>
-      <blockquote class="pig-excerpt">{{ post.excerpt | strip_html }}</blockquote>
-    <div class="pig-img">
-{% if post.excerpt-image %}
-          <img src="{{ post.excerpt-image }}"/>
-{% endif %}
-      </div>
-      <div class="pig-date">
-        {{ post.date | date: "%b %-d, %Y" }}
-      </div>
+      <a href="{{ post.url | relative_url }}">
+        <h2 class="pig-title">
+          {{ post.title | escape }}
+        </h2>
+        <blockquote class="pig-excerpt">{{ post.excerpt | strip_html }}</blockquote>
+      <div class="pig-img">
+    {% if post.excerpt-image %}
+            <img src="{{ post.excerpt-image }}"/>
+    {% endif %}
+        </div>
+        <div class="pig-date">
+          {{ post.date | date: "%b %-d, %Y" }}
+        </div>
+      </a>
     </li>
-  </a>
+  {% endunless %}
 {% endfor %}
   <li>
     <div class="pig-dotdotdot">
@@ -36,8 +39,28 @@ title: FT labs.ft.com
   </li>
 </div>
 
-<p>
-    .
-</p>
+<h2>Some collections</h2>
+
+<div class="grid-of-posts">
+{% for post in site.categories['links'] limit:2 %}
+  <a href="{{ post.url | relative_url }}">
+    <li>
+      <h2 class="pig-title">
+        {{ post.title | escape }}
+      </h2>
+    <div class="pig-img">
+  {% if post.excerpt-image %}
+          <img src="{{ post.excerpt-image }}"/>
+  {% endif %}
+      </div>
+      <div class="pig-date">
+        {{ post.date | date: "%b %-d, %Y" }}
+      </div>
+    </li>
+  </a>
+{% endfor %}
+</div>
+
+<h2>Opinions vary on our strapline...</h2>
 
 <img src="/assets/imgs/labs_poster_postits_2017_04_07_1538.jpg"/>
