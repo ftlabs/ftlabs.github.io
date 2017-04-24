@@ -73,7 +73,7 @@ $on-laptop:        800px;
   margin-right: 5px;
   margin-bottom: 1em;
 
-  padding: 1%;
+  padding: 2%;
 
   border: 1px solid lightgrey;
   border-width: 1px;
@@ -90,10 +90,17 @@ $on-laptop:        800px;
 .pig-title {
   margin-top: 1em;
   margin-bottom: 1em;
+  margin-left: 1em;
+  margin-right: 1em;
+  min-height: 3em;
 }
 
-.pig-second-last {
-  // flex-grow: 1; // assuming none of the other have flex-grow set
+.grid-of-posts li blockquote {
+  min-height: 6em;
+}
+
+.pig-img {
+  min-height: 6em;
 }
 
 .pig-date {
