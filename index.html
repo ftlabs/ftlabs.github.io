@@ -12,23 +12,25 @@ title: FT labs.ft.com
   The most recent posts are:
 
   <div class="grid-of-posts">
-  {% for post in site.posts limit:4 %}
-  <li>
-    <div class="post-in-grid">
-      <div class="pig-title">
-        {{ post.date | date: "%b %-d, %Y" }} <a href="{{ post.url | relative_url }}">{{ post.title | escape }}
-      </div>
-      <blockquote class="pig-excerpt">{{ post.excerpt | strip_html }}</blockquote>
-    {% if post.excerpt-image %}
-      <div class="pig-image">
-        {% include figure-noimgservice.html src=post.excerpt-image %}
-      </div>
-    {% endif %}
-    </a>
-    </div>
-  </li>
-  {% endfor %}
-  <li> <a href="/articles/">...more</a>.</li>
+{% for post in site.posts limit:4 %}
+    <li class="post-in-grid">
+      <a href="{{ post.url | relative_url }}">
+        <div class="pig-title">
+          {{ post.date | date: "%b %-d, %Y" }}
+          {{ post.title | escape }}
+        </div>
+        <blockquote class="pig-excerpt">{{ post.excerpt | strip_html }}</blockquote>
+  {% if post.excerpt-image %}
+        <div class="pig-image">
+          {% include figure-noimgservice.html src=post.excerpt-image %}
+        </div>
+  {% endif %}
+      </a>
+    </li>
+{% endfor %}
+    <li>
+      <a href="/articles/">...more</a>.
+    </li>
   </div>
 </p>
 
