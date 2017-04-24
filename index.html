@@ -1,0 +1,35 @@
+---
+layout: wp-post
+title: FT labs.ft.com
+---
+<p>
+  FT Labs is a small team at the <a href="http://www.ft.com">Financial Times</a>, striving to reach and engage readers with the world’s finest journalism, by looking for gaps, opportunities, concerns, and the unknown. (<a href="/about/">...more</a>)
+</p>
+<p>
+  Our work (and posts, on a semi-irregular basis) cover myriad topics, ranging from attempts to tackle specific problems (Ad Blocking, OCR, ...), via actively looking for upcoming concerns and opportunities (text-to-speech, conversation APIs, ...), to simply exploring new technologies (Amazon Alexa, Google Home, ...).
+</p>
+<p>
+  The most recent posts are:
+
+  <div class="grid-of-posts">
+  {% for post in site.posts limit:4 %}
+  <li>
+    <div class="post-in-grid">
+      <div class="pig-title">
+        {{ post.date | date: "%b %-d, %Y" }} <a href="{{ post.url | relative_url }}">{{ post.title | escape }}
+      </div>
+      <blockquote class="pig-excerpt">{{ post.excerpt | strip_html }}</blockquote>
+    {% if post.excerpt-image %}
+      <div class="pig-image">
+        {% include figure-noimgservice.html src=post.excerpt-image %}
+      </div>
+    {% endif %}
+    </a>
+    </div>
+  </li>
+  {% endfor %}
+  <li> <a href="/articles/">...more</a>.</li>
+  </div>
+</p>
+
+{% include figure-noimgservice.html src="/assets/imgs/labs_poster_postits_2017_04_07_1538.jpg" %}
