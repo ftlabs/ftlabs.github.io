@@ -1,0 +1,118 @@
+---
+# Only the main Sass file needs front matter (the dashes are enough)
+---
+@charset "utf-8";
+
+// Our variables
+$base-font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+$base-font-size:   16px;
+$base-font-weight: 400;
+$small-font-size:  $base-font-size * 0.875;
+$base-line-height: 1.5;
+
+$spacing-unit:     30px;
+
+$text-color:       #111;
+$background-color: #fdfdfd;
+$brand-color:      #2a7ae2;
+
+$grey-color:       #828282;
+$grey-color-light: lighten($grey-color, 40%);
+$grey-color-dark:  darken($grey-color, 25%);
+
+// Width of the content area
+$content-width:    800px;
+
+$on-palm:          600px;
+$on-laptop:        800px;
+
+// Minima also includes a mixin for defining media queries.
+// Use media queries like this:
+// @include media-query($on-palm) {
+//     .wrapper {
+//         padding-right: $spacing-unit / 2;
+//         padding-left: $spacing-unit / 2;
+//     }
+// }
+
+// Import partials from the `minima` theme.
+@import "minima";
+
+// aditional stuff for WP->Jekyll port
+
+.grid-of-posts {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  justify-content: space-around;
+  // border: 1px solid black;
+  // border-width: 1px 0 0px 0;
+  padding-top: 1em;
+
+  display: flex;
+  flex-wrap: wrap;
+
+  // display: -webkit-flex;
+  // display: flex;
+  // -webkit-align-items: center;
+  // align-items: center;
+  // -webkit-justify-content: center;
+  // justify-content: center;
+  // -webkit-flex-flow: column wrap;
+  // flex-flow: column wrap;
+  // -webkit-align-content: stretch;
+  // align-content: stretch;
+}
+
+.grid-of-posts li {
+  list-style: none;
+  margin-left: 0;
+  max-width: 240px;
+  text-align: center;
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-bottom: 1em;
+
+  padding: 2%;
+
+  border: 1px solid lightgrey;
+  border-width: 1px;
+  border-radius: 5%;
+
+  -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.55);
+  -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.55);
+  box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.55);
+
+  display: flex;
+  flex-direction: column;
+}
+
+.pig-title {
+  margin-top: 1em;
+  margin-bottom: 1em;
+  margin-left: 1em;
+  margin-right: 1em;
+  min-height: 3em;
+}
+
+.grid-of-posts li blockquote {
+  min-height: 6em;
+}
+
+.pig-img {
+  min-height: 6em;
+}
+
+.pig-date {
+  margin-bottom: 1em;
+}
+
+.pig-dotdotdot {
+  font-size: 20em;
+  min-width: 230px;
+  min-height: 200px;
+}
+
+.pig-dotdotdot a:hover {
+  text-decoration:  none;
+}
