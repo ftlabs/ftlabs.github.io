@@ -123,11 +123,11 @@ $on-laptop:        800px;
   max-width: 500px;
 }
 
-.article_content ul{
+.article_content  ul.article_links{
   margin: 0;
 }
 
-.article_content ul li{
+.article_content  ul.article_links li{
   list-style-type: none;
   background: white;
   border-bottom: 5px solid #26747a;
@@ -137,13 +137,13 @@ $on-laptop:        800px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.3);
 }
 
-.article_content ul li a{
+.article_content  ul.article_links li a{
   display: block;
   text-decoration: none;
   border: 0 solid transparent;
 }
 
-.article_content ul li h1{
+.article_content  ul.article_links li h1{
   background: transparent;
   padding: 0;
   font-size: 1.2em;
@@ -152,12 +152,12 @@ $on-laptop:        800px;
   margin-bottom: 5px;
 }
 
-.article_content ul li span{
+.article_content  ul.article_links li span{
   font-size: 0.9em;
   color: #333;
 }
 
-.article_content ul li p{
+.article_content  ul.article_links li p{
   margin-bottom: 0;
 }
 
