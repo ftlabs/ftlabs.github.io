@@ -45,46 +45,42 @@ $on-laptop:        800px;
   padding: 0;
   margin: 0;
   justify-content: space-around;
-  // border: 1px solid black;
-  // border-width: 1px 0 0px 0;
   padding-top: 1em;
 
   display: flex;
   flex-wrap: wrap;
-
-  // display: -webkit-flex;
-  // display: flex;
-  // -webkit-align-items: center;
-  // align-items: center;
-  // -webkit-justify-content: center;
-  // justify-content: center;
-  // -webkit-flex-flow: column wrap;
-  // flex-flow: column wrap;
-  // -webkit-align-content: stretch;
-  // align-content: stretch;
 }
 
-.pig { // post-in-grid
+// pig = post-in-grid
+.pig, .pig-more {
   list-style: none;
   margin-left: 0;
-  max-width: 240px;
+  max-width: 230px;
   text-align: center;
   margin-left: 5px;
   margin-right: 5px;
   margin-bottom: 1em;
 
-  padding: 2%;
-
-  border: 1px solid lightgrey;
-  border-width: 1px;
-  border-radius: 5px;
-
-  -webkit-box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.25);
-  -moz-box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.25);
-  box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.25);
-
   display: flex;
   flex-direction: column;
+}
+
+.pig {
+  border-left: 5px solid #ffa02f;
+
+  border-width: 0px 0px 0px 12px;
+  -moz-border-image: url({{ site.logo-background-image }}) 0 0 0 143 stretch;
+  -webkit-border-image: url({{ site.logo-background-image }}) 0 0 0 143 stretch;
+  -o-border-image: url({{ site.logo-background-image }}) 0 0 0 143 stretch;
+  border-image: url({{ site.logo-background-image }}) 0 0 0 143 stretch;
+}
+
+.pig-more {
+  font-size: 3em;
+}
+
+.pig-more div {
+  height: 30%;
 }
 
 .pig-title {
@@ -92,11 +88,15 @@ $on-laptop:        800px;
   margin-bottom: 1em;
   margin-left: 1em;
   margin-right: 1em;
-  min-height: 4em;
+  min-height: 3em;
 }
 
-.grid-of-posts li blockquote {
+.pig-excerpt {
   min-height: 6em;
+  // font-style: italic;
+  padding: 12px;
+  // background: #f5ebdf;
+  margin-bottom: 1em;
 }
 
 .pig-img {
@@ -107,12 +107,10 @@ $on-laptop:        800px;
   margin-bottom: 1em;
 }
 
-.pig-dotdotdot {
-  font-size: 20em;
-  min-width: 230px;
-  min-height: 200px;
+.pig a:hover, .pig-more a:hover {
+  text-decoration:  none;
 }
 
-.pig a:hover {
-  text-decoration:  none;
+.opinions-image {
+  max-width: 500px;
 }
