@@ -37,7 +37,7 @@ exclude:
   - README.md
 default-image-width: 300
 excerpt_separator: <!-- more -->
-logo-background-image: /wp-content/themes/ftlabs-2016/img/chroma-pink.png
+logo-background-image: /assets/imgs/Blue-red-yellow.png
 collections:
   author:
     output: true
