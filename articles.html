@@ -6,10 +6,10 @@ permalink: /articles/
 <ul class="article_links">
 	{% for post in site.posts %}
 	<li>
+		<h1>{{ post.title | escape }}</h1>
 		<a href="{{ post.url | relative_url }}">
-			<h1>{{ post.title | escape }}</h1>
 			<span>{{ post.date | date: "%b %-d, %Y" }}</span>
-			<p>{{ post.excerpt | strip_html }}</p>
+			<p>{{ post.excerpt | default:"Read this post"  | strip_html }}</p>
 		</a>
 	</li->
 	{% endfor %}

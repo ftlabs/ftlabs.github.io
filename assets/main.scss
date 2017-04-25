@@ -130,26 +130,28 @@ $on-laptop:        800px;
 .article_content  ul.article_links li{
   list-style-type: none;
   background: white;
-  border-bottom: 5px solid #26747a;
-  padding: 1em;
+  border-bottom: 2px solid #26747a;
   box-sizing: border-box;
   margin-bottom: 1em;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 .article_content  ul.article_links li a{
-  display: block;
-  text-decoration: none;
-  border: 0 solid transparent;
+    display: block;
+    text-decoration: none;
+    border: 0 solid transparent;
+    padding: 0em 1em 0.5em;
 }
 
 .article_content  ul.article_links li h1{
   background: transparent;
-  padding: 0;
   font-size: 1.2em;
   margin: 0;
-  color: black;
   margin-bottom: 5px;
+  padding: 0.5em 1em;
+  background-color: #26747a;
+  color: white;
+  line-height: 1.3em;
 }
 
 .article_content  ul.article_links li span{
