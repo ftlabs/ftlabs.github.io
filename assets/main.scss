@@ -68,7 +68,7 @@ $on-laptop:        800px;
 .pig {
   border-left: 5px solid #ffa02f;
 
-  border-width: 0px 0px 0px 12px;
+  border-width: 0px 0px 0px 5px;
   -moz-border-image: url({{ site.logo-background-image }}) 0 0 0 143 stretch;
   -webkit-border-image: url({{ site.logo-background-image }}) 0 0 0 143 stretch;
   -o-border-image: url({{ site.logo-background-image }}) 0 0 0 143 stretch;
