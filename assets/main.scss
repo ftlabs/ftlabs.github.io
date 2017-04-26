@@ -56,6 +56,19 @@ h1{
   font-size: 3em;
 }
 
+h2{
+  font-size: 2em;
+}
+
+hr{
+  height: 3px;
+  display: block;
+  list-style: none;
+  background: #d8d0c6;
+  border: 0px solid transparent;
+  margin: 1.5em 0 1em;
+}
+
 header{
     position: fixed;
     width: 100%;
@@ -98,6 +111,11 @@ header nav ul li{
 header nav ul li a, header nav ul li a:visited{
   color: white;
   font-weight: 500;
+  cursor: pointer;
+}
+
+header nav ul li a:hover{
+  text-decoration: none;
 }
 
 .hero{
@@ -211,6 +229,7 @@ main article img{
   margin-left: 1em;
   margin-right: 1em;
   margin-bottom: 0;
+  font-family: 'MetricWeb';
 }
 
 .pig-excerpt {

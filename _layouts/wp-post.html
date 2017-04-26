@@ -19,7 +19,9 @@ layout: null
 				<main>
 					<script> var page = 'article-view';</script>
 					<article class="article_content body-text">
-	          <h1>{{layout.title-prefix}}{{page.title}}</h1>
+					{% if page.title == 'Welcome' %}
+						<h1>{{layout.title-prefix}}{{page.title}}</h1>
+					{% endif %}
 						{{ content }}
 					</article>
 				</main>
