@@ -36,7 +36,7 @@ exclude:
   - scripts
   - README.md
 default-image-width: 300
-excerpt_separator: <!-- more -->
+excerpt_separator: ""
 logo-background-image: /assets/imgs/Blue-red-yellow.png
 collections:
   author:

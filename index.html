@@ -1,6 +1,6 @@
 ---
 layout: wp-post
-title: labs.FT.com
+title: Welcome
 ---
 <p>
   FT Labs is a small team at the <a href="http://www.ft.com">Financial Times</a>, striving to reach and engage readers with the world’s finest journalism, by looking for gaps, opportunities, concerns, and the unknown. (<a href="/about/">...more</a>)
@@ -9,10 +9,12 @@ title: labs.FT.com
   Our work (and posts, on a semi-irregular basis) cover myriad topics, ranging from specific problems (Ad Blocking, OCR, ...), via upcoming concerns and opportunities (text-to-speech, conversation APIs, ...), to simply exploring new technologies (Amazon Alexa, Google Home, ...).
 </p>
 
+<hr />
+
 <h2>Recent Posts</h2>
 
 <div class="grid-of-posts">
-{% for post in site.posts limit:5 %}
+{% for post in site.posts limit:6 %}
   {% unless post.categories contains "links" %}
     <div class="pig">
       <a href="{{ post.url | relative_url }}">
@@ -23,32 +25,6 @@ title: labs.FT.com
     </div>
   {% endunless %}
 {% endfor %}
-    <div class="pig-more">
-      <div class="pig-more-1"></div>
-      <div class="pig-more-2"><a href="/articles/">more</a></div>
-      <div class="pig-more-3"></div>
-    </div>
 </div>
 
-<h2>Some collections</h2>
-
-<div class="grid-of-posts">
-{% for post in site.categories['links'] limit:2 %}
-  <div class="pig">
-    <a href="{{ post.url | relative_url }}">
-      <h2 class="pig-title">
-        {{ post.title | escape }}
-      </h2>
-      <div class="pig-date">
-        {{ post.date | date: "%b %-d, %Y" }}
-      </div>
-    </a>
-  </div>
-{% endfor %}
-</div>
-
-<h2>Opinions vary on our strapline...</h2>
-
-<div class="opinions-image">
-  <img src="/assets/imgs/labs_poster_postits_2017_04_07_1538.jpg"/>
 </div>

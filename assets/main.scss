@@ -40,39 +40,195 @@ $on-laptop:        800px;
 
 // aditional stuff for WP->Jekyll port
 
+body{
+  background: #0c0c0c;
+  padding-top: 50px;
+  font-family: "MetricWeb", sans-serif;
+  font-size: 16px;
+}
+
+h1, h2, h3, h4, h5, h6{
+  font-family: 'financierdisplayweb', serif;
+  text-align: center;
+}
+
+h1{
+  font-size: 3em;
+}
+
+h2{
+  font-size: 2em;
+}
+
+hr{
+  height: 3px;
+  display: block;
+  list-style: none;
+  background: #d8d0c6;
+  border: 0px solid transparent;
+  margin: 1.5em 0 1em;
+}
+
+header{
+    position: fixed;
+    width: 100%;
+    height: 48px;
+    background: #333;
+    box-shadow: 0 2px 4px black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    left: 0;
+    top: 0;
+    z-index: 50;
+}
+
+header nav{
+  width: 100%;
+  max-width: 1066px;
+  display: flex;
+  height: 100%;
+  align-items: center;
+}
+
+header nav img{
+  height: 18px;
+  margin-right: 2em;
+}
+
+header nav ul{
+  display: flex;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+}
+
+header nav ul li{
+  color: white;
+  margin-right: 1em;
+}
+
+header nav ul li a, header nav ul li a:visited{
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+header nav ul li a:hover{
+  text-decoration: none;
+}
+
+header nav ul .home a{
+  font-weight: 600;
+  font-size: 1.2em;
+  margin-left: 1em;
+}
+
+.hero{
+  width: 100%;
+  height: 50vh;
+  background-image: url('/assets/imgs/hero-background.png');
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 50px;
+  flex-direction: column;
+  background-size: cover;
+  background-position: 50%;
+}
+
+.hero img{
+  max-width: 100%;
+  vertical-align: middle;
+  height: 80%;
+  max-height: 300px;
+}
+
+.hero h1{
+  font-size: 6em;
+  color: white;
+  text-shadow: 0 1px 3px black;
+  line-height: 1em;
+}
+
+.hero p{
+  font-size: 16px;
+  color: white;
+  max-width: 400px;
+  text-align: center;
+  text-shadow: 0 1px 2px black;
+}
+
+.hero p::first-letter{
+  text-transform: capitalize;
+}
+
+main{
+  width: 100%;
+  background: #333;
+  box-shadow: 0 -2px 2px rgba(0,0,0,0.5);
+}
+
+main article{
+  max-width: 1066px;
+  width: 100%;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  background: #fff1e0;
+  padding: 50px;
+  box-sizing: border-box;
+  border-top: 20px solid #9e2f50;
+  box-shadow: 0 1px 2px black;
+  top: -50px;
+}
+
+main article img{
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  border: 5px solid white;
+  box-shadow: 0 1px 3px black;
+}
+
 .grid-of-posts {
   width: 100%;
   padding: 0;
   margin: 0;
-  justify-content: space-around;
   padding-top: 1em;
-
   display: flex;
   flex-wrap: wrap;
+  align-content: flex-start;
+  justify-content: space-between;
 }
 
 // pig = post-in-grid
 .pig, .pig-more {
   list-style: none;
-  margin-left: 0;
-  max-width: 230px;
+  max-width: 30%;
   text-align: center;
-  margin-left: 5px;
-  margin-right: 5px;
   margin-bottom: 1em;
-
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  background: white;
+  border: 0 solid red;
+  padding-bottom: 1em;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  border-bottom: 5px solid #26747a;
+  padding: 0.5em;
+  box-sizing: border-box;
 }
 
 .pig {
-  border-left: 5px solid #ffa02f;
+  // margin-right: 1em;
 
-  border-width: 0px 0px 0px 5px;
-  -moz-border-image: url({{ site.logo-background-image }}) 0 0 0 143 stretch;
-  -webkit-border-image: url({{ site.logo-background-image }}) 0 0 0 143 stretch;
-  -o-border-image: url({{ site.logo-background-image }}) 0 0 0 143 stretch;
-  border-image: url({{ site.logo-background-image }}) 0 0 0 143 stretch;
+}
+
+.pig a:focus{
+  outline: none;
+  border: 0 solid transparent;
 }
 
 .pig-more {
@@ -84,19 +240,23 @@ $on-laptop:        800px;
 }
 
 .pig-title {
-  margin-top: 1em;
-  margin-bottom: 1em;
+  font-size: 20px;
+  color: black;
+  margin-top: 0.8em;
+  box-sizing: border-box;
   margin-left: 1em;
   margin-right: 1em;
-  min-height: 3em;
+  margin-bottom: 0;
+  font-family: 'MetricWeb';
 }
 
 .pig-excerpt {
-  min-height: 6em;
-  // font-style: italic;
   padding: 12px;
-  // background: #f5ebdf;
-  margin-bottom: 1em;
+  font-size: 0.9em;
+}
+
+.pig-excerpt::first-letter{
+  text-transform: capitalize;
 }
 
 .pig-img {
@@ -105,6 +265,8 @@ $on-laptop:        800px;
 
 .pig-date {
   margin-bottom: 1em;
+  font-size: 0.75em;
+  color: black;
 }
 
 .pig a:hover, .pig-more a:hover {
@@ -113,4 +275,66 @@ $on-laptop:        800px;
 
 .opinions-image {
   max-width: 500px;
+}
+
+.article_content  ul.article_links{
+  margin: 0;
+}
+
+.article_content  ul.article_links li{
+  list-style-type: none;
+  background: white;
+  border-bottom: 5px solid #26747a;
+  padding: 1em;
+  box-sizing: border-box;
+  margin-bottom: 1em;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+  text-align: center;
+}
+
+.article_content  ul.article_links li a{
+  display: block;
+  text-decoration: none;
+  border: 0 solid transparent;
+}
+
+.article_content  ul.article_links li h1{
+  background: transparent;
+  padding: 0;
+  font-size: 1.2em;
+  margin: 0;
+  color: black;
+  margin-bottom: 5px;
+}
+
+.article_content  ul.article_links li span{
+  font-size: 0.9em;
+  color: #333;
+}
+
+.article_content  ul.article_links li p{
+  margin-bottom: 0;
+}
+
+@media all and (max-width: 730px){
+  .grid-of-posts {
+    flex-direction: column;
+  }
+
+  .pig{
+    max-width: 100%;
+  }
+
+  .hero h1{
+    font-size: 3em;
+  }
+
+  .hero p{
+    padding: 0 3em;
+  }
+
+  main article {
+    padding: 1em;
+  }
+
 }
