@@ -91,11 +91,6 @@ header nav{
   align-items: center;
 }
 
-header nav img{
-  height: 18px;
-  margin-right: 2em;
-}
-
 header nav ul{
   display: flex;
   list-style-type: none;
@@ -146,7 +141,7 @@ header nav ul .home a{
 }
 
 .hero h1{
-  font-size: 6em;
+  font-size: 5em;
   color: white;
   text-shadow: 0 1px 3px black;
   line-height: 1em;
