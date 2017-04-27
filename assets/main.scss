@@ -101,6 +101,7 @@ header nav ul{
   list-style-type: none;
   margin: 0;
   padding: 0;
+  align-items: center;
 }
 
 header nav ul li{
@@ -118,9 +119,9 @@ header nav ul li a:hover{
   text-decoration: none;
 }
 
-header nav ul .home {
-  background-image: url('/assets/imgs/Blue-magenta-cyan.png') ;
-  background-size: cover;
+header nav ul .home a{
+  font-weight: 600;
+  font-size: 1.2em;
 }
 
 .hero{
