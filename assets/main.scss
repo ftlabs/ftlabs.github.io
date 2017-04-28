@@ -316,6 +316,10 @@ main article img{
   text-align: center;
 }
 
+.strike-through {
+  text-decoration: line-through;
+}
+
 @media all and (max-width: 730px){
   .grid-of-posts {
     flex-direction: column;
