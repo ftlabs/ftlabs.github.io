@@ -5,7 +5,7 @@
 
 // Our variables
 $base-font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-$base-font-size:   16px;
+$base-font-size:   18px;
 $base-font-weight: 400;
 $small-font-size:  $base-font-size * 0.875;
 $base-line-height: 1.5;
@@ -44,7 +44,7 @@ body{
   background: #0c0c0c;
   padding-top: 50px;
   font-family: "MetricWeb", sans-serif;
-  font-size: 16px;
+  font-size: $base-font-size;
 }
 
 h1, h2, h3, h4, h5, h6{
@@ -85,7 +85,7 @@ header{
 
 header nav{
   width: 100%;
-  max-width: 1066px;
+  max-width: $content-width;
   display: flex;
   height: 100%;
   align-items: center;
@@ -148,7 +148,7 @@ header nav ul .home a{
 }
 
 .hero p{
-  font-size: 16px;
+  font-size: $base-font-size;
   color: white;
   max-width: 400px;
   text-align: center;
@@ -166,7 +166,7 @@ main{
 }
 
 main article{
-  max-width: 1066px;
+  max-width: $content-width;
   width: 100%;
   position: relative;
   margin-left: auto;
