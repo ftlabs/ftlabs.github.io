@@ -320,6 +320,10 @@ main article img{
   text-decoration: line-through;
 }
 
+.reasons-for-404 p {
+  text-align: center;
+}
+
 @media all and (max-width: 730px){
   .grid-of-posts {
     flex-direction: column;

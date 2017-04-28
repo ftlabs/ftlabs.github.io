@@ -1,0 +1,19 @@
+---
+layout: page
+title: 404
+excerpt: >
+  Sadly, the url you requested is not available.
+permalink: /404.html
+---
+<p>
+  Luckily, an <a href="/2015/08/four-oh-four/">FT Labs project</a> explored this very situation...
+</p>
+<br>
+<br>
+<div class="reasons-for-404">
+{% for item in site.data.reasons-for-404 %}
+<h2>{{ item.name }}</h2>
+<p>{{ item.description }}</p>
+<br>
+{% endfor %}
+</div>
