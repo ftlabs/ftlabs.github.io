@@ -5,7 +5,7 @@
 
 // Our variables
 $base-font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-$base-font-size:   16px;
+$base-font-size:   18px;
 $base-font-weight: 400;
 $small-font-size:  $base-font-size * 0.875;
 $base-line-height: 1.5;
@@ -44,7 +44,7 @@ body{
   background: #0c0c0c;
   padding-top: 50px;
   font-family: "MetricWeb", sans-serif;
-  font-size: 16px;
+  font-size: $base-font-size;
 }
 
 h1, h2, h3, h4, h5, h6{
@@ -85,7 +85,7 @@ header{
 
 header nav{
   width: 100%;
-  max-width: 1066px;
+  max-width: $content-width;
   display: flex;
   height: 100%;
   align-items: center;
@@ -141,14 +141,15 @@ header nav ul .home a{
 }
 
 .hero h1{
-  font-size: 5em;
+  font-size: 4em;
   color: white;
   text-shadow: 0 1px 3px black;
   line-height: 1em;
+  padding: 0 0.5em;
 }
 
 .hero p{
-  font-size: 16px;
+  font-size: $base-font-size;
   color: white;
   max-width: 400px;
   text-align: center;
@@ -166,7 +167,7 @@ main{
 }
 
 main article{
-  max-width: 1066px;
+  max-width: $content-width;
   width: 100%;
   position: relative;
   margin-left: auto;
@@ -311,6 +312,18 @@ main article img{
   margin-bottom: 0;
 }
 
+.the-end p{
+  text-align: center;
+}
+
+.strike-through {
+  text-decoration: line-through;
+}
+
+.reasons-for-404 p {
+  text-align: center;
+}
+
 @media all and (max-width: 730px){
   .grid-of-posts {
     flex-direction: column;
@@ -333,3 +346,54 @@ main article img{
   }
 
 }
+
+/* prettyify-code-highlight */
+/* Based on Twitter Bootstrap style http://twitter.github.com/bootstrap/ */
+
+.prettyprint .com { color: #93a1a1; }
+.prettyprint .lit { color: #195f91; }
+.prettyprint .pun, .prettyprint .opn, .prettyprint .clo { color: #93a1a1; }
+.prettyprint .fun { color: #dc322f; }
+.prettyprint .str, .prettyprint .atv { color: #D14; }
+.prettyprint .kwd, .prettyprint .linenums .tag { color: #1e347b; }
+.prettyprint .typ, .prettyprint .atn, .prettyprint .dec, .prettyprint .var { color: teal; }
+.prettyprint .pln { color: #48484c; }
+
+.comment-content pre.prettyprint code,
+.post-content pre.prettyprint code,
+pre.prettyprint code { padding: 0; margin: 0; border: none; display: block; white-space: pre; font-size: 12px;}
+
+pre.prettyprint,
+code.prettyprint,
+.post-content pre.prettyprint,
+.post-content code.prettyprint,
+.comment-content pre.prettyprint,
+.comment-content code.prettyprint { overflow: auto; word-wrap: normal; -moz-tab-size: 2; -o-tab-size: 2; tab-size: 2; }
+
+.prettyprint {
+  padding: 8px;
+  background-color: #f7f7f9;
+  border: 1px solid #e1e1e8;
+}
+.prettyprint.linenums {
+  padding: 0;
+}
+/* Specify class=linenums on a pre to get line numbering */
+.prettyprint ol.linenums {
+  padding: 8px 8px 8px 41px;
+  margin: 0;
+  -webkit-box-shadow: inset 40px 0 0 #fbfbfc, inset 41px 0 0 #ececf0;
+     -moz-box-shadow: inset 40px 0 0 #fbfbfc, inset 41px 0 0 #ececf0;
+          box-shadow: inset 40px 0 0 #fbfbfc, inset 41px 0 0 #ececf0;
+}
+.prettyprint ol.linenums li {
+  padding-left: 12px;
+  color: #bebec5;
+  line-height: 18px;
+  text-shadow: 0 1px 0 #fff;
+  font-size: 12px;
+}
+
+code.prettyprint { display: block; }
+
+pre.prettyprint code { background-color: transparent;}

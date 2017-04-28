@@ -1,14 +1,34 @@
 ---
-layout: default
+layout: null
 ---
-<article class="post">
-
-  <header class="post-header">
-    <h1 class="post-title">{{ page.title | escape }}</h1>
-  </header>
-
-  <div class="post-content">
-    {{ content }}
-  </div>
-
-</article>
+<!doctype html>
+	<html lang="en-GB">
+	{% include head.html %}
+	<body class="single single-post postid-105 single-format-standard">
+		<div class="app" ontouchstart="">
+			<div class='container'>
+				{% include header.html %}
+				<div class="hero">
+					{% unless page.title == 'Welcome' %}
+						<h1>{{layout.title-prefix}}{{page.title}}</h1>
+						<p>{{page.excerpt}}</p>
+					{% else %}
+						<img src="/assets/imgs/blue-labs-logo.png" alt="The FT Labs Logo" />
+					{% endunless %}
+				</div>
+				<main>
+					<script> var page = 'article-view';</script>
+					<article class="article_content body-text">
+					{% if page.title == 'Welcome' %}
+						<h1>{{layout.title-prefix}}{{page.title}}</h1>
+					{% endif %}
+						{{ content }}
+					</article>
+				</main>
+			</div>
+			{% include footer.html %}
+		</div>
+		<script>window.onload = function() { prettyPrint(); }</script><script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.js?ver=4.6.4'></script>
+		<script src="//origami-build.ft.com/v2/bundles/js?modules=o-footer%405.4.0"></script>
+	</body>
+</html>

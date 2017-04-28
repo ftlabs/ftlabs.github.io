@@ -1,5 +1,5 @@
 ---
-layout: wp-post
+layout: post
 title: 'Disappearing text cursor in Firefox'
 date: 2009-11-01
 categories: [ex-wordpress, technote]
@@ -12,9 +12,9 @@ author: andrew
 <p>Solution: blur (remove focus from) the element before you disable it.  Those sources that do refer to this specific problem tend to suggest that you focus a different element before you disable the text box.  But this is not necessary &#8211; you can just blur the element that has focus and leave the page with nothing focused.</p>
 <h2>Problem test case</h2>
 <p>Try clicking and typing in the field below &#8211; if your browser exhibits this problem, the text cursor will not appear.  If it does, then your browser does not have this problem.</p>
-<p><iframe src='/wp-content/uploads/2009/11/testcase_ffcursor1.html' width='300' height='35'></iframe></p>
+<p><iframe src='/assets/uploads/2009/11/testcase_ffcursor1.html' width='300' height='35'></iframe></p>
 <p>This demo has a single text field which, when you click into it, is briefly disabled, and then enabled again.  The disabling of the field while it has focus triggers this problem, so the text cursor does not appear (but you can still type into the field!).</p>
 <h2>Solution test case</h2>
 <p>Now try typing in this field &#8211; the cursor should appear consistently.</p>
-<p><iframe src='/wp-content/uploads/2009/11/testcase_ffcursor2.html' width='300' height='35'></iframe></p>
+<p><iframe src='/assets/uploads/2009/11/testcase_ffcursor2.html' width='300' height='35'></iframe></p>
 <p>This demo still briefly disables and re-enables the text field when it gets focus, but this time it blurs it right before it&#8217;s disabled, then focuses it again after re-enabling it.  The result is that when you place your mouse cursor in the field to manually give it focus, the text cursor appears as normal.</p>

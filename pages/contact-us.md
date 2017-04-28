@@ -1,5 +1,5 @@
 ---
-layout: wp-post
+layout: page
 title: Contact Us
 permalink: /contact-us/
 ---

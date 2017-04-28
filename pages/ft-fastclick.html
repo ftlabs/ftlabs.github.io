@@ -1,5 +1,5 @@
 ---
-layout: wp-post
+layout: page
 title: 'FT Fastclick'
 date: 2011-08-01
 categories: [ex-wordpress]
@@ -19,7 +19,7 @@ permalink: /articles/ft-fastclick/
 var button = document.querySelector(&quot;.fastclick&quot;);
 new FastClick(button);
 &lt;/script&gt;</code></pre>
-<p>In the example, the button with a <code>fastclick</code> class will have its click handler called as soon as your finger is lifted off the screen, while tapping on any other buttons on the page will trigger the same handler after a noticeable delay. Try the <a href="../../wp-content/uploads/2011/08/fastclickdemo.html">live demo</a>.</p>
+<p>In the example, the button with a <code>fastclick</code> class will have its click handler called as soon as your finger is lifted off the screen, while tapping on any other buttons on the page will trigger the same handler after a noticeable delay. Try the <a href="/assets/uploads/2011/08/fastclickdemo.html">live demo</a>.</p>
 <p>Unfortunately, the <code>select</code> element doesn’t behave normally when receiving (synthesised) programmatic clicks, so if you apply FastClick to an element that contains selects, FastClick will ignore clicks on the select and allow the normal click event to fire.</p>
 <p>If you want any other elements (besides selects) in your FastClick layer to receive non-programmatic clicks, you’ll need to use one of two classes: <code>clickevent</code> or <code>touchandclickevent</code>. For any clickable element in a FastClick layer, tapping the element will cause different effects depending on how you use these classes:</p>
 <ul>
@@ -43,5 +43,5 @@ new FastClick(button);
 var button = document.querySelector(&quot;.fastclick&quot;);
 new FastClick(button);
 &lt;/script&gt;</code></pre>
-<p>When is this useful? Try the <a href="../../wp-content/uploads/2011/08/fastclickdemo-input.html">other live demo</a> we’ve built using a click event handler that attempts to trigger focus on an <code>input</code> element. iOS will only allow focus to be triggered on other elements within a handler function if the event that triggered it was non-programmatic.</p>
+<p>When is this useful? Try the <a href="/assets/uploads/2011/08/fastclickdemo-input.html">other live demo</a> we’ve built using a click event handler that attempts to trigger focus on an <code>input</code> element. iOS will only allow focus to be triggered on other elements within a handler function if the event that triggered it was non-programmatic.</p>
 <p>Fastclick is an open source project.  Please feel free to <a href="https://github.com/ftlabs/fastclick" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://github.com/ftlabs/fastclick', 'download the code');">download the code</a>, and get involved, over on <a href="https://github.com/ftlabs/fastclick" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://github.com/ftlabs/fastclick', 'Github');">Github</a>.</p>

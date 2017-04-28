@@ -1,0 +1,44 @@
+- name: Stagflation
+  description: The cost of pages rose drastically, while the page production rate slowed down.
+- name: General economics
+  description: There was no market for it.
+- name: Liquidity traps
+  description: We injected some extra money into the technology team but there was little or no interest so they simply kept it, thus failing to stimulate the page economy.
+- name: Pareto inefficiency
+  description: There exists another page that will make everyone better off without making anyone worse off.
+- name: Supply and demand
+  description: Demand increased and a shortage occurred.
+- name: Classical economics
+  description: There is no such page. We are not going to interfere.
+- name: Keynesian economics
+  description: Aggregate demand for this page did not necessarily equal the productive capacity of the website.
+- name: Malthusianism
+  description: Unchecked, exponential page growth outstripped the pixel supply. There was a catastrophe, and now the population is at a lower, more sustainable level.
+- name: Neo-Malthusianism
+  description: To avoid unchecked, exponential page growth outstripping the pixel supply and leading to an inevitable catastrophe, we prevented this page from being conceived.
+- name: Marxism
+  description: The failure of this page to load is a consequence of the inherent contradictions in the capitalist mode of production.
+- name: Laissez Faire Capitalism
+  description: We know this page is needed, but we can't force anyone to make it.
+- name: Monetarism
+  description: The government has limited the number of pages in circulation.
+- name: Efficient Markets Hypothesis
+  description: If you had paid enough for the page, it would have appeared.
+- name: Moral Hazard
+  description: Showing you this page would only encourage you to want more pages.
+- name: Tragedy of the Commons
+  description: Too many people tried to view this page.
+- name: Game theory
+  description: By not viewing this page you help everyone else get better pages.
+- name: Mercantilism
+  description: The page is hosted by a foreign web server and is therefore banned to ensure the supremacy of our own software.
+- name: Trickle-down
+  description: High taxes on content publishers prevented them hiring the person who would have written this page.
+- name: Speculative bubble
+  description: The page never actually existed and was fundamentally impossible, but everyone bought into it in a frenzy and it's all now ending in tears.
+- name: Socialism
+  description: If you were to get the page you wanted you might get a better page than someone else, which would be unfair. This way at least everyone gets the same.
+- name: Behavioural economics
+  description: The influence of psychological factors caused you to act in a manner that would not be expected of a purely rational actor.
+- name: Theory of the second best
+  description: The best outcome was unachievable, so you have arrived here instead.
