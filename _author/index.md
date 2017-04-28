@@ -1,5 +1,5 @@
 ---
-layout: wp-post
+layout: page
 title: List of Individual Authors
 ---
 {% for collection in site.collections %}

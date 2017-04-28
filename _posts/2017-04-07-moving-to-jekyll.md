@@ -1,5 +1,5 @@
 ---
-layout: wp-post
+layout: post
 title:  "Moving to Jekyll"
 date:   2017-04-07 14:05:03 +0100
 categories: jekyll

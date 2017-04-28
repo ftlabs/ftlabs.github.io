@@ -312,6 +312,10 @@ main article img{
   margin-bottom: 0;
 }
 
+.the-end p{
+  text-align: center;
+}
+
 @media all and (max-width: 730px){
   .grid-of-posts {
     flex-direction: column;
