@@ -359,6 +359,11 @@ main article img{
   margin-top: 0;
 }
 
+hr.end-of-article{
+  height: 1px;
+  margin-top: 2em;
+}
+
 @media all and (max-width: 730px){
   .grid-of-posts {
     flex-direction: column;
