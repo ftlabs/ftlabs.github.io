@@ -5,6 +5,8 @@ date: 2009-10-01
 categories: [ex-wordpress, technote]
 permalink: /2009/10/validating-html-input-in-php/
 author: andrew
+excerpt: >
+  Using libxml to validate user input in a fairly bulletproof way.
 ---
 <p><strong>This post was originally made on the Assanka blog.  Assanka was acquired by the Financial Times in January 2012, and became what is now FT Labs.  <a href="/about">Learn more</a>.</strong></p>
 <p>It&#8217;s often the case that as web developers, we need to &#8216;clean&#8217; input from end users to ensure it does not contain any nasty formatting or script that we don&#8217;t want to allow on our sites.  Forums in particular often suffer from either security holes that allow cross site scripting attacks (XSS) or are so restrictive in what they allow to be input that it causes a nuisance to the user (for example, disallowing all HTML but allowing BBCode instead).</p>
