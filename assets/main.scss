@@ -323,17 +323,21 @@ main article img{
 
 .article_content ul.article_links li{
   display: flex;
-  width: 56%;
+  width: 100%;
   align-items: center;
   align-self: flex-end;
   margin: 0;
   font-family: 'financierdisplayweb', serif;
+  padding-left: 50%;
+  box-sizing: border-box;
 }
 
 .article_content ul.article_links li:nth-child(odd) {
   align-self: flex-start;
   flex-direction: row-reverse;
   text-align: right;
+  padding-left: 0;
+  padding-right: 50%;
 }
 
 .article_content ul.article_links li span{
@@ -341,18 +345,25 @@ main article img{
   text-align: center;
   background-color: #FFF1E0;
   padding-bottom: 5px;
+  position: relative;
+  margin-left: -50px;
+}
+
+.article_content ul.article_links li:nth-child(odd) span{
+  margin-left: 0;
+  margin-right: -50px;
 }
 
 .article_content ul.article_links li .description{
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-left: 10%;
+  margin-left: 0;
 }
 
 .article_content ul.article_links li:nth-child(odd) .description{
   margin-left: 0;
-  margin-right: 10%;
+  margin-right: 0;
 }
 
 .article_content ul.article_links li .description h2{
