@@ -14,8 +14,15 @@ permalink: /articles/
 	{% assign prev_year = year %}
 	{% endif %}
 
-	<li>
-		<span>{{ post.date | date: "%B %-d" }}</span>
+	{% assign d = post.date | date: "%-d" %}
+	{% assign date_suffix = "th" %}
+	{% case d %}
+		{% when "1" or "21" or "31" %}{% assign date_suffix = "st" %}
+		{% when "2" or "22" %}{% assign date_suffix = "nd" %}
+		{% when "3" or "23" %}{% assign date_suffix = "rd" %}
+	{% endcase %}
+	<li>	
+		<span>{{ post.date | date: "%B %-d" }}{{date_suffix}}</span>
 		<div class="description">
 			<a href="{{ post.url | relative_url }}">
 				<h2>{{ post.title | escape }}</h2>
