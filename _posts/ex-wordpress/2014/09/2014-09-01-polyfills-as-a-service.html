@@ -1,9 +1,11 @@
 ---
 layout: post
 title: 'Polyfills as a service'
-date: 2014-09-01
+date: 2014-09-02
 categories: [ex-wordpress, technote]
 permalink: /2014/09/polyfills-as-a-service/
+excerpt: >
+  We've built a polyfill delivery system as a way of sending one single copy of the best polyfills that each browser needs
 ---
 <p class='standfirst'>When you use reusable components (whether through convention, a framework like <a href="https://github.com/ftlabs/fruitmachine" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://github.com/ftlabs/fruitmachine', 'Fruit Machine');">Fruit Machine</a> or <a href="http://facebook.github.io/react/" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://facebook.github.io/react/', 'React');">React</a>, or directly using the emerging Web Components standard), you might find that components ship with polyfills. Your page may end up containing multiple polyfills for the same feature. You might also find that these polyfills all use slightly different implementations, and it&#8217;s not immediately obvious which is a faithful emulation of the missing feature. Even the packaging format and file structure is likely to vary between polyfills and make each one a special case.</p>
 <p>This is far from ideal.  We need some way of polyfilling browsers that avoids this duplication.</p>

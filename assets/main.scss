@@ -21,10 +21,10 @@ $grey-color-light: lighten($grey-color, 40%);
 $grey-color-dark:  darken($grey-color, 25%);
 
 // Width of the content area
-$content-width:    1066px;
+$content-width:    1100px;
 
 $on-palm:          600px;
-$on-laptop:        1066px;
+$on-laptop:        1100px;
 
 // Minima also includes a mixin for defining media queries.
 // Use media queries like this:
@@ -163,6 +163,7 @@ header nav ul .home a{
   text-shadow: 0 1px 3px black;
   line-height: 1em;
   padding: 0 0.5em;
+  max-width: 50%;
 }
 
 .hero p{
@@ -184,7 +185,7 @@ main{
 }
 
 main article{
-  max-width: 1066px;
+  max-width: $content-width;
   width: 100%;
   position: relative;
   margin-left: auto;
@@ -308,7 +309,101 @@ main article img{
   margin: 0;
 }
 
-.article_content  ul.article_links li{
+.article_content ul.article_links{
+  display: flex;
+  flex-direction: column;
+  background-image: url('/assets/imgs/article_line.png');
+  background-size: 1px;
+  background-position: 50%;
+  background-repeat: repeat-y;
+}
+
+.article_content ul.article_links h1{
+  background-color: #FFF1E0;
+}
+
+.article_content ul.article_links li{
+  display: flex;
+  width: 100%;
+  align-items: center;
+  align-self: flex-end;
+  margin: 0;
+  font-family: 'financierdisplayweb', serif;
+  padding-left: 50%;
+  box-sizing: border-box;
+}
+
+.article_content ul.article_links li:nth-of-type(even) {
+  align-self: flex-start;
+  flex-direction: row-reverse;
+  text-align: right;
+  padding-left: 0;
+  padding-right: 50%;
+}
+
+.article_content ul.article_links li span{
+  min-width: 106px;
+  text-align: center;
+  background-color: #FFF1E0;
+  padding-bottom: 5px;
+  position: relative;
+  margin-left: -53px;
+}
+
+.article_content ul.article_links li:nth-of-type(even) span{
+  margin-left: 0;
+  margin-right: -53px;
+}
+
+.article_content ul.article_links li .description{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: 1em;
+}
+
+.article_content ul.article_links li:nth-of-type(even) .description{
+  margin-left: 0;
+  margin-right: 1em;
+}
+
+.article_content ul.article_links li .description a{
+  width: 100%;
+  text-decoration: none; 
+}
+
+.article_content ul.article_links li .description a:first-of-type{
+  color: inherit;
+}
+
+.article_content ul.article_links li .description h2{
+  margin-bottom: 0;
+  text-align: left;
+  width: 100%;
+  font-size: 1.5em;
+}
+
+.article_content ul.article_links li .description h2:hover{
+  text-decoration: underline
+}
+
+.article_content ul.article_links li:nth-of-type(even) .description h2{
+  text-align: right;
+}
+
+.article_content ul.article_links li .description p{
+  margin-left: 0;
+  width: 100%;
+}
+.article_content ul.article_links li .description p::first-letter{
+  text-transform: capitalize;
+}
+
+.article_content ul.article_links li:nth-of-type(even) .description p{
+  margin-right: 0;
+}
+
+/*.article_content  ul.article_links li{
   list-style-type: none;
   background: white;
   border-bottom: 5px solid #26747a;
@@ -341,7 +436,7 @@ main article img{
 
 .article_content  ul.article_links li p{
   margin-bottom: 0;
-}
+}*/
 
 .the-end p{
   text-align: center;
@@ -375,6 +470,7 @@ hr.end-of-article{
 
   .hero h1{
     font-size: 3em;
+    max-width: 90%;
   }
 
   .hero p{
@@ -383,6 +479,30 @@ hr.end-of-article{
 
   main article {
     padding: 1em;
+  }
+
+  .article_content ul.article_links li, .article_content ul.article_links li:nth-of-type(even){
+    padding: 0;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    background-color: #fff1E0;
+    margin-top: 2em;
+    margin-bottom: 2em;
+  }
+
+  .article_content ul.article_links li span, .article_content ul.article_links li:nth-of-type(even) span{
+    margin-left: 0;
+    margin-right: 0;
+    padding-top: 5px;
+  }
+
+  .article_content ul.article_links li .description, .article_content ul.article_links li:nth-of-type(even) .description{
+    margin: 0;
+  }
+
+  .article_content ul.article_links li .description h2, .article_content ul.article_links li:nth-of-type(even) .description h2{
+    text-align: center;
   }
 
 }

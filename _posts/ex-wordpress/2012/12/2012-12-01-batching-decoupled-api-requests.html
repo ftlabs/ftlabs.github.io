@@ -1,10 +1,12 @@
 ---
 layout: post
 title: 'Batching decoupled API requests'
-date: 2012-12-01
+date: 2012-12-11
 categories: [ex-wordpress, technote]
 permalink: /2012/12/batching-decoupled-api-requests/
 author: andrew
+excerpt: >
+  We need to be smarter about the way we design the API that our rich client applications use to interact with the server
 ---
 <p>If you&#8217;re developing websites for mobile, by now you probably have a healthy hatred for HTTP requests.  The growth in the number of people wanting to use the web on cellular connections has introduced developers to a new kind of network: one with high bandwidth, but very high latency and low reliability.  The more HTTP requests your site requires to load, the longer your page will take to become interactive, regardless of how small they are.</p>
 <p>We realised that in order to really cut down on our HTTP requests, we needed to batch very disparate requests together.  Ideally we should be able to send one single request to fetch an image, log some analytics, and get the content of an article.  Another important realisation is that we don&#8217;t need to send all requests immediately.  Some, like analytics, can be done not just asynchronously, but can also be deferred until there&#8217;s an opportunity to send a request for some other reason.</p>

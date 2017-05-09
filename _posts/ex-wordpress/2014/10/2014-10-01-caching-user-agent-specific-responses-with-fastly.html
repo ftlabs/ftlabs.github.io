@@ -1,10 +1,12 @@
 ---
 layout: post
 title: 'Caching User-Agent specific responses with Fastly'
-date: 2014-10-01
+date: 2014-10-26
 categories: [ex-wordpress, technote]
 permalink: /2014/10/caching-user-agent-specific-responses-with-fastly/
 author: andrew
+excerpt: >
+  We set out to cache things more intelligently with Fastly for the Polyfill service
 ---
 <p class='standfirst'>The new <a href="https://cdn.polyfill.io" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://cdn.polyfill.io', 'FT polyfill service');">FT polyfill service</a> uses the Fastly CDN to provide faster and more reliable access to Polyfills for everyone.  But with responses varying by user-agent, it&#8217;s a caching nightmare.  We set out to fix this with a little help from Fastly&#8217;s engineers and custom Varnish VCL.</p>
 <p>There is so much variety in the User-Agent header that many will only be seen once.  The website <a href="http://useragentstring.com" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://useragentstring.com', 'UserAgentString');">UserAgentString</a> identifies over 11,000 unique user agent strings, and in fact that&#8217;s a huge underestimate (a friend at Akamai told me that they see millions of unique values <em>every day</em>).  Worse, they&#8217;re impossible to trivially analyse:</p>

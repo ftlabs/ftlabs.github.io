@@ -1,10 +1,12 @@
 ---
 layout: post
 title: '(Re)simplifying front-end build process with a build service'
-date: 2014-03-01
+date: 2014-03-18
 categories: [ex-wordpress, technote]
 permalink: /2014/03/resimplifying-front-end-build-process-with-a-build-service/
 author: andrew
+excerpt: >
+  Ever thought it would be a good idea to have a build process as a service, so that doing SASS, browserify, minification and caching of front end dependencies is as easy as writing a &lt;script> or &lt;link /> tag? We did, so we built one.
 ---
 <p class='standfirst'>Ever thought it would be a good idea to have a <strong>build process as a service</strong>, so that doing SASS, browserify, minification and caching of front end dependencies is as easy as writing a &lt;script> or &lt;link /> tag? We did, so we built one.</p>
 <p>We are in the midst of developing a new way of building websites for the FT, which we call <a href="http://origami.ft.com">Origami</a>, and because we didn&#8217;t want to build anything monolithic, or yet another framework, it involves a lot of small components. We also have an eye on the implementation of support for <a href="http://www.w3.org/TR/components-intro/" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://www.w3.org/TR/components-intro/', 'Web Components');">Web Components</a>, so when it becomes practical to use those, we&#8217;ll be able to turn our components into Web Components.</p>
