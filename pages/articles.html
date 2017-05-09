@@ -4,13 +4,30 @@ title: Articles
 permalink: /articles/
 ---
 <ul class="article_links">
+	{% assign prev_year = "3000" %}
+
 	{% for post in site.posts %}
+
+	{% assign year = post.date | date: "%Y" %}
+	{% if year != prev_year %}
+	<h1>{{year}}</h1>
+	{% assign prev_year = year %}
+	{% endif %}
+
 	<li>
+		<span>{{ post.date | date: "%B %-d" }}</span>
+		<div class="description">
+			<h2>{{ post.title | escape }}</h2>
+			<p>{{ post.excerpt | default:"Read this post"  | strip_html }}</p>
+		</div>
+	</li>
+
+	{% endfor %}
+</ul>
+	<!--<li>
 		<a href="{{ post.url | relative_url }}">
 			<h1>{{ post.title | escape }}</h1>
 			<span>{{ post.date | date: "%b %-d, %Y" }}</span>
 			<p>{{ post.excerpt | default:"Read this post"  | strip_html }}</p>
 		</a>
-	</li->
-	{% endfor %}
-</ul>
+	</li>-->
