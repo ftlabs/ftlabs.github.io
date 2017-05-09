@@ -17,17 +17,12 @@ permalink: /articles/
 	<li>
 		<span>{{ post.date | date: "%B %-d" }}</span>
 		<div class="description">
-			<h2>{{ post.title | escape }}</h2>
-			<p>{{ post.excerpt | default:"Read this post"  | strip_html }}</p>
+			<a href="{{ post.url | relative_url }}">
+				<h2>{{ post.title | escape }}</h2>
+				<p>{{ post.excerpt | default:"Read this post"  | strip_html }}</p>
+			</a>
 		</div>
 	</li>
 
 	{% endfor %}
 </ul>
-	<!--<li>
-		<a href="{{ post.url | relative_url }}">
-			<h1>{{ post.title | escape }}</h1>
-			<span>{{ post.date | date: "%b %-d, %Y" }}</span>
-			<p>{{ post.excerpt | default:"Read this post"  | strip_html }}</p>
-		</a>
-	</li>-->
