@@ -44,6 +44,10 @@ a:visited{
   color: inherit;
 }
 
+a[href]{
+  color: #2a7ae2;
+}
+
 body{
   background: #0c0c0c;
   padding-top: 50px;
@@ -292,6 +296,10 @@ main article img{
 .pig-excerpt {
   padding: 12px;
   font-size: 0.9em;
+}
+
+.pig-excerpt{
+  color: black;
 }
 
 .pig-excerpt::first-letter{
