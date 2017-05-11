@@ -40,6 +40,10 @@ $on-laptop:        1100px;
 
 // aditional stuff for WP->Jekyll port
 
+a:visited{
+  color: inherit;
+}
+
 body{
   background: #0c0c0c;
   padding-top: 50px;
@@ -248,6 +252,10 @@ main article img{
   box-sizing: border-box;
 }
 
+.pig:hover h2 {
+    text-decoration: underline;
+}
+
 .pig {
   // margin-right: 1em;
 
@@ -275,6 +283,10 @@ main article img{
   margin-right: 1em;
   margin-bottom: 0;
   font-family: 'MetricWeb';
+}
+
+.pig-title:hover{
+  text-decoration: underline;
 }
 
 .pig-excerpt {
