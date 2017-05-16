@@ -23,10 +23,10 @@ title: Welcome
         <div class="o-teaser__content">
     
           <div class="o-teaser__meta">
-            <a href="#" class="o-teaser__tag">{{ post.teaser | Post }}</a>
+            <a href="{{ post.url | relative_url }}" class="o-teaser__tag">{{ post.teaser | Post }}</a>
           </div>
 
-          <h2 class="o-teaser__heading"><a href="#">{{ post.title | escape }}</a></h2>
+          <h2 class="o-teaser__heading"><a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a></h2>
 
             <p class="o-teaser__standfirst">{{ post.excerpt | strip_html }}</p>
 
