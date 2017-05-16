@@ -3,6 +3,7 @@ layout: post
 title:  "Moving to Jekyll"
 date:   2017-04-07 14:05:03 +0100
 categories: jekyll
+teaser: Notes
 excerpt: >
   A brief note to indicate we have ported the FT Labs blog from Wordpress to Jekyll.
 ---

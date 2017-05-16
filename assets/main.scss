@@ -16,6 +16,8 @@ $text-color:       #111;
 $background-color: #fdfdfd;
 $brand-color:      #2a7ae2;
 
+$ftpink:           #fff1e5;
+
 $grey-color:       #828282;
 $grey-color-light: lighten($grey-color, 40%);
 $grey-color-dark:  darken($grey-color, 25%);
@@ -40,11 +42,15 @@ $on-laptop:        1100px;
 
 // aditional stuff for WP->Jekyll port
 
+*.no-margin{
+  margin: 0;
+}
+
 a:visited{
   color: inherit;
 }
 
-a[href]{
+p a[href]{
   color: #2a7ae2;
 }
 
@@ -69,7 +75,7 @@ h2{
 }
 
 hr{
-  height: 3px;
+  height: 1px;
   display: block;
   list-style: none;
   background: #d8d0c6;
@@ -187,7 +193,7 @@ header nav ul .home a{
 
 main{
   width: 100%;
-  background: #333;
+  background: #272c33;
   box-shadow: 0 -2px 2px rgba(0,0,0,0.5);
 }
 
@@ -197,7 +203,7 @@ main article{
   position: relative;
   margin-left: auto;
   margin-right: auto;
-  background: #fff1e0;
+  background: $ftpink;
   padding: 50px 100px 75px;
   box-sizing: border-box;
   border-top: 20px solid #9e2f50;
@@ -239,30 +245,23 @@ main article img{
   justify-content: space-between;
 }
 
-// pig = post-in-grid
-.pig, .pig-more {
-  list-style: none;
-  max-width: 30%;
-  text-align: center;
-  margin-bottom: 1em;
-  display: flex;
-  flex-direction: row;
-  background: white;
-  border: 0 solid red;
-  padding-bottom: 1em;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-  border-bottom: 5px solid #26747a;
+.pig{
+  display: flex; 
   padding: 0.5em;
-  box-sizing: border-box;
+	max-width: 30%;
+  flex: 0 0 30%;
 }
 
-.pig:hover h2 {
-    text-decoration: underline;
+.pig o-teaser.o-teaser--hero.o-teaser--stretched{
+  display: flex;
+  flex-direction: column;
+  padding: 1em;
+	width: 100%;
 }
 
-.pig {
-  // margin-right: 1em;
-
+.pig a {
+  display: flex;
+  justify-content: space-between;
 }
 
 .pig a:focus{
@@ -279,27 +278,18 @@ main article img{
 }
 
 .pig-title {
-  font-size: 20px;
+  font-size: 28px;
   color: black;
-  margin-top: 0.8em;
   box-sizing: border-box;
-  margin-left: 1em;
-  margin-right: 1em;
-  margin-bottom: 0;
   font-family: 'MetricWeb';
-}
-
-.pig-title:hover{
-  text-decoration: underline;
+  text-align: left;
+  line-height: 1.2em;
 }
 
 .pig-excerpt {
-  padding: 12px;
-  font-size: 0.9em;
-}
-
-.pig-excerpt{
-  color: black;
+  font-size: 16px;
+  color: #605953;
+  margin-bottom: 0.8em;
 }
 
 .pig-excerpt::first-letter{
@@ -311,8 +301,7 @@ main article img{
 }
 
 .pig-date {
-  margin-bottom: 1em;
-  font-size: 0.75em;
+  font-size: 0.8em;
   color: black;
 }
 
@@ -338,7 +327,7 @@ main article img{
 }
 
 .article_content ul.article_links h1{
-  background-color: #FFF1E0;
+  background-color: $ftpink;
 }
 
 .article_content ul.article_links li{
@@ -363,7 +352,7 @@ main article img{
 .article_content ul.article_links li span{
   min-width: 106px;
   text-align: center;
-  background-color: #FFF1E0;
+  background-color: $ftpink;
   padding-bottom: 5px;
   position: relative;
   margin-left: -53px;
@@ -447,6 +436,30 @@ hr.end-of-articles{
   margin-top: 0;
 }
 
+.o-teaser--opinion.o-teaser--hero .o-teaser__standfirst{
+  font-size: 16px;
+}
+
+.o-teaser--hero .o-teaser__content{
+  background-color: #f3dfce;
+}
+
+h2.o-teaser__heading{
+  text-align: left;
+}
+
+p.o-teaser__standfirst{
+  font-size: 18px !important;
+}
+
+.o-teaser__meta {
+  color: black;
+}
+
+.o-teaser--hero .o-teaser__meta:after {
+  border-bottom-color: black;
+}
+
 hr.end-of-article{
   height: 1px;
   margin-top: 2em;
@@ -459,6 +472,7 @@ hr.end-of-article{
 
   .pig{
     max-width: 100%;
+    flex: inherit;
   }
 
   .hero h1{
@@ -479,7 +493,7 @@ hr.end-of-article{
     flex-direction: column;
     justify-content: center;
     text-align: center;
-    background-color: #fff1E0;
+    background-color: $ftpink;
     margin-top: 2em;
     margin-bottom: 2em;
   }
