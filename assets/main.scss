@@ -245,22 +245,11 @@ main article img{
   justify-content: space-between;
 }
 
-// pig = post-in-grid
-/*.pig, .pig-more {
-  list-style: none;
-  max-width: 30%;
-  margin-bottom: 1em;
-  display: flex;
-  flex-direction: row;
-  box-sizing: border-box;
-  text-align: left;
-}*/
-
 .pig{
   display: flex; 
   padding: 0.5em;
 	max-width: 30%;
-
+  flex: 0 0 30%;
 }
 
 .pig o-teaser.o-teaser--hero.o-teaser--stretched{
