@@ -11,18 +11,33 @@ title: Welcome
 
 <hr />
 
-<h2>Recent Posts</h2>
+<h2 class="no-margin">Recent Posts</h2>
 
 <div class="grid-of-posts">
 {% for post in site.posts limit:6 %}
   {% unless post.categories contains "links" %}
     <div class="pig">
-      <a href="{{ post.url | relative_url }}">
-        <h2 class="pig-title">{{ post.title | escape }}</h2>
-        <div class="pig-excerpt">{{ post.excerpt | strip_html }}</div>
-        <div class="pig-date">{{ post.date | date: "%b %-d, %Y" }}</div>
-      </a>
+
+      <div class="o-teaser o-teaser--hero o-teaser--stretched " data-o-component="o-teaser">
+    
+        <div class="o-teaser__content">
+    
+          <div class="o-teaser__meta">
+            <a href="#" class="o-teaser__tag">{{ post.teaser | Post }}</a>
+          </div>
+
+          <h2 class="o-teaser__heading"><a href="#">{{ post.title | escape }}</a></h2>
+
+            <p class="o-teaser__standfirst">{{ post.excerpt | strip_html }}</p>
+
+            <time data-o-component="o-date" class="o-date o-teaser__timestamp" datetime="{{ post.date | date: "%b %-d, %Y" }}">{{ post.date | date: "%b %-d, %Y" }}</time>
+    
+        </div>
+
+      </div>
+    
     </div>
+
   {% endunless %}
 {% endfor %}
 </div>
