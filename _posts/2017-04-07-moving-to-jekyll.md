@@ -1,25 +1,27 @@
 ---
 layout: post
 title:  "Moving to Jekyll"
-date:   2017-04-07 14:05:03 +0100
+date:   2017-05-16 14:05:03 +0100
 categories: jekyll
 teaser: Notes
 excerpt: >
-  A brief note to indicate we have ported the FT Labs blog from Wordpress to Jekyll.
+  A brief note to indicate we have migrated the FT Labs blog from WordPress to Jekyll.
 ---
-A brief note to indicate we have ported the FT Labs blog from Wordpress to Jekyll.
+A brief note to indicate we have migrated the FT Labs blog from WordPress to Jekyll.
 
-## Why?
+## Why not WordPress ?
 
-A variety reasons, including
+* WordPress, whilst being largely fine, involved too much peripheral noise.
+* The theme we were using was in a bit of a mess.
+* We had no immediately available WordPress skills (nor did we particularly want any).
 
-* We had no immediately available Wordpress skills (nor did we particularly want any).
-* Wordpress, whilst being largely fine, involved too much peripheral noise.
-* Jekyll gives us easy access to all parts of the blog.
-* By using our GitHub accounts for Jekyll admin access, we can remove the need to maintain accounts in Wordpress.
+## Why Jekyll ?
+
+* Jekyll gives us easy access to all parts of the blog, and we can easily build it locally.
+* By using our ftlabs org GitHub accounts for Jekyll admin access, we can remove the need to maintain accounts in WordPress.
 * Increased visibility of the blog and [its workings](https://github.com/ftlabs/ftlabs.github.io) to FT tech people.
 * We can use the lovely GitHub Pages as a host, and remove another system from the list of Things We Have To Worry About (tm).
-* Jekyll+Liquid is fun.
+* Jekyll+Liquid is fun, robust, transparent and, so far, has let us do whatever we've thought of.
 
 ## Gotchas
 
