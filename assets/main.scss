@@ -46,10 +46,6 @@ $on-laptop:        1100px;
   margin: 0;
 }
 
-a:visited{
-  color: inherit;
-}
-
 p a[href]{
   color: #2a7ae2;
 }
@@ -246,7 +242,7 @@ main article img{
 }
 
 .pig{
-  display: flex; 
+  display: flex;
   padding: 0.5em;
 	max-width: 30%;
   flex: 0 0 30%;
@@ -262,6 +258,7 @@ main article img{
 .pig a {
   display: flex;
   justify-content: space-between;
+  color: inherit;
 }
 
 .pig a:focus{
@@ -377,7 +374,7 @@ main article img{
 
 .article_content ul.article_links li .description a{
   width: 100%;
-  text-decoration: none; 
+  text-decoration: none;
 }
 
 .article_content ul.article_links li .description a:first-of-type{
