@@ -3,7 +3,7 @@ layout: page
 title: Contact Us
 permalink: /contact-us/
 ---
-If you're a developer or publisher grappling with similar challenges to us, we'd love to hear from you.  You can find us on [Twitter](https://twitter.com/ftlabs), or [Github](https://github.com/ftlabs), or drop us a line to [enquiries@labs.ft.com](mailto:enquiries@labs.ft.com).
+If you're a developer or publisher grappling with similar challenges to us, we'd love to hear from you.  You can find us on [Twitter](https://twitter.com/ftlabs), or [Github](https://github.com/ftlabs), or drop us a line to [{{site.email}}](mailto:{{site.email}}).
 
 ## Visiting us
 
