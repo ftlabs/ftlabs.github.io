@@ -1,0 +1,65 @@
+---
+layout: post
+title:  "InkLink"
+date:   2017-06-06 09:30:30 +0100
+categories: jekyll
+teaser: Notes
+excerpt: >
+  Using image recognition to connect the paper FT to its digital equivalent
+---
+
+<p>FT readers often ask where they can find an article they read in the paper as an online reference, for further perusal or to share it. InkLink was born from an intent to create a new hybrid and enhanced user experience for our readership; relying both on the paper and the online version of the FT.</p>
+
+<p>Picture this: you are at home, reading your favourite financial newspaper with your morning coffee, spreading pages over your kitchen table. It is nigh impossible for you to take those pages along for your commute. What if you could snap the main image with your smartphone and have the online equivalent to browse on the go? This is one of the aims we set for InkLink.</p>
+
+<h2>Augmented Reality (AR) in newspapers</h2>
+<p>Back in 2011, long before Pokémon Go, there was a resurgence in AR applications, especially with advertisers. Most newspapers, even the FT, urged their readers to scan their adverts and see them come to life. If this innovative way of consuming content was fun for a short while, the novelty wore off rapidly. Seen as more of a gimmick the solution proved impractical both for readers -- who had to hold their phone or tablet in place after having downloaded a new application -- and editors, who would have to indicate scannable content by adding markers (which, aesthetically, can be as bad as QR codes) and sourcing content. It transpired this was a lot of preparation for a rather small pay-off.</p>
+
+<p>With InkLink, we focused on the step that comes before AR, recognising a pre-specified location in the paper using Image Recognition (AR only works in the presence of patterns, or images, to recognise). Our premise is the following: can we help our readers digitally bookmark article for future reference by a simple scan of their morning paper?</p>
+
+<h2>What InkLink can do</h2>
+<p>Our research into InkLink has shown that the main difficulty, beyond technical constraints, is to surface article data across channels. Unfortunately, the text printed in the FT, isn’t currently matched in any way to online content. However, with manually curated content, our tool can recognise pictures from the paper and deliver up-to-date, additional content; complete with comments and related articles. It could also reveal interactive graphics or videos, not as an augmented layer, but straight out of ft.com, as a companion to the printed version.</p>
+
+<o>InkLink can recognise a variety of images as long as they’re the focal point of the capture. It could even recognise the daily crossword grid (blank or partially filled in).</p>
+
+<p>To achieve this result, we explored number of third-party services that focused on AR.</p>
+
+<h2>Technical details</h2>
+<p>After looking into Image Retrieval (the technique employed by Google reverse image search), it became apparent that we didn’t need to identify elements within an image, just recognise it. That’s why we simplified our approach and are now focusing on Image Recognition. To get it working, we compared 3 different services: Blippar, Aurasma, and CraftAR by Catchoom.</p>
+
+<img src="/assets/uploads/2017/06/craftar_06_06_2017.png" alt="A screenshot of the Craft AR dashboard." />
+
+<h3>Why we chose CraftAR</h3>
+<p>While Blippar and Aurasma are well known for their creative applications of AR, from a development point of view, they don’t offer as much flexibility as CraftAR does. Both of the former services only provide an online GUI to create markers, whereas CraftAR has a “Management API” that can be used to create content remotely. Moreover, Blippar and Aurasma focus on Augmented Reality, accessed through their own applications, where CraftAR has a clear split between AR and Image Recognition, and offers a JavaScript library as well as an SDK, to work either in the browser or in a custom-built application.</p>
+
+<p>InkLink works fully in the browser (and is mobile-compatible, with a small caveat for iOS), without having to download an external application.</p>
+
+<h3>How does InkLink work?</h3>
+InkLink is a web app that has 2 distinct aspects:
+<ul>
+  <li>An interface for editors to create new markers remotely, using a NodeJS wrapper and the Management API from CraftAR</li>
+  <li>A client-side scanner using CraftAR JS library</li>
+</ul>
+
+<p>Find the source on <a href="https://github.com/ftlabs/inklink" target="_blank" rel="noopener">GitHub</a></p>
+
+<p>Using a GUI, content curators can simply upload a .zip file containing images and their associated link. The NodeJS server then takes care of unzipping the file and creating “items” (an entity made of a link and 1 or more images) with their images remotely.</p>
+
+<p>Once a “collection” (an entity comprising of multiple items) is created, readers can scan the latest images on the client side.</p>
+
+<h2>What to do next?</h2>
+<p>There are multiple applications possible for InkLink. By letting people play with it, we hope to uncover more. For example:</p>
+<ul>
+  <li>Integrate it with our upcoming project of interactive crosswords, and link to the digital grid.</li>
+  <li>Combine it with OCR to reveal crosswords solutions on a partially filled puzzle. By letting people play with it, we hope to uncover additional applications.</li>
+  <li>Jump straight to a related interactive graphic, or video.</li>
+  <li>Show the online comments.</li>
+  <li>Show related/subsequent articles.</li>
+  <li>Saving the article for later.</li>
+</ul>
+
+<p>We are also aiming to overcome our current limitations:<p>
+<ul>
+  <li>Reducing the manual process of sourcing content. Extracting images from PDFs is easily doable, but the issue of linking it back to online content persists.</li>
+  <li>The ft.com site does not support direct links into interactive graphics or videos which are part of articles.</li>
+</ul>
