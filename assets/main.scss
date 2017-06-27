@@ -18,6 +18,7 @@ $brand-color:      #2a7ae2;
 
 $ftpink:           #fff1e5;
 $claret:           #9e2f50;
+$claret-40:        #660A29;
 $oxford:           #0F5499;
 
 $grey-color:       #828282;
@@ -48,8 +49,12 @@ $on-laptop:        1100px;
   margin: 0;
 }
 
-p a[href]{
+p a[href], main article li a[href]{
   color: $claret;
+}
+
+p a[href]:visited, main article li a[href]:visited{
+  color: $claret-40;
 }
 
 body{
@@ -62,6 +67,14 @@ body{
 h1, h2, h3, h4, h5, h6{
   font-family: 'financierdisplayweb', serif;
   text-align: center;
+
+  a {
+    color: $claret;
+
+    &:visited {
+      color: $claret-40;
+    }
+  }
 }
 
 h1{
@@ -253,24 +266,24 @@ main article img, main article video{
   flex-wrap: wrap;
   align-content: flex-start;
   justify-content: space-between;
+}
 
-  .readmore {
-    color: black;
-    text-transform: uppercase;
-    border-bottom: 4px solid black;
-    display: inline-block;
-    font-weight: 600;
-    margin: 0 0.5em;
+.readmore {
+  color: black;
+  text-transform: uppercase;
+  border-bottom: 4px solid black;
+  display: inline-block;
+  font-weight: 600;
+  margin: 0 0.5em;
 
-    &:hover {
-      text-decoration: none;
-      color: $claret;
-      border-bottom-color: $claret;
-    }
+  &:hover {
+    text-decoration: none;
+    color: $claret;
+    border-bottom-color: $claret;
+  }
 
-    @include media-query($on-palm) {
-      display: inline-table;
-    }
+  @include media-query($on-palm) {
+    display: inline-table;
   }
 }
 
