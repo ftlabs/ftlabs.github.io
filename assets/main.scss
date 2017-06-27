@@ -20,6 +20,7 @@ $ftpink:           #fff1e5;
 $claret:           #9e2f50;
 $claret-40:        #660A29;
 $oxford:           #0F5499;
+$black-60:         #66605C;
 
 $grey-color:       #828282;
 $grey-color-light: lighten($grey-color, 40%);
@@ -92,6 +93,11 @@ hr{
   background: #d8d0c6;
   border: 0px solid transparent;
   margin: 1.5em 0 1em;
+}
+
+blockquote {
+  color: $black-60;
+  border-left-color: $claret;
 }
 
 header{
