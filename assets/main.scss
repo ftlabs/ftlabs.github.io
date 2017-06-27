@@ -17,6 +17,7 @@ $background-color: #fdfdfd;
 $brand-color:      #2a7ae2;
 
 $ftpink:           #fff1e5;
+$claret:           #9e2f50;
 
 $grey-color:       #828282;
 $grey-color-light: lighten($grey-color, 40%);
@@ -251,6 +252,25 @@ main article img, main article video{
   flex-wrap: wrap;
   align-content: flex-start;
   justify-content: space-between;
+
+  .readmore {
+    color: black;
+    text-transform: uppercase;
+    border-bottom: 4px solid black;
+    display: inline-block;
+    font-weight: 600;
+    margin: 0 0.5em;
+
+    &:hover {
+      text-decoration: none;
+      color: $claret;
+      border-bottom-color: $claret;
+    }
+
+    @include media-query($on-palm) {
+      display: inline-table;
+    }
+  }
 }
 
 .pig{
