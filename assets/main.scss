@@ -206,6 +206,7 @@ main article{
   box-shadow: 0 1px 2px black;
   top: -50px;
   border-bottom: 2px solid white;
+
 }
 
 main article h2{
@@ -227,7 +228,7 @@ main article img, main article video{
   margin-right: auto;
   display: flex;
   border: 5px solid white;
-  box-shadow: 0 1px 3px black;
+  box-shadow: 2px 2px 10px 0 rgba(129, 158, 154, .3);
   background: white;
   margin-bottom: 1em;
   max-width: 100%;
