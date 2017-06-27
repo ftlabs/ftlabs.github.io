@@ -207,6 +207,10 @@ main article{
   top: -50px;
   border-bottom: 2px solid white;
 
+  @include media-query($on-palm) {
+    box-shadow: none;
+    top: 0;
+  }
 }
 
 main article h2{
