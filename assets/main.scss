@@ -52,6 +52,7 @@ $on-laptop:        1100px;
 
 p a[href], main article li a[href]{
   color: $claret;
+  font-weight: 500;
 }
 
 p a[href]:visited, main article li a[href]:visited{
@@ -71,6 +72,7 @@ h1, h2, h3, h4, h5, h6{
 
   a {
     color: $claret;
+    font-weight: 500;
 
     &:visited {
       color: $claret-40;
