@@ -21,16 +21,17 @@ excerpt: >
 </p>
 <p>
 	Twitter Digest is merely an attempt to reduce the scattered noise in a feed by condensing and surfacing tweets. It differs from other filters or "spoiler alert" type of extensions as it doesn't hide or dismiss any content but offers a new reading mode.
+	This comes as a benefit to the user who get both a condensed view of selected tweets and a less noisy list of all the other ones.
 </p>
 
 <img src="/assets/uploads/2017/06/twitter_digest.png" alt="Twitter Digest in situ." />
 
-<h2>Technical details & challenges</h2>
+<h2>Technical details &amp; challenges</h2>
 <p>
-	Twitter Digest comprises of a node server, which handles authentication and keyword requests, and a Chrome extension which interacts with the client side (in this case the DOM of <a href="https://twitter.com/" target="_blank">twitter.com</a>).
+	Twitter Digest comprises of a Node server, which handles authentication and keyword requests, and a Chrome extension which interacts with the client side (in this case the DOM of <a href="https://twitter.com/" target="_blank">twitter.com</a>).
 </p>
 <p>
-	The source code is available on <a href="https://github.com/ftlabs/Twitter-digest" target="_blank">GitHub</a>.
+	The app isn't in the Chrome app store, but instructions on how to install it are with the source code is available on <a href="https://github.com/ftlabs/Twitter-digest" target="_blank">GitHub</a>.
 </p>
 <p>
 	In the early stages of the prototype, Twitter Digest didn't allow for a choice of keyword and required a JSON object to be pasted in the popup of the extension to be processed. It can now handle switching between accounts, signing in with Twitter and toggling the digest on and off. We have made a few discoveries throughout the process.
@@ -38,14 +39,14 @@ excerpt: >
 
 	<h3>Twitter API</h3>
 <p>
-	It took a few tries to find the correct endpoint of the Twitter API for the digest. After considering <a href="https://dev.twitter.com/rest/reference/get/statuses/user_timeline" target="_blank">user_timeline</a>, we settled on <a href="https://dev.twitter.com/rest/reference/get/statuses/home_timeline" target="_blank">home_timeline</a> which offers the most accurate depiction of what is in a user's feed, although it excludes tweets followees have liked and the 'In case you missed it section'.
+	It took a few tries to find the correct endpoint of the Twitter API for the digest. After considering <a href="https://dev.twitter.com/rest/reference/get/statuses/user_timeline" target="_blank">user_timeline</a>, we settled on <a href="https://dev.twitter.com/rest/reference/get/statuses/home_timeline" target="_blank">home_timeline</a> which offers the most accurate depiction of what is in a user's feed, although it excludes tweets the people you follow have liked and the 'In case you missed it section'.
 </p>
 <p>
-	OAuth, as always, has proved tricky, especially with the added layer of communication between the extension and the Node server. Ensure you have all the necessary callbacks in place, and above all that the callback URL set when creating the Twitter application matches the one you've implemented. (This needs to be amended when switching from a local environment to a live server).
+	OAuth, as always, has proved tricky, especially with the added layer of communication between the extension and the Node server. One thing to look out for when you set up your own Twitter application is to ensure you have all the necessary callbacks in place, and above all that the callback URL set when creating the application matches the one you've implemented. (This needs to be amended when switching from a local environment to a live server).
 </p>
 	<h3>Chrome extension</h3>
 <p>
-	The manifest file is crucial for a Chrome extension to work. You should reference all the properties and domains that are going to be required in there (especially to avoid CORS issues).
+	If you're new to Chrome extensions, there are several things to know: the manifest file is crucial for a Chrome extension to work. You should reference all the properties and domains that are going to be required in there (especially to avoid CORS issues).
 </p>
 <p>
 	Chrome extensions are divided in 2 to 3 (JavaScript) parts; the background which is the nervous system of the app and distribute actions accordingly to the other parts. Then there's the popup, which is the content revealed when a user clicks on the icon; in our case it presents a toggle to enable/disabled the digest and a field to choose a keyword. And a third file that gets injected in the DOM of pages where the extension is allowed and active.
@@ -53,11 +54,11 @@ excerpt: >
 
 <h2>Beyond Twitter</h2>
 <p>
-	At a time where Fear OF Missing Out is almost palpable, condensed feeds of information start appearing in various places. Email clients, such as <a href="https://inbox.google.com/?pli=1" target="_blank">Google Inbox</a> or <a href="https://acompli.helpshift.com/a/outlook-mobile/?s=focused-inbox&f=what-is-focused-inbox" target="_blank">Outlook's Focused Inbox</a> feature, seem to be particularly fond of this mode of display. However, the information displayed is algorithmically determined. The ability to curate your own feed of information is the differentiating factor of Twitter Digest. This new reading mode can also be applied to other streams of information, such as <a href="https://www.ft.com/news-feed" target="_blank">FT's News Feed</a>.
+	At a time where Fear OF Missing Out is almost palpable, condensed feeds of information start appearing in various places. Email clients, such as <a href="https://inbox.google.com/?pli=1" target="_blank">Google Inbox</a> or <a href="https://acompli.helpshift.com/a/outlook-mobile/?s=focused-inbox&amp;f=what-is-focused-inbox" target="_blank">Outlook's Focused Inbox</a> feature, seem to be particularly fond of this mode of display. However, the information displayed is algorithmically determined. The ability to curate your own feed of information is the differentiating factor of Twitter Digest. This new reading mode can also be applied to other streams of information, such as <a href="https://www.ft.com/news-feed" target="_blank">FT's News Feed</a>.
 </p>
 
 
-<h2>Enhancements & issues</h2>
+<h2>Enhancements &amp; issues</h2>
 <p>
 	At the moment, the application is only filtering content from a tweet's text content, it doesn't explore the content of Twitter cards, or images' 'alt' attributes.
 </p>
