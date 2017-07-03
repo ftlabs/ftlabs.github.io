@@ -17,6 +17,7 @@ $background-color: #fdfdfd;
 $brand-color:      #2a7ae2;
 
 $ftpink:           #fff1e5;
+$black-60:         #66605C;
 
 $grey-color:       #828282;
 $grey-color-light: lighten($grey-color, 40%);
@@ -55,6 +56,10 @@ body{
   padding-top: 50px;
   font-family: "MetricWeb", sans-serif;
   font-size: $base-font-size;
+}
+
+figcaption {
+  color: $black-60;
 }
 
 h1, h2, h3, h4, h5, h6{
