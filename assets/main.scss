@@ -17,6 +17,10 @@ $background-color: #fdfdfd;
 $brand-color:      #2a7ae2;
 
 $ftpink:           #fff1e5;
+$claret:           #9e2f50;
+$claret-40:        #660A29;
+$oxford:           #0F5499;
+$black-60:         #66605C;
 
 $grey-color:       #828282;
 $grey-color-light: lighten($grey-color, 40%);
@@ -46,8 +50,13 @@ $on-laptop:        1100px;
   margin: 0;
 }
 
-p a[href]{
-  color: #2a7ae2;
+p a[href], main article li a[href]{
+  color: $claret;
+  font-weight: 500;
+}
+
+p a[href]:visited, main article li a[href]:visited{
+  color: $claret-40;
 }
 
 body{
@@ -60,6 +69,15 @@ body{
 h1, h2, h3, h4, h5, h6{
   font-family: 'financierdisplayweb', serif;
   text-align: center;
+
+  a {
+    color: $claret;
+    font-weight: 500;
+
+    &:visited {
+      color: $claret-40;
+    }
+  }
 }
 
 h1{
@@ -77,6 +95,11 @@ hr{
   background: #d8d0c6;
   border: 0px solid transparent;
   margin: 1.5em 0 1em;
+}
+
+blockquote {
+  color: $black-60;
+  border-left-color: $claret;
 }
 
 header{
@@ -118,10 +141,14 @@ header nav ul{
 
 header nav ul li{
   color: white;
-  margin-right: 1em;
+  margin:0 1em;
   height: 100%;
   display: flex;
   align-items: center;
+
+  @include media-query($on-palm) {
+    margin: 0 1em 0 0;
+  }
 }
 
 header nav ul li.current_page{
@@ -206,6 +233,11 @@ main article{
   box-shadow: 0 1px 2px black;
   top: -50px;
   border-bottom: 2px solid white;
+
+  @include media-query($on-palm) {
+    box-shadow: none;
+    top: 0;
+  }
 }
 
 main article h2{
@@ -227,7 +259,7 @@ main article img, main article video{
   margin-right: auto;
   display: flex;
   border: 5px solid white;
-  box-shadow: 0 1px 3px black;
+  box-shadow: 2px 2px 10px 0 rgba(129, 158, 154, .3);
   background: white;
   margin-bottom: 1em;
   max-width: 100%;
@@ -242,6 +274,25 @@ main article img, main article video{
   flex-wrap: wrap;
   align-content: flex-start;
   justify-content: space-between;
+}
+
+.readmore {
+  color: black;
+  text-transform: uppercase;
+  border-bottom: 4px solid black;
+  display: inline-block;
+  font-weight: 600;
+  margin: 0 0.5em;
+
+  &:hover {
+    text-decoration: none;
+    color: $claret;
+    border-bottom-color: $claret;
+  }
+
+  @include media-query($on-palm) {
+    display: inline-table;
+  }
 }
 
 .pig{
