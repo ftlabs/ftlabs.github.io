@@ -1,0 +1,75 @@
+---
+layout: post
+title:  "Connected FT"
+date:   2017-07-03 09:30:30 +0100
+categories: Experiment
+teaser: Experiment
+excerpt: >
+  Connecting personal devices to each other with Push and FT.com
+---
+
+<p>Imagine being able to send any piece of FT content from one of your devices to another with the single press of a button...</p>
+
+<p>Our customers consume FT content across countless devices. From the 27" 4K iMac to sub-$20 Android devices, to the aged windows box collecting dust in the corner, the FT can be read almost anywhere, and we strive for a great experience across as many devices as possible.</p>
+
+<p>Despite the FT being available on almost any web-capable device, it might not always be the best place for you to view that content. Perhaps you're reading a gripping piece on your laptop in the morning, but you have to get to work... your smartphone is probably the best way for you to consume that must-read article on the move. But how do you get it there? Well, there are a bunch of ways that you can get an article from point A to point B, but they're convoluted. To pick a favourite example: you could email it to yourself, but then you have an email which isn't really an email, it's a bookmark, and that's not what your inbox is for.</p>
+
+<p>We've built 'Connected FT' (a 20% time project) which is a small web service + progressive web app that makes it possible to send articles between your devices with a single button press.</p>
+
+<h2>How does it work?</h2>
+
+<p>Connected FT uses the new <a href="https://developer.mozilla.org/en/docs/Web/API/Push_API">Push APIs</a> to connect each of your personal devices to your FT account. With push notifications enabled, we're able to send you any content you choose straight to that device.</p>
+
+<p>To enable Connected FT on a device, you register it with our experimental <abbr title="Progressive Web App">PWA</abbr>.</p>
+
+<img src="/assets/uploads/2017/07/register_for_connected_ft.jpg" alt="A screenshot of the 3 steps to register a device with Connected FT"/>
+
+<p>Once registration is complete, a new sharing button will appear alongside our default sharing options. To send an article to another device, you: 
+  <ol>
+    <li>Click the button</li>
+    <li>select your desired device from the list that appears</li>
+  </ol>
+</p>
+
+<p>As soon as you're ready for it, the content you want is waiting right there for you.</p>
+
+<img src="/assets/uploads/2017/07/connected_ft_notification.jpg" alt="A screenshot of the Connected FT push notification" />
+
+<h2>Saving content with myFT</h2>
+
+<p>FT.com does aleady have functionality for saving content for later consumption. Each FT.com article has a "SAVE" button. A user can click the save button, and that's the article saved. Voilà! But where? Is it saved on this device? Is it saved to my account? Does it work offline now? "Saved" is vague. If you're using myFT (the customisable section of the FT) you have to be familiar with what it is, where it lives, and what it's for. Our readers also have to remember to look up that article on the device they want to read it on later. It's a little disconnected from what the user wants to do in this (admittedly hypothetical) scenario, which is "I want to read something on another device at some point in the near-to-mid future".</p>
+
+<p>Connected FT offers a "fire and forget" approach to content sharing. Once triggered, the content arrives where it's going to be needed... eventually.</p>
+
+<img src="/assets/uploads/2017/07/connected_ft_share_icon.jpg" alt="A screenshot of the newly displayed 'share to device' button on an FT.com article"/>
+
+
+<h2>Technical Limitations</h2>
+
+<p>As with most shiny new Web APIs, the Push API is not yet supported everywhere - most notably on iOS (lamentably). At current, the best experience for this technology is on Android devices with a <a href="https://developer.mozilla.org/en/docs/Web/API/Push_API#Browser_compatibility" target="_blank" rel="no-opener">modern web browser</a> (Chrome/Firefox/Samsung Internet etc.)</p>
+
+<h2>How else could we use this?</h2>
+
+<p>While it's very convenient to be able to send an article from one device to another, it's not necessarily the best use case for absolutely everybody. We imagine that Connected FT might be best used in circumstances where a screen is not immediately available to read an article on. For example, one could be listening to an FT article on their  Google Home/Amazon Alexa/Shiny Voice Vase and then decide that they'd prefer to read the article on their phone (perhaps they have to run out of the door). With a simple voice command, such as "Hey Vase, send this article to my phone", it can be there in seconds. No muss, no fuss. </p>
+
+<p>This too, could enable us to offer multiple ways to consume the content on different devices. If a reader sends an article from their shiny voice vase to their mobile device, they might not want to read that content, they may want to continue listening from where they left off. This is a functionality we could offer in the push notification itself with 'custom actions'.</p>
+
+<h2>Benefits to the FT</h2>
+
+<p>Now, anything that makes the life of our customers easier is always a win, but are there other ways in which FT benefits from this functionality? Well, we can think of a few ways.</p>
+
+<p>When a user is reading on FT.com (or one of our apps) we track certain metrics to see how engaged they are with a piece of content. This helps us recommend more relevant content to that reader on future visits to our site.</p>
+
+<p>If we were to implement Connected FT for all users everywhere, we could track the articles and all associated metadata that are being sent by that reader. This could give us a big 'thumbs up' as to what type of content is relevant to them; if they send themselves 5 articles about "Brexit" in the space of a week, but aren't subscribed to that topic in myFT, we could prompt them to do so.</p>
+
+<p>In the future, such functionality might allow us to cache content ahead of when it's needed. If a reader sends an article to their mobile device around the time that we might expect them to go home, we could fetch that article and store it offline while they're still connected to the WiFi. This way, no matter what the connectivity is like on their commute home (like the dead-zone that is the London underground, for example) our readers are able to engage with our content whenever they *want* to, not just when the network allows.</p>
+
+<h2>Benefits to the user</h2>
+
+<p>Having registered a number of devices with Connected FT, moving content between devices and contexts becomes effortless. Rather than reading FT articles in the form that they are immediately available in, one can consume them at a time and place that's preferred or more familiar.</p>
+
+<p>The functionality could also work as a bookmarking tool. With <a href="https://www.ft.com/tour/myFT">myFT</a>, any article shared between devices could also be saved to the users account for reading at a later date.</p>
+
+<h2>Trying it out</h2>
+
+<p>Right now, this feature isn't available to the general public, but FT staff are able to enable and play with the functionality. So, come on over and ask us how!</p>
