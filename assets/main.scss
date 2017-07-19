@@ -66,6 +66,10 @@ body{
   font-size: $base-font-size;
 }
 
+figcaption {
+  color: $black-60;
+}
+
 h1, h2, h3, h4, h5, h6{
   font-family: 'financierdisplayweb', serif;
   text-align: center;

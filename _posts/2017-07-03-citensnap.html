@@ -1,0 +1,48 @@
+---
+layout: post
+title:  "Capturing text with canvas"
+date:   2017-07-03 09:30:30 +0100
+categories: Experiment
+teaser: Experiment
+excerpt: >
+  Get a shareable image of text in one click
+---
+
+<p>
+	Our readers, and some of our journalists, often share screenshots of articles on social media to bypass character counts; but they don't always cite their source or link back to the original article. Providing an image shareable in one click from text selection would benefit both our users, for the ease of sharing; and us, as we can ensure we include sources automatically in the image.
+</p>
+
+<figure>
+	<a href="https://twitter.com/BenedictEvans/status/877486412886618112" target="_blank"><img src="/assets/uploads/2017/07/exampleTweet_1.png" alt="" /></a>
+	<figcaption>Example of a tweet that will indicate context only when expanded.</figcaption>
+</figure>
+
+<figure>
+	<a href="https://twitter.com/alantravis40/status/881903368620433411" target="_blank"><img src="/assets/uploads/2017/07/exampleTweet_2.png" alt="" /></a>
+	<figcaption>Example of a tweet without any other reference to the FT than the background colour.</figcaption>
+</figure>
+
+<h2>Cite'n'Snap in a nutshell</h2>
+<p>
+	Platforms like <a href="https://medium.com/" target="_blank">Medium</a> allow their users to share snippets of selected text to social media. When copying text from our website, our readers are presented with the following text when they want to paste it:
+</p>
+<blockquote>
+	<p>High quality global journalism requires investment. Please share this article with others using the link below, do not cut &amp; paste the article. See our T&amp;Cs and Copyright Policy for more detail. Email ftsales.support@ft.com to buy additional rights.</p>
+</blockquote>
+<p>
+	If we helped them create an image from the text then want to share, we could include this message, as well as the original link and author for the article they're quoting. To create this image, we used an HTML5 canvas, that we can style similarly to the website and from which we can generate a JPG or PNG.
+</p>
+<img src="/assets/uploads/2017/07/citensnap.png" alt="" />
+<p>A proof of concept for Cite'n'Snap is available on <a href="https://github.com/ftlabs/cite-n-snap" target="_blank">GitHub</a>.</p>
+
+<h2>Ideal scenario: Twitter integration</h2>
+<p>In an ideal scenario, we would generate an image and share it in one click. However when it comes to the sharing stage, and particularly on Twitter, we are faced with several restrictions:</p>
+<ul>
+	<li>The 'tweet' intent endpoint of the Twitter API, does not support images, only text. In this case, the image would need to be a self-hosted link.</li>
+	<li>A Twitter card is not an option as the content is unique per page, and cached; the shared quote would change over time.</li>
+	<li>The image could be uploaded publicly (private images don't render in tweets) to Twitter and shared in a new tweet, but this would render most FT content public and possibly create to much noise.</li>
+</ul>
+
+<h2>Conclusions</h2>
+<p>As the experiment progressed, it became apparent that the obstacles to a one-click text sharing wouldn't lie with the image generation, but with the 3rd-party platforms.</p>
+<p>Going forward, we can look at adding metadata to the images generated (date, author, source, etc.) and also generate alternative text to the image (although, on Twitter, this feature needs to be manually enabled by users) to improve accessibility.</p>
