@@ -48,10 +48,4 @@ gratifyingly, kinda worked
 
 ## ToDo
 
-* tag missing category pages (technote-DONE, labs, tutorial-DONE, news-DONE)
-* MAYBE: refactor/rewrite "This post was originally made on the Assanka blog". category=Assanka?
-* create new style/layout etc for posts - DONE
-* strip out old styling and wp refs - DONE
-* rethink front page - DONE
-* ...
-* redirect labs.ft.com to fastly to new blog
+* port /asset/... videos to youtube because accessibility (having been moved to /asset/... because no longer Brightcove)
