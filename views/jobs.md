@@ -5,7 +5,9 @@ permalink: /jobs/
 ---
 We are looking for people who want to make world-class websites that help our readers find and enjoy globally respected content from the Financial Times.  Please choose the kind of job that you are interested in for specific details about each role, or read on for more general info about working for us.
 
-Currently no vacancies within FT Labs.
+## Vacancies
+
+- [(Junior) Labs Developer](https://ft.wd3.myworkdayjobs.com/en-US/FT_External_Careers/job/OSB-London-35-hours/Junior-Developer_JR001090-1)
 
 For general vacancies within the FT: [aboutus.ft.com/careers](http://aboutus.ft.com/careers)
 
