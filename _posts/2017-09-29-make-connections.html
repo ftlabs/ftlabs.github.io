@@ -7,7 +7,7 @@ teaser: Games
 excerpt: >
   An FT-based game for Google Home
 ---
-<p>FT Labs is preparing to launch a new game on Google Home. Here is a glimpse of what is to come, and some learnings acquired along the process of developing for voice devices.</p>
+<p>FT Labs is preparing to launch a new game on Google Home. Here is a glimpse of what is to come, and some learnings acquired in the process of developing for voice devices.</p>
 
 <h2>VUI, CUI,... OUI?</h2>
 <p>Voice interactions have been on Labs' radar for some time; forecasting devices straight out of science fiction films would soon spread In Real Life. Spreading, they are indeed. Although defining that new audio space we are meant to be developing for isn't easy. What to call it? Conversational User Interface, Oral User Interface? The current preferred and widely used term is VUI; Voice (some would rather say "Vocal") User Interface.</p>
@@ -15,14 +15,14 @@ excerpt: >
 	<img src="/assets/uploads/2017/09/twine.png" alt="" /></a>
 	<figcaption>Conversational user journey mapped with <a href="https://twinery.org">Twine</a></figcaption>
 </figure>
-<p>Whatever the terminology, it implies one core factor: users. Developers need to design new journeys and plan conversation flows, within the limitations imposed by the current APIs and tools. We have been thinking about how and when our readers might want to use voice interactions: at home, at work, in the morning, on the go... Voice devices create new modes of accessibility, for example, visually impaired users could switch from screen readers to a voice device for a more fluid interaction (e.g not saying 'Click this button', but 'Read me the article'). But they also brig new constraints: a page cannot be refreshed at the click of a button, or a file downloaded with a right click anymore. When designing we have to be mindful of breaking people's screen habits.</p>
+<p>Whatever the terminology, it implies one core factor: users speaking. Developers need to design new journeys and plan conversation flows, within the limitations imposed by the current APIs and tools. We have been thinking about how and when our readers might want to use voice interactions: at home, at work, in the morning, on the go... Voice devices create new modes of accessibility, for example, visually impaired users could switch from screen readers to a voice device for a more fluid interaction (e.g not saying 'Click this button', but 'Read me the article'). But they also brig new constraints: a page cannot be refreshed at the click of a button, or a file downloaded with a right click anymore. When designing we have to be mindful of breaking people's screen habits.</p>
 <h3>"Alexa, tell me about &lt;CompanyName&gt;"</h3>
-<p>We have explored the possibilities to develop for two major players: Amazon and Google. At the time of trying out the Echo Dot, development was still limited and a very manual task of filling in data. We were also limited by our own source of data for companies, not having it readily available for consumption. We decided to switch to Google, which was slightly more flexible with dynamic data.</p>
+<p>We have explored the possibilities to develop for two major players: Amazon and Google. At the time of trying out the Echo Dot, development was still limited and a very manual task of filling in data. We were also limited by our own source of data for companies, not having it readily available for consumption. We decided to devote some time to Google Home, which was slightly more flexible with dynamic data.</p>
 
 <h2>"OK Google"</h2>
 <p>FT Labs has a longer term goal where we want to allow rich conversations to take place between our audience and voice devices, this game is a step along the path to that capability.</p>
-<p>To develop Make Connections, we used <a href="https://api.ai/">API.ai</a> and its Action on Google integration. The game uses the correlations service, based on our previous exploration of the <a href="https://labs.ft.com/2015/07/six-degrees-of-angela-merkel/">6 degrees of Angela Merkel</a>.</p>
-<p>In the same spirit, players much choose from 3 propositions which person has been mentioned in the same FT article as the one in the question. The game only looks at recent articles (published within a week), so the answers will be different over time.</p>
+<p>To develop Make Connections, we used <a href="https://api.ai/">API.ai</a> and its Action on Google integration. The game uses FT Labs' correlations service, based on our previous exploration of the <a href="https://labs.ft.com/2015/07/six-degrees-of-angela-merkel/">6 degrees of Angela Merkel</a>.</p>
+<p>In the same spirit, players much choose from 3 propositions which person has been mentioned in the same FT article as the one in the question. The game only looks at recent articles (published within the previous week), so the questions and answers will change over time.</p>
 <blockquote>
 	<p>"Theresa May was mentioned in an article with which one of the following people?"<p>
 	<ol>
