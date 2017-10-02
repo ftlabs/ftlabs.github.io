@@ -1,0 +1,46 @@
+---
+layout: post
+title:  "Let's make connections"
+date:   2017-09-18 09:30:30 +0100
+categories: Games
+teaser: Games
+excerpt: >
+  An FT-based game for Google Home
+---
+<p>FT Labs is preparing to launch a new game on Google Home. Here is a glimpse of what is to come, and some learnings acquired along the process of developing for voice devices.</p>
+
+<h2>VUI, CUI,... OUI?</h2>
+<p>Voice interactions have been on Labs' radar for some time; forecasting devices straight out of science fiction films would soon spread In Real Life. Spreading, they are indeed. Although defining that new audio space we are meant to be developing for isn't easy. What to call it? Conversational User Interface, Oral User Interface? The current preferred and widely used term is VUI; Voice (some would rather say "Vocal") User Interface.</p>
+<figure>
+	<img src="/assets/uploads/2017/09/twine.png" alt="" /></a>
+	<figcaption>Conversational user journey mapped with <a href="https://twinery.org">Twine</a></figcaption>
+</figure>
+<p>Whatever the terminology, it implies one core factor: users. Developers need to design new journeys and plan conversation flows, within the limitations imposed by the current APIs and tools. We have been thinking about how and when our readers might want to use voice interactions: at home, at work, in the morning, on the go... Voice devices create new modes of accessibility, for example, visually impaired users could switch from screen readers to a voice device for a more fluid interaction (e.g not saying 'Click this button', but 'Read me the article'). But they also brig new constraints: a page cannot be refreshed at the click of a button, or a file downloaded with a right click anymore. When designing we have to be mindful of breaking people's screen habits.</p>
+<h3>"Alexa, tell me about &lt;CompanyName&gt;"</h3>
+<p>We have explored the possibilities to develop for two major players: Amazon and Google. At the time of trying out the Echo Dot, development was still limited and a very manual task of filling in data. We were also limited by our own source of data for companies, not having it readily available for consumption. We decided to switch to Google, which was slightly more flexible with dynamic data.</p>
+
+<h2>"OK Google"</h2>
+<p>FT Labs has a longer term goal where we want to allow rich conversations to take place between our audience and voice devices, this game is a step along the path to that capability.</p>
+<p>To develop Make Connections, we used <a href="https://api.ai/">API.ai</a> and its Action on Google integration. The game uses the correlations service, based on our previous exploration of the <a href="https://labs.ft.com/2015/07/six-degrees-of-angela-merkel/">6 degrees of Angela Merkel</a>.</p>
+<p>In the same spirit, players much choose from 3 propositions which person has been mentioned in the same FT article as the one in the question. The game only looks at recent articles (published within a week), so the answers will be different over time.</p>
+<blockquote>
+	<p>"Theresa May was mentioned in an article with which one of the following people?"<p>
+	<ol>
+		<li>Martin Gruenberg</li>
+		<li>Richard Cousins</li>
+		<li>Mark Carney</li>
+	</ol>
+	<p><cite>Correct answer on 02/10/2017: Mark Carney</cite></p>
+</blockquote>
+<p>An answer can be made by saying the option number or the person's name. Upon answering, the player is offered more context on the connection: the title of the article where the correlation occured. If the answer was correct, another question comes up and the score increases until a wrong answer is given, or no more connections are found.</p>
+<p>The game has also been developed to work on Google Assistant on mobile devices. On this surface, users will be able to click on a name to give their answer, and access a link to the relevant FT article.</p>
+<p>API.ai is a powerful interface where one can easily create intents, upload entities (possible user inputs) and have a basic Action ready within minutes. From a developer's point of view, though, it is a strange mix of <abbr title="Graphical User Interface">GUI</abbr> and externally hosted service. It would be preferrable to be able to generate everything in the code in that case, and have an endpoint to tap into the Machine Learning side of the Assistant.</p>
+
+<h2>Limitations</h2>
+<p>From a technological standpoint, it is still early days for those devices. We have already seen improvements in the capability since the beginning of our explorations. Time will tell if users feel comfortable using voice commands, or if they become scarily accurate; and how these will impact human interactions. At the moment though, it feels like our ambitions exceed the capabilities, or at least meet restrictions. We would have liked the possibility to interrupt the device when it's talking, as you would interject in a regular human conversation. Being able to interject, resume a conversation or digress is an integral part of the illusion.</p>
+<p>Google Home sometimes struggles to understand simple words, with no feedback on what it might have heard, which can create frustrations (which, we hope, will disappear as the machine learns).</p>
+
+<h2>The future</h2>
+<p>We are keeping an eye out for new development capabilities. Currently, users are under no illusion that they might be conversing with a human, and learn to wait for the machine to finish talking. As the speech and interactions possibilities grow, however, they will become less forgiving when errors occur. We also keep in mind that we will have to deal with the uncanny valley, as machines learn to predict interactions.</p>
+<p>Beyond games, there are other aspects we can explore, such as authentication through voice recognition; where voice devices might become a biometric portal to unlock services. New devices to be used concurrently with voice interfaces are also starting to appear, extending our field of exploration.</p>
+<p>In the meantime, get ready for Make Connections, coming soon to your Google Home device!</p>
