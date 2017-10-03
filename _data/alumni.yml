@@ -11,14 +11,14 @@ description: >
  The current FT Labs team is known as FT Labs 2.0,
  to differentiate it from FT Labs (1.0),
  which is what Assanka became.
-current2.0:
+current2point0:
  - name: Chris Gathercole
    role: Head of FT Labs
    twitter: upthebuzzard
  - name: Lily Madar
    role: Labs Developer
    twitter: Lily_2point0
-ex2.0:
+ex2point0:
  - name: Sean Tracey
    role: Labs Developer
    twitter: seanmtracey
@@ -51,7 +51,7 @@ ex2.0:
    role: Bootcamper Grad
  - name: George Kastrinakis
    role: Bootcamper Grad
-ex1.0:
+ex1point0:
  - name: Robert Shilston
    role: Founder of Labs 1.0, and Assanka
  - name: Adam Braimbridge

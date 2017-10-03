@@ -1,0 +1,58 @@
+---
+layout: page
+title: FT Labs Alumni
+excerpt: >
+  All these lovely people.
+permalink: /alumni.html
+---
+<p>
+  There is a <a href="/about">potted history of FT Labs</a>,
+  and these are most, if not all, of the people who were (or are) part of it.
+</p>
+<br>
+<br>
+
+<div class="current2point0">
+  <h2>Current Members of FT Labs 2.0</h2>
+  <ul class="alumni">
+  {% for item in site.data.alumni.current2point0 %}
+  <li>{{ item.name }}{%
+    if item.role %}, {{ item.role }}{%
+      endif %}{%
+        if item.twitter %}, <a href="{{ 'https://twitter.com/' | append: item.twitter }}">{{ item.twitter | prepend: '@' }}</a>{%
+          endif %}</li>
+  <p>{{ item.description }}</p>
+  <br>
+  {% endfor %}
+  </ul>
+</div>
+
+<div class="ex2point0">
+  <h2>Former Members of FT Labs 2.0</h2>
+  <ul class="alumni">
+  {% for item in site.data.alumni.ex2point0 %}
+  <li>{{ item.name }}{%
+    if item.role %}, {{ item.role }}{%
+      endif %}{%
+        if item.twitter %}, <a href="{{ 'https://twitter.com/' | append: item.twitter }}">{{ item.twitter | prepend: '@' }}</a>{%
+          endif %}</li>
+  <p>{{ item.description }}</p>
+  <br>
+  {% endfor %}
+  </ul>
+</div>
+
+<div class="ex1point0">
+  <h2>Former Members of FT Labs 1.0 (and Assanka)</h2>
+  <ul class="alumni">
+  {% for item in site.data.alumni.ex1point0 %}
+  <li>{{ item.name }}{%
+    if item.role %}, {{ item.role }}{%
+      endif %}{%
+        if item.twitter %}, <a href="{{ 'https://twitter.com/' | append: item.twitter }}">{{ item.twitter | prepend: '@' }}</a>{%
+          endif %}</li>
+  <p>{{ item.description }}</p>
+  <br>
+  {% endfor %}
+  </ul>
+</div>
