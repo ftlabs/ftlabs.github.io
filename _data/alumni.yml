@@ -33,23 +33,15 @@ ex2point0:
    twitter: triblondon
  - name: Theo Leanse
    role: Bootcamper
- - name: Andy Newman
-   role: Bootcamper
  - name: Laura Carvajal
    role: Bootcamper
  - name: Peter Clark
    role: Bootcamper
- - name: David Smith
-   role: Bootcamper
  - name: Scott Newton
-   role: Bootcamper
- - name: Glynn Phillips
    role: Bootcamper
  - name: Mara Wanot
    role: Bootcamper
  - name: Kamran Muniree
-   role: Bootcamper Grad
- - name: George Kastrinakis
    role: Bootcamper Grad
 ex1point0:
  - name: Robert Shilston
@@ -58,10 +50,7 @@ ex1point0:
    role: Developer
  - name: Alice Bartlett
    role: Developer
- - name: Tim Davenport
  - name: Rowan Beentje
-   role: Developer
- - name: Matthew Andrews
    role: Developer
  - name: Luke Blaney
    role: Developer
