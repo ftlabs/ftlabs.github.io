@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>FT LABS</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, user-scalable=no,
+initial-scale=1"> </head>
+<body>
+<img style="display:none;" src=" https://placekitten.com/800/500 " alt="" />
+<canvas id="imgTransformer"></canvas>
+<script type="text/javascript">
+	console.log('executing JS');
+	const rotate = () => {
+		let img = new Image(); // create new image
+		img.src = "https://placekitten.com/800/500"; // set image source to original image
+		let ctx = document.getElementById("imgTransformer").getContext("2d"); // grab canvas, sets to 2d
+		img.onload = function() {
+			ctx.canvas.width = img.width; // set canvas size
+			ctx.canvas.height = img.height;
+			ctx.translate(ctx.canvas.width / 2, ctx.canvas.height / 2); // sets axis to middle of canvas
+			ctx.rotate(-30 * Math.PI / 180) // rotates 30o anti-clockwise
+			ctx.drawImage(img, -img.width / 2, -img.height / 2); // renders new image incanvas
+			ctx.save(); // saves new image
+		}
+	rotate();
+</script> 
+</body>
+
+</html>
