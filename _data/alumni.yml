@@ -11,13 +11,6 @@ description: >
  The current FT Labs team is known as FT Labs 2.0,
  to differentiate it from FT Labs (1.0),
  which is what Assanka became.
-current2point0:
- - name: Chris Gathercole
-   role: Head of FT Labs
-   twitter: upthebuzzard
- - name: Lily Madar
-   role: Labs Developer
-   twitter: Lily_2point0
 ex2point0:
  - name: Sean Tracey
    role: Labs Developer
