@@ -50,12 +50,12 @@ $on-laptop:        1100px;
   margin: 0;
 }
 
-p a[href], main article li a[href]{
+p a[href], main article li a[href], figcaption a[href]{
   color: $claret;
   font-weight: 500;
 }
 
-p a[href]:visited, main article li a[href]:visited{
+p a[href]:visited, main article li a[href]:visited, figcaption a[href]:visited {
   color: $claret-40;
 }
 
@@ -74,12 +74,14 @@ h1, h2, h3, h4, h5, h6{
   font-family: 'financierdisplayweb', serif;
   text-align: center;
 
-  a {
-    color: $claret;
-    font-weight: 500;
+  &:not(.o-teaser__heading) {
+    a {
+      color: $claret;
+      font-weight: 500;
 
-    &:visited {
-      color: $claret-40;
+      &:visited {
+        color: $claret-40;
+      }
     }
   }
 }
