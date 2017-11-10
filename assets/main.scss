@@ -584,7 +584,7 @@ hr.end-of-article{
   padding-bottom: 56.25%; /* 16:9 */
   padding-top: 25px;
   height: 0;
-  
+
   iframe {
     position: absolute;
     top: 0;
@@ -644,3 +644,24 @@ code.prettyprint,
 code.prettyprint { display: block; }
 
 pre.prettyprint code { background-color: transparent;}
+
+table.alumni {
+  margin-left:auto;
+  margin-right:auto;
+  border-spacing: 50px 0px;
+}
+
+.alumni-twitter {
+  text-align: right;
+  font-size: 75%;
+}
+
+.alumni-name {
+  text-align: center;
+  font-size: 125%;
+}
+
+.alumni-role {
+  font-style: italic;
+  font-size: 75%;
+}

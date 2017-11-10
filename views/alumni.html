@@ -9,37 +9,42 @@ permalink: /alumni.html
   There is a <a href="/about">potted history of FT Labs</a>,
   and these are some, but not all, of the people who were part of it.
 </p>
-<br>
-<br>
 
-<div class="ex2point0">
-  <h2>Former Members of FT Labs 2.0</h2>
-  <ul class="alumni">
+<h2>Former Members of FT Labs 2.0</h2>
+<table class="alumni">
   {% for item in site.data.alumni.ex2point0 %}
-  <li>{{ item.name }}{%
-    if item.role %}, {{ item.role }}{%
-      endif %}{%
-        if item.twitter %}, <a href="{{ 'https://twitter.com/' | append: item.twitter }}">{{ item.twitter | prepend: '@' }}</a>{%
-          endif %}</li>
-  <p>{{ item.description }}</p>
-  <br>
+  <tr>
+    <td class="alumni-twitter">
+      {% if item.twitter %}<a href="{{ 'https://twitter.com/' | append: item.twitter }}">{{ item.twitter | prepend: '@' }}</a>{% endif %}
+    </td>
+    <td class="alumni-name">
+      {{ item.name }}
+    </td>
+    <td class="alumni-role">
+      {% if item.role %}{{ item.role }}{% endif %}
+    </td>
+  </tr>
   {% endfor %}
-  </ul>
-</div>
+</table>
 
-<div class="ex1point0">
-  <h2>Former Members of FT Labs 1.0 (and Assanka)</h2>
-  <ul class="alumni">
+<h2>Former Members of FT Labs 1.0 (and Assanka)</h2>
+<table class="alumni">
   {% for item in site.data.alumni.ex1point0 %}
-  <li>{{ item.name }}{%
-    if item.role %}, {{ item.role }}{%
-      endif %}{%
-        if item.twitter %}, <a href="{{ 'https://twitter.com/' | append: item.twitter }}">{{ item.twitter | prepend: '@' }}</a>{%
-          endif %}</li>
-  <p>{{ item.description }}</p>
-  <br>
+  <tr>
+    <td class="alumni-twitter">
+      {% if item.twitter %}<a href="{{ 'https://twitter.com/' | append: item.twitter }}">{{ item.twitter | prepend: '@' }}</a>{% endif %}
+    </td>
+    <td class="alumni-name">
+      {{ item.name }}
+    </td>
+    <td class="alumni-role">
+      {% if item.role %}{{ item.role }}{% endif %}
+    </td>
+  </tr>
   {% endfor %}
-  </ul>
-</div>
+</table>
 
-<p>If you are not in this list and you would like to be, give us a poke.</p>
+<br>
+<br>
+
+<p>If you are not in this page and you would like to be, give us <a href="https://github.com/ftlabs/ftlabs.github.io/pulls">a poke</a>.</p>
