@@ -108,6 +108,21 @@ blockquote {
   border-left-color: $claret;
 }
 
+table {
+  width: 100%;
+  margin: 30px;
+  text-align: center;
+  vertical-align: top;
+
+  tr td:first-child, tr th:first-child {
+    text-align: left;
+  }
+
+  @media screen and (max-width: 730px) {
+    margin: 20px 5px;
+  }
+}
+
 header{
     position: fixed;
     width: 100%;
@@ -495,10 +510,6 @@ hr.end-of-articles{
   text-decoration: line-through;
 }
 
-.reasons-for-404 p {
-  text-align: center;
-}
-
 .o-footer{
   margin-top: 0;
 }
@@ -647,7 +658,7 @@ code.prettyprint { display: block; }
 
 pre.prettyprint code { background-color: transparent;}
 
-.alumni {
+.alumni, .reasons-for-404 {
   margin: 3% auto 0;
   border-spacing: 50px 0px;
   display: flex;
@@ -658,12 +669,12 @@ pre.prettyprint code { background-color: transparent;}
 }
 
 
-.alumnus {
+.alumnus, .reason {
   display: flex-item;
   margin-bottom: 2%;
 }
 
-.alumnus-name {
+.alumnus-name, .reason-name { 
   text-align: center;
   font-size: 125%;
   margin-bottom: 0;
@@ -672,4 +683,21 @@ pre.prettyprint code { background-color: transparent;}
 .alumnus-role {
   font-size: 75%;
   text-align: center;
+}
+
+.reason {
+  width: 50%;
+
+  @media screen and (max-width: 730px) {
+    width: 100%;
+  }
+}
+
+.reason-name {
+  text-align: left;
+  margin: 0 30px;
+}
+
+.reason-definition {
+  font-size: 75%;
 }
