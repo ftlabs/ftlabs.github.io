@@ -33,3 +33,5 @@ From 2012 to 2015, pieces of this original FT Labs group split off into separate
 Since January 2015, FT Labs (2.0) been the small R&D team within the FT as described above, rising from the ashes of the former inhabitants of the brand name.
 
 Since July 2015, after a long stint as part of [Pearson](https://www.pearson.com/uk/), the FT has been part of [Nikkei](http://www.nikkei.com/), a Japanese financial publishing company, and publisher of the respected Nikkei 225 stock index.
+
+Some former denizens of the various incarnations of FT Labs are listed in the <a href="/alumni">alumni page</a>. 

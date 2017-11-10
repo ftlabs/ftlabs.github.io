@@ -1,0 +1,55 @@
+description: >
+ This is a collection of the many great folk
+ who have been part of the various incarnations
+ of FT Labs.
+
+ The list is not yet complete,
+ and we are always happy to add anyone we overlooked.
+
+ The only mandatory field for a person is their name.
+
+ Beware dangling spaces.
+
+ The current FT Labs team is known as FT Labs 2.0,
+ to differentiate it from FT Labs (1.0),
+ which is what Assanka became.
+
+ ex2point0 folk are listed as permies/short termers, then recency.
+ ex1point0 folk are listed alphabetically.
+ex2point0:
+ - name: Sean Tracey
+   role: Labs Developer
+   twitter: seanmtracey
+ - name: Jake Champion
+   role: Labs Developer
+   twitter: JakeDChampion
+ - name: Ada Edwards
+   role: Labs Developer
+   twitter: Lady_Ada_King
+ - name: Andrew Betts
+   role: Founder of Labs 2.0, Labs 1.0, and Assanka
+   twitter: triblondon
+ - name: Kamran Muniree
+   role: Grad
+ - name: Mara Wanot
+   role: Bootcamper
+ - name: Scott Newton
+   role: Bootcamper
+ - name: Laura Carvajal
+   role: Bootcamper
+ - name: Peter Clark
+   role: Bootcamper
+ - name: Theo Leanse
+   role: Bootcamper
+ex1point0:
+ - name: Adam Braimbridge
+   role: Developer
+ - name: Alice Bartlett
+   role: Developer
+ - name: Luke Blaney
+   role: Developer
+   twitter: lucas42
+ - name: Robert Shilston
+   role: Founder of Labs 1.0, and Assanka
+ - name: Rowan Beentje
+   role: Developer

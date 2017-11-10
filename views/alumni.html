@@ -1,0 +1,52 @@
+---
+layout: page
+title: FT Labs Alumni
+excerpt: >
+  All these lovely people.
+permalink: /alumni.html
+---
+<p>
+  There is a <a href="/about">potted history of FT Labs</a>,
+  and these are some, but not all, of the people who were part of it.
+</p>
+
+<h2>Former Members of FT Labs 2.0</h2>
+<section class="alumni">
+  {% for item in site.data.alumni.ex2point0 %}
+    <div class="alumnus">
+      <p class="alumnus-name">
+        {% if item.twitter %}<a href="{{ 'https://twitter.com/' | append: item.twitter }}">{% endif %}
+          {{ item.name }}
+        {% if item.twitter %}</a>{% endif %}
+      </p>
+      {% if item.role %}
+        <p class="alumnus-role">
+        {{ item.role }}
+        </p>
+    {% endif %}
+    </div>
+  {% endfor %}
+</section>
+
+<h2>Former Members of FT Labs 1.0 (and Assanka)</h2>
+<section class="alumni">
+  {% for item in site.data.alumni.ex1point0 %}
+    <div class="alumnus">
+      <p class="alumnus-name">
+        {% if item.twitter %}<a href="{{ 'https://twitter.com/' | append: item.twitter }}">{% endif %}
+          {{ item.name }}
+        {% if item.twitter %}</a>{% endif %}
+      </p>
+      {% if item.role %}
+        <p class="alumnus-role">
+        {{ item.role }}
+        </p>
+      {% endif %}
+    </div>
+  {% endfor %}
+</section>
+
+<br>
+<br>
+
+<p>If you are not in this page and you would like to be, give us <a href="https://github.com/ftlabs/ftlabs.github.io/blob/master/_data/alumni.yml">a poke</a>.</p>
