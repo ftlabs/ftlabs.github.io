@@ -8,9 +8,14 @@ description: >
 
  The only mandatory field for a person is their name.
 
+ Beware dangling spaces.
+
  The current FT Labs team is known as FT Labs 2.0,
  to differentiate it from FT Labs (1.0),
  which is what Assanka became.
+
+ ex2point0 folk are listed as permies/short termers, then recency.
+ ex1point0 folk are listed alphabetically.
 ex2point0:
  - name: Sean Tracey
    role: Labs Developer
@@ -24,27 +29,27 @@ ex2point0:
  - name: Andrew Betts
    role: Founder of Labs 2.0, Labs 1.0, and Assanka
    twitter: triblondon
- - name: Theo Leanse
+ - name: Kamran Muniree
+   role: Grad
+ - name: Mara Wanot
+   role: Bootcamper
+ - name: Scott Newton
    role: Bootcamper
  - name: Laura Carvajal
    role: Bootcamper
  - name: Peter Clark
    role: Bootcamper
- - name: Scott Newton
+ - name: Theo Leanse
    role: Bootcamper
- - name: Mara Wanot
-   role: Bootcamper
- - name: Kamran Muniree
-   role: Bootcamper Grad
 ex1point0:
- - name: Robert Shilston
-   role: Founder of Labs 1.0, and Assanka
  - name: Adam Braimbridge
    role: Developer
  - name: Alice Bartlett
    role: Developer
- - name: Rowan Beentje
-   role: Developer
  - name: Luke Blaney
    role: Developer
    twitter: lucas42
+ - name: Robert Shilston
+   role: Founder of Labs 1.0, and Assanka
+ - name: Rowan Beentje
+   role: Developer
