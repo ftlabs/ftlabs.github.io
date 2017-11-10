@@ -510,10 +510,6 @@ hr.end-of-articles{
   text-decoration: line-through;
 }
 
-.reasons-for-404 p {
-  text-align: center;
-}
-
 .o-footer{
   margin-top: 0;
 }
@@ -662,7 +658,7 @@ code.prettyprint { display: block; }
 
 pre.prettyprint code { background-color: transparent;}
 
-.alumni {
+.alumni, .reasons-for-404 {
   margin: 3% auto 0;
   border-spacing: 50px 0px;
   display: flex;
@@ -673,12 +669,12 @@ pre.prettyprint code { background-color: transparent;}
 }
 
 
-.alumnus {
+.alumnus, .reason {
   display: flex-item;
   margin-bottom: 2%;
 }
 
-.alumnus-name {
+.alumnus-name, .reason-name {
   text-align: center;
   font-size: 125%;
   margin-bottom: 0;
@@ -688,3 +684,16 @@ pre.prettyprint code { background-color: transparent;}
   font-size: 75%;
   text-align: center;
 }
+
+.reason {
+  width: 50%;
+
+  @media screen and (max-width: 730px) {
+    width: 100%;
+  }
+}
+
+.reason-definition {
+  font-size: 75%;
+}
+
