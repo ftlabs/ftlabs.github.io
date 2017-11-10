@@ -675,9 +675,16 @@ pre.prettyprint code { background-color: transparent;}
 }
 
 .alumnus-name, .reason-name {
-  text-align: center;
   font-size: 125%;
   margin-bottom: 0;
+}
+
+.alumnus-name {
+  text-align: center;
+}
+
+.reason-name {
+  text-align: left;
 }
 
 .alumnus-role {
@@ -696,4 +703,3 @@ pre.prettyprint code { background-color: transparent;}
 .reason-definition {
   font-size: 75%;
 }
-
