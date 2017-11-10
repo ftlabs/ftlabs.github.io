@@ -108,6 +108,21 @@ blockquote {
   border-left-color: $claret;
 }
 
+table {
+  width: 100%;
+  margin: 30px;
+  text-align: center;
+  vertical-align: top;
+
+  tr td:first-child, tr th:first-child {
+    text-align: left;
+  }
+
+  @media screen and (max-width: 730px) {
+    margin: 20px 5px;
+  }
+}
+
 header{
     position: fixed;
     width: 100%;
