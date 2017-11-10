@@ -674,17 +674,10 @@ pre.prettyprint code { background-color: transparent;}
   margin-bottom: 2%;
 }
 
-.alumnus-name, .reason-name {
+.alumnus-name, .reason-name { 
+  text-align: center;
   font-size: 125%;
   margin-bottom: 0;
-}
-
-.alumnus-name {
-  text-align: center;
-}
-
-.reason-name {
-  text-align: left;
 }
 
 .alumnus-role {
@@ -698,6 +691,11 @@ pre.prettyprint code { background-color: transparent;}
   @media screen and (max-width: 730px) {
     width: 100%;
   }
+}
+
+.reason-name {
+  text-align: left;
+  margin: 0 30px;
 }
 
 .reason-definition {
