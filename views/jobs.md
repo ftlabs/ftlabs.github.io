@@ -7,9 +7,8 @@ We are looking for people who want to make world-class websites that help our re
 
 ## Vacancies
 
-- [(Junior) Labs Developer](https://ft.wd3.myworkdayjobs.com/en-US/FT_External_Careers/job/OSB-London-35-hours/Junior-Developer_JR001090-1)
-
-For general vacancies within the FT: [aboutus.ft.com/careers](http://aboutus.ft.com/careers)
+- No FT Labs vacancies just now.
+- But lots of other vacancies within the FT: [aboutus.ft.com/careers](http://aboutus.ft.com/careers)
 
 ## Working at FT
 
