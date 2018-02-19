@@ -7,21 +7,21 @@ teaser: Experiment
 excerpt: >
   A highly configurable system for auto-generating ‘radar’-style displays of project and team datasets such as backlogs.
 ---
- | FT Labs' Tech Radar is a highly configurable system for auto-generating ‘radar’-style displays of project and team datasets such as backlogs.  <BR>  <BR> The code sits [in this repo](https://github.com/ftlabs/tech-radar), and includes [an example dataset](https://raw.githubusercontent.com/ftlabs/tech-radar/master/client/demo.json) which is the source of data for [this fruit and veg example](https://labs.ft.com/tech-radar/?json=https%3A%2F%2Flabs.ft.com%2Ftech-radar%2Fdemo.json&sortcol=tastiness&segment=colour&sorttype=alphabetical&title=FTLabs+Potential+Projects+State&ringcolor=rainbow&proportionalrings=true&noderepulsion=1&nodeattraction=9&quadrant=bottom+left").| [![Example Tech Radar](/assets/uploads/2018/02/example_radar.png)](/assets/uploads/2018/02/example_radar.png) |
- | | *fruit and veg demo* |
+ FT Labs' Tech Radar is a highly configurable system for auto-generating ‘radar’-style displays of project and team datasets such as backlogs.
 
+ The code sits [in this repo](https://github.com/ftlabs/tech-radar), and includes [an example dataset](https://raw.githubusercontent.com/ftlabs/tech-radar/master/client/demo.json) which is the source of data for [this fruit and veg example](https://labs.ft.com/tech-radar/?json=https%3A%2F%2Flabs.ft.com%2Ftech-radar%2Fdemo.json&sortcol=tastiness&segment=colour&sorttype=alphabetical&title=FTLabs+Potential+Projects+State&ringcolor=rainbow&proportionalrings=true&noderepulsion=1&nodeattraction=9&quadrant=bottom+left").
 
+{% include figure.html src="/assets/uploads/2018/02/example_radar.png" description="fruit and veg demo" width="60%" %}
 
 ## Why a radar, and why ~~now~~ then?
 
-It seemed every internal team wanted their own radar-themed view of their projects, and were grumbling about the effort needed to maintain them manually. Greatly inspired by the [Thoughtworks Radar](https://www.thoughtworks.com/radar), we saw an opportunity to build a tool to automate the generation of radar displays, not using Ruby, taking advantage of an in-house service which exports data from Google Spreadsheets as a JSON feed. Each team could maintain (and share) their projects’ details in a spreadsheet, and launch the radar display via a link within the spreadsheet.
+It seemed every internal team wanted their own radar-themed view of their projects, and were grumbling about the effort needed to maintain them manually. Greatly inspired by the [Thoughtworks Radar](https://www.thoughtworks.com/radar), we saw an opportunity to build a tool to automate the generation of radar displays, run and configured in-browser, taking advantage of an in-house service which exports data from Google Spreadsheets as a JSON feed. Each team could maintain (and share) their projects’ details in a spreadsheet, and launch the radar display via a link within the spreadsheet.
 
 ## How?
 
 The FT Labs Tech radar tool is built using Javascript using the [D3 library](https://d3js.org/)’s force diagram, served as a static page from [Github Pages](http://labs.ft.com/tech-radar/). The radar is configurable via a display dashboard, via url parameters (including one to hide the dashboard...), and via parameters embedded in the JSON data.
 
-| |![partial dashboard](/assets/uploads/2018/02/partial_dashboard.png)|
-| | *part of the dashboard, for the display tab* |
+{% include figure.html src="/assets/uploads/2018/02/partial_dashboard.png" description="part of the dashboard, for the display tab" width="100%" %}
 
 Nodes in the display are (initially) placed using a combination of attraction (to the section they should be in) and repulsion (from each other). Labels attempt to avoid all other labels and nodes, whilst still keeping close to their own node, in order to remain visible and relevant.
 
@@ -35,11 +35,11 @@ When viewing the radar display, all the parameters are adjustable directly in th
 
 After the display has rendered, with the nodes and labels positioned automatically, they can be repositioned individually. The user will need to take a screenshot to accurately preserve such a manually adjusted layout, since those manual adjustments are not persisted in the url.
 
-| | ![default positions](/assets/uploads/2018/02/positioning_default.png) | ![manual positions](/assets/uploads/2018/02/positioning_manual.png) |
-| | *default positioning* | *manual positioning* |
+{% include figure.html src="/assets/uploads/2018/02/positioning_default.png" description="default positions, for the display tab" %}
 
+{% include figure.html src="/assets/uploads/2018/02/positioning_manual.png" description="manual positioning" %}
 
-More details are available in the table (click on the item to expand it), and both the dashboard and the table can be removed from the display completely.
+In the display, an item can be expanded in the table, and both the dashboard and the table can be removed from the display completely.
 
 ## Features and requirements
 
@@ -65,11 +65,13 @@ The default settings should just work (™), but it is possible to override almo
 
 And, when all is said and done, every node, node label, and name can be individually repositioned and locked into place, if their default placements are not satisfactory.
 
-| | ![Example Tech Radar](/assets/uploads/2018/02/quadrant_lower_right.png) | | ![Example Tech Radar](/assets/uploads/2018/02/quadrant_lower_left.png) |
-| | *ringcolor: rainbow* | | *ringcolor: green* |
-| | | |
-| | ![Example Tech Radar](/assets/uploads/2018/02/quadrant_upper_right.png) | | ![Example Tech Radar](/assets/uploads/2018/02/quadrant_upper_left.png) |
-| | *ringcolor: yellow, crystallisation: 0* | | *ringcolor: red, crystallisation: 3* |
+{% include figure.html src="/assets/uploads/2018/02/quadrant_lower_right.png" description="ringcolor: rainbow" %}
+
+{% include figure.html src="/assets/uploads/2018/02/quadrant_lower_left.png" description="ringcolor: green" %}
+
+{% include figure.html src="/assets/uploads/2018/02/quadrant_upper_right.png" description="ringcolor: yellow, crystallisation: 0" %}
+
+{% include figure.html src="/assets/uploads/2018/02/quadrant_upper_left.png" description="ringcolor: red, crystallisation: 3" %}
 
 ## Difficulties
 
