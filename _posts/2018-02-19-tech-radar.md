@@ -39,7 +39,7 @@ After the display has rendered, with the nodes and labels positioned automatical
 | | *default positioning* | *manual positioning* |
 
 
-More details are available (click to expand) in the table, and both the dashboard and the table can be removed from the display completely.
+More details are available in the table (click on the item to expand it), and both the dashboard and the table can be removed from the display completely.
 
 ## Features and requirements
 
