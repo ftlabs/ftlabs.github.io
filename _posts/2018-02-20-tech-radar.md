@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Tech Radar"
-date:   2018-02-19 09:30:30 +0100
+date:   2018-02-20 09:30:30 +0100
 categories:
 teaser: Experiment
 excerpt: >
@@ -14,7 +14,7 @@ excerpt: >
 FT Labs' Tech Radar is a highly configurable system for auto-generating ‘radar’-style displays of project and team datasets such as backlogs.
 
 {: .secondpar }
-The code sits [in this repo](https://github.com/ftlabs/tech-radar), and includes [an example dataset](https://raw.githubusercontent.com/ftlabs/tech-radar/master/client/demo.json) which is the source of data for [this fruit and veg example](https://labs.ft.com/tech-radar/?json=https%3A%2F%2Flabs.ft.com%2Ftech-radar%2Fdemo.json&sortcol=tastiness&segment=colour&sorttype=alphabetical&title=FTLabs+Potential+Projects+State&ringcolor=rainbow&proportionalrings=true&noderepulsion=1&nodeattraction=9&quadrant=bottom+left").
+The code sits [in this repo](https://github.com/ftlabs/tech-radar), and includes [an example dataset](https://raw.githubusercontent.com/ftlabs/tech-radar/master/client/demo.json) which is the source of data for [this fruit and veg example](https://labs.ft.com/tech-radar/?json=https://labs.ft.com/tech-radar/demo.json).
 </div>
 {% include figure.html src="/assets/uploads/2018/02/example_radar.png" description="Fruit & Veg Demo" float="right" %}
 </div>
@@ -33,11 +33,13 @@ Nodes in the display are (initially) placed using a combination of attraction (t
 
 ## Usage
 
-Configure the radar url with a source of JSON data, e.g. the handy demo file,
+Configure the radar url with a source of JSON data, e.g. the handy demo data file,
 
 [https://labs.ft.com/tech-radar/?*json=https://labs.ft.com/tech-radar/demo.json*](https://labs.ft.com/tech-radar/?json=https://labs.ft.com/tech-radar/demo.json)
 
-(Within the FT, create (or update) a simple dataset with named columns in a google spreadsheet, export it as a JSON feed using the in-house service, and configure the radar url with the name and id of that entry. See [the Bertha repo](https://github.com/ft-interactive/bertha).)
+The data file must have a field called 'name'. If there are any configs specified in the file, they are set via the configvalue field, which is null otherwise. In the basic demo, it specifies the 'rainbow' colour scheme for the rings `{"name": "ringcol", "configvalue": "rainbow"}`, and the field called 'tastiness' as the default data field `{"name": "sortcol", "configvalue": "tastiness"}`. The other data fields will be available in the dashboard for configuring the display.
+
+Within the FT, create (or update) a simple dataset with named columns in a google spreadsheet, export it as a JSON feed using the in-house service, and configure the radar url with the name and id of that entry. See [the Bertha repo](https://github.com/ft-interactive/bertha).
 
 When viewing the radar display, all the parameters are adjustable directly in the dashboard, in turn updating the url of the radar page. The url can be shared and the recipient will get the same display.
 
@@ -69,6 +71,7 @@ The default settings should just work (™), but it is possible to override almo
 * Which datasource(s). It is possible to combine multiple data sources into one display.
 * Which non-default columns to use as the display dimensions, and their sort order
 * Filtering the data
+* Sub-dividing the data into sectors (using a second sort field defined by the param 'segment')
 * Which corner is the origin of the radar quadrant
 * Any of the CSS
 * And lots more. [See the repo README for details](https://github.com/ftlabs/tech-radar/blob/master/README.md).
@@ -92,14 +95,16 @@ And, when all is said and done, every node, node label, and name can be individu
 ### Physics
 
 * Trying to stay within bounded regions using attraction+repulsion. We had to resort to a bit of maths at the boundaries and forcibly repatriate run-away nodes into the quadrant. This can easily happen even when the region is not particularly crowded.
-* Fitting lots of nodes into tight corners. As has no doubt been a problem for everyone who tries to build radar-themed displays, space gets tight near the origin.
+* Fitting lots of nodes into tight corners. As has no doubt been a problem for everyone who tries to build radar-themed displays, space gets tight near the origin, especially when specifying a segment field.
 * Keeping the labels from overlapping. We used invisible nodes in D3 to repel labels from all other labels and nodes (except their own node).
 
 ### UX
 
-* Juggling a large set of parameters to find a combination that worked well in most circumstances.
-* Not succumbing to feature creep _(... we succumbed)_.
+* Juggling a large set of parameters to find a combination that worked well in most circumstances. For example, [this more fancy example](https://labs.ft.com/tech-radar/?json=https%3A%2F%2Flabs.ft.com%2Ftech-radar%2Fdemo.json&sortcol=tastiness&segment=colour&sorttype=alphabetical&title=FTLabs+Potential+Projects+State&ringcolor=rainbow&proportionalrings=true&noderepulsion=1&nodeattraction=9&quadrant=bottom+left").
+* Not succumbing to feature creep _(News Update: we succumbed)_.
 * Handling the explosion in config parameters, many of which were purely experimental, and trying to avoid the configuration becoming a UX disaster. Designing a useful, usable dashboard was a significant challenge.
+
+{% include figure.html src="/assets/uploads/2018/02/fancy_sectors.png" width="80%" description="'More Fancy' Config: segment: color, noderepulsion: 1, nodeattraction: 9, proportionalrings: true" %}
 
 ### Browsers
 
