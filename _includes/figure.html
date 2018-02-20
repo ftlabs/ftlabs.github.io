@@ -6,7 +6,11 @@
   {% assign src = include.src %}
 {% endif %}
 
-<figure style=''>
+<figure
+{% if include.float != blank %}
+ style="float: {{ include.float }};"
+{% endif %}
+>
   <img alt="{{ include.alt }}"
        src="{{ src }}"
        width="{{ include.width | default: site.default-image-width }}"
