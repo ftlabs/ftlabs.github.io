@@ -8,14 +8,15 @@ excerpt: >
   A highly configurable system for auto-generating ‘radar’-style displays of project and team datasets such as backlogs.
 ---
 
-<div markdown="1" class="embedded">
-{% include figure.html src="/assets/uploads/2018/02/example_radar.png" description="Fruit & Veg Demo" width="60%" float="right" %}
-
+<div markdown="1" class="embedded half-right clearfix">
+<div markdown="1" class="embed-text">
 {: .firstpar }
 FT Labs' Tech Radar is a highly configurable system for auto-generating ‘radar’-style displays of project and team datasets such as backlogs.
 
 {: .secondpar }
 The code sits [in this repo](https://github.com/ftlabs/tech-radar), and includes [an example dataset](https://raw.githubusercontent.com/ftlabs/tech-radar/master/client/demo.json) which is the source of data for [this fruit and veg example](https://labs.ft.com/tech-radar/?json=https%3A%2F%2Flabs.ft.com%2Ftech-radar%2Fdemo.json&sortcol=tastiness&segment=colour&sorttype=alphabetical&title=FTLabs+Potential+Projects+State&ringcolor=rainbow&proportionalrings=true&noderepulsion=1&nodeattraction=9&quadrant=bottom+left").
+</div>
+{% include figure.html src="/assets/uploads/2018/02/example_radar.png" description="Fruit & Veg Demo" float="right" %}
 </div>
 
 ## Why a radar, and why ~~now~~ then?
@@ -42,7 +43,7 @@ When viewing the radar display, all the parameters are adjustable directly in th
 
 After the display has rendered, with the nodes and labels positioned automatically, they can be repositioned individually. The user will need to take a screenshot to accurately preserve such a manually adjusted layout, since those manual adjustments are not persisted in the url.
 
-<div markdown="1" class="row">
+<div markdown="1" class="row clearfix">
 {% include figure.html src="/assets/uploads/2018/02/positioning_default.png" description="Default positions, for the display tab" float="left" %}
 
 {% include figure.html src="/assets/uploads/2018/02/positioning_manual.png" description="Manual positioning" %}
@@ -74,15 +75,15 @@ The default settings should just work (™), but it is possible to override almo
 
 And, when all is said and done, every node, node label, and name can be individually repositioned and locked into place, if their default placements are not satisfactory.
 
-<div markdown="1" class="quadrant">
+<div markdown="1" class="quadrant clearfix">
 
 {% include figure.html src="/assets/uploads/2018/02/quadrant_lower_right.png" description="Config: ringcolor: rainbow" float="left" %}
 
-{% include figure.html src="/assets/uploads/2018/02/quadrant_lower_left.png" description="Config: ringcolor: green" %}
+{% include figure.html src="/assets/uploads/2018/02/quadrant_lower_left.png" description="Config: ringcolor: green" float="left" %}
 
 {% include figure.html src="/assets/uploads/2018/02/quadrant_upper_right.png" description="Config: ringcolor: yellow, crystallisation: 0" float="left" %}
 
-{% include figure.html src="/assets/uploads/2018/02/quadrant_upper_left.png" description="Config: ringcolor: red, crystallisation: 3" %}
+{% include figure.html src="/assets/uploads/2018/02/quadrant_upper_left.png" description="Config: ringcolor: red, crystallisation: 3" float="left" %}
 
 </div>
 

@@ -703,3 +703,55 @@ pre.prettyprint code { background-color: transparent;}
 .reason-definition {
   font-size: 75%;
 }
+
+.embedded {
+  .embed-text {
+    width: 50%;
+    display: inline-block;
+  }
+
+  &.half-right {
+    figure {
+      display: inline-block;
+      width: 50%;
+    }
+  }
+
+
+  @media screen and (max-width: 830px) {
+    .embed-text {
+      width: 100%;
+      display: block;
+    }
+
+    &.half-right {
+      figure {
+        display: block;
+        width: 100%;
+      }
+    }
+
+  }
+}
+
+.quadrant, .row {
+  figure {
+    vertical-align: top;
+    width: 50%;
+    display: inline-block;
+  }
+
+  @media screen and (max-width: 830px) {
+    figure {
+      width: 100%; 
+    }
+  }
+}
+
+.clearfix {
+  &::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+}
