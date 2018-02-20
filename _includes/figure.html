@@ -6,10 +6,17 @@
   {% assign src = include.src %}
 {% endif %}
 
-<figure style=''>
+<figure
+{% if include.float != nil %}
+ style="float: {{ include.float }};"
+{% endif %}
+>
   <img alt="{{ include.alt }}"
        src="{{ src }}"
        width="{{ include.width | default: site.default-image-width }}"
-       class="{{ include.class | default: "aligncenter size-full" }}"
+       class="{{ include.class }}"
     />
+  {% if include.description != nil %}
+  <figcaption>{{ include.description }}</figcaption>
+  {% endif %}
 </figure>
