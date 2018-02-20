@@ -7,7 +7,7 @@
 {% endif %}
 
 <figure
-{% if include.float != blank %}
+{% if include.float != nil %}
  style="float: {{ include.float }};"
 {% endif %}
 >
@@ -16,7 +16,7 @@
        width="{{ include.width | default: site.default-image-width }}"
        class="{{ include.class | default: "aligncenter size-full" }}"
     />
-  {% if include.description != blank %}
+  {% if include.description != nil %}
   <figcaption>{{ include.description }}</figcaption>
   {% endif %}
 </figure>
