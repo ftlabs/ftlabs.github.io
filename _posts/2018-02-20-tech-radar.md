@@ -37,7 +37,7 @@ Configure the radar url with a source of JSON data, e.g. the handy demo data fil
 
 [https://labs.ft.com/tech-radar/?*json=https://labs.ft.com/tech-radar/demo.json*](https://labs.ft.com/tech-radar/?json=https://labs.ft.com/tech-radar/demo.json)
 
-The data file must have a field called 'name'. If there are any configs specified in the file, they are set via the configvalue field, which is null otherwise. In the basic demo, it specifies the 'rainbow' colour scheme for the rings `{"name": "ringcol", "configvalue": "rainbow"}`, and the field called 'tastiness' as the default data field `{"name": "sortcol", "configvalue": "tastiness"}`. The other data fields will be available in the dashboard for configuring the display.
+The data file must have a field called 'name'. If there are any configs specified in the file, they are set via the configvalue field, which is null otherwise. In the basic demo, it specifies the 'rainbow' colour scheme for the rings <code>{"name": "ringcol", "configvalue": "rainbow"}</code>, and the field called 'tastiness' as the default data field <code>{"name": "sortcol", "configvalue": "tastiness"}</code>. The other data fields will be available in the dashboard for configuring the display.
 
 Within the FT, create (or update) a simple dataset with named columns in a google spreadsheet, export it as a JSON feed using the in-house service, and configure the radar url with the name and id of that entry. See [the Bertha repo](https://github.com/ft-interactive/bertha).
 
