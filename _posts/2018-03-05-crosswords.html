@@ -8,7 +8,7 @@ excerpt: >
   Bringing a digital crossword to FT.com
 ---
 <p>Crosswords have been around for over a hundred years, and the source of vehement opinions from the very start. When computers came along, it would only be a matter of time before crosswords would join the pool of digital pastimes, up there with Minesweeper or Spider Solitaire.</p>
-<p>Online, there is almost a duty for news publishers to offer an interactive version of their games page. There is a push towards interactive (admittedly of varying quality). Crosswords are important for some readers and are even the main feature of one of the New York Times' subscription tiers (What a turnaround, when you know that in 1924, they deemed it a <cite>"sinful waste in the utterly futile finding of words" * </cite>!) *Source: <a href="https://en.wikipedia.org/wiki/Crossword#History" target="_blank">Crossword - Wikipedia</a></p>
+<p>Online, there is almost a duty for news publishers to offer an interactive version of their games page. There is a push towards interactive (admittedly of varying quality). Crosswords are important for some readers and are even the main feature of one of the New York Times' subscription tiers (What a turnaround when you know that, in 1924, they deemed it a <cite>"sinful waste in the utterly futile finding of words" * </cite>!) *Source: <a href="https://en.wikipedia.org/wiki/Crossword#History" target="_blank">Crossword - Wikipedia</a></p>
 <p>FT Labs have been working on a <a href="https://registry.origami.ft.com/components/o-crossword" target="_blank">custom intereactive crossword component</a> with all the features you would expect, and more.</p>
 
 <figure>
@@ -21,7 +21,7 @@ excerpt: >
 	<p>It was always astonishing to me as a newspaper editor how much readers cared about their puzzles. Make a mistake, leave them out of the paper for a day, and the telephone wouldn’t stop ringing.<p>
 	<p><cite>John Temple - <a href="http://www.niemanlab.org/2017/06/solving-the-crossword-puzzle-rebuilding-a-print-habit-on-digital-devices/" target="_blank">Nieman Lab</a></cite></p>
 </blockquote>
-<p>We can concur with the above; the feeling for crossword seems to be universal. Ever since receiving complaints for the lack of crossword on the site, the FT has provided PDF versions of its daily crossword.</p>
+<p>We can concur with the above; the feeling for crosswords seems to be universal. Ever since receiving complaints for the lack of crossword on the site, the FT has provided PDF versions of its daily grid.</p>
 <p>It has been a long time coming, but we now have an interactive version too. It comes with all the usual features: selecting the clue and highlighting the relevant position in the grid, selecting a cell and highlighting the corresponding clue, saving the answers of a crossword in progress. (Note, however, that we are not validating the answers, as the FT crossword involves prices and the answers are published at a later date).</p>
 <p>And, to make up for the delay, this new interactive crossword comes with additional features that we think cruciverbalists might find useful and/or interesting.</p>
 
@@ -59,7 +59,7 @@ excerpt: >
 
 <h3>Working across devices</h3>
 <p>Guaranteeing the crossword would work across devices, and particularly on mobile phones also came with its fair share of questions and obstacles.</p>
-<p>Firstly, we knew that the crossword grid could either be 15x15 or 17x17 cells. How would we render this on a very small screen, below 400px in width? The solution was to make the most of our newly implemented list view, and add the selected clue (and answer inputs) above the grid; which means interaction with the grid on mobile isn't necessary anymore, but it is there, visually.</p>
+<p>Firstly, we knew that the crossword grid could either be 15x15 or 17x17 cells. How would we render this on a very small screen (below 400px in width)? The solution was to make the most of our newly implemented list view, and add the selected clue (and answer inputs) above the grid; which means interaction with the grid on mobile isn't necessary anymore, but it is there, visually.</p>
 <p>An <a href="https://registry.origami.ft.com/components/o-crossword@0.2.0" target="_blank">earlier version</a> of the experiment envisaged having a desktop-size grid scrolling horizontally.</p>
 <p>Secondly, we found that various mobile platforms handled keyboard input and focus differently. For example, on Android devices, trying to override input content would result in printing `Å`, no matter which letter of the keyboard was selected.</p>
 <p>Finally, we implemented a way to save progress for each interactive crossword. However, on mobile devices, this will be limited by the amount of local storage. Since we are not authenticating users, there is no way for to save this across devices and store the results in their account.</p>
