@@ -11,6 +11,10 @@ excerpt: >
 <p>Online, there is almost a duty for news publishers to offer an interactive version of their games page. There is a push towards interactive (admittedly of varying quality). Crosswords are important for some readers and are even the main feature of one of the New York Times' subscription tiers (What a turnaround, when you know that in 1924, they deemed it a <cite>"sinful waste in the utterly futile finding of words" * </cite>!) *Source: <a href="https://en.wikipedia.org/wiki/Crossword#History" target="_blank">Crossword - Wikipedia</a></p>
 <p>FT Labs have been working on a <a href="https://registry.origami.ft.com/components/o-crossword" target="_blank">custom intereactive crossword component</a> with all the features you would expect, and more.</p>
 
+<figure>
+	<img src="/assets/uploads/2018/03/FT_crossword.png" alt="" />
+</figure>
+
 
 <h2>Making cruciverbalists happy</h2>
 <blockquote>
@@ -25,20 +29,28 @@ excerpt: >
 <h3>Print</h3>
 <p>Being conscious that we are coming from a printed grid and currently offering up PDFs to print out, we took particular care with the print view of our new interactive experience.</p>
 <p>So, for those in fear of missing the feel of paper, the grid and its clues can be printed, either empty or partially filled in, in portrait and landscape, for those times when a pencil is more practical than a keyboard.</p>
+<figure>
+	<img src="/assets/uploads/2018/03/Crossword_print_preview.png" alt="" />
+	<figcaption>Print preview in the browser</figcaption>
+</figure>
 
-<h3>List view</h3>
+<h3>A cross-platform feature: the list view</h3>
 <p>More than on the crossword grid itself, we felt the area for experimentation and innovation must be the clue list itself. Focusing on the list, one of our first explorations was to create a minimised list, with a "scroll-and-zoom" effect to reaveal the clues. Otherwise, a clue is only revealed when a word location is selcted in the grid.The "Force-Compact" demo is available <a href="https://www.ft.com/__origami/service/build/v2/demos/o-crossword@0.2.0/force-compact" target="_blank">here</a>.</p>
 <p>Another iteraction, and its current form, aimed to move the interaction away from the grid. Shifting the focus to the clue list by giving the possibility to answer within it has several advantages. On mobile, the list is more practical to navigate and interact with, as grid cells can become very small. From an accessibility standpoint, it is also a benefit.</p>
 
+<figure>
+	<img src="/assets/uploads/2018/03/mobile_views.png" alt="" />
+	<figcaption>The grid and list views on mobile</figcaption>
+</figure>
+
 <h3>Accessibility</h3>
 <p>This new feature ensures the accessibility of the crossword, where keyboard navigation and interaction focus on the list itself without the need for the grid (but still there as an alternative visual display).</p>
-<p>We also took cae to add extra information for screen readers:
-	<ul>
-		<li>When a clue in the list is selected, it is read out and instructions on how to input an answer are given.</li>
-		<li>Completed or partially completed answers are read out affter the clue</li>
-		<li>Consecutive letters left blank are grouped. A screen reader would therefore say: <cite>"A 3 blanks T E"</cite> instead of <cite>"A blank blank blank T E"</cite>.</li>
-	</ul>
-</p>
+<p>We also took care to add extra information for screen readers:</p>
+<ul>
+	<li>When a clue in the list is selected, it is read out and instructions on how to input an answer are given.</li>
+	<li>Completed or partially completed answers are read out affter the clue</li>
+	<li>Consecutive letters left blank are grouped. A screen reader would therefore say: <cite>"A 3 blanks T E"</cite> instead of <cite>"A blank blank blank T E"</cite>.</li>
+</ul>
 
 <h2>Technical challenges</h2>
 <h3>The complexity of new features</h3>
