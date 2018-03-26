@@ -63,17 +63,17 @@ excerpt: >
 <h2>Technical challenges</h2>
 <h3>The complexity of new features</h3>
 <p>One of the biggest challenges with the new feature was to synchronise inputs across the grid and the list view, and figuring out which was each letter's rightful place. This was achieved by relying heavily on <code>data-</code> attributes.</p>
+<p>Similarly, with our focus on accessibility, ensuring content that was to be read out by screen readers was up-to-date proved arduous.</p>
+
+<h3>Working across devices</h3>
+<p>Guaranteeing the crossword would work across devices, and particularly on mobile phones also came with its fair share of questions and obstacles.</p>
+<p>Firstly, we knew that the crossword grid could either be 15x15 or 17x17 cells. How would we render this on a very small screen (below 400px in width)? The solution was to make the most of our newly implemented list view, and add the selected clue (and answer inputs) above the grid; which means interaction with the grid on mobile isn't necessary anymore, but it is there, visually.</p>
 
 <figure>
 	<img src="/assets/uploads/2018/03/mobile_views.png" alt="" />
 	<figcaption>The grid and list views on mobile</figcaption>
 </figure>
 
-<p>Similarly, with our focus on accessibility, ensuring content that was to be read out by screen readers was up-to-date proved arduous.</p>
-
-<h3>Working across devices</h3>
-<p>Guaranteeing the crossword would work across devices, and particularly on mobile phones also came with its fair share of questions and obstacles.</p>
-<p>Firstly, we knew that the crossword grid could either be 15x15 or 17x17 cells. How would we render this on a very small screen (below 400px in width)? The solution was to make the most of our newly implemented list view, and add the selected clue (and answer inputs) above the grid; which means interaction with the grid on mobile isn't necessary anymore, but it is there, visually.</p>
 <p>An <a href="https://registry.origami.ft.com/components/o-crossword@0.2.0" target="_blank">earlier version</a> of the experiment envisaged having a desktop-size grid scrolling horizontally.</p>
 <p>Secondly, we found that various mobile platforms handled keyboard input and focus differently. For example, on Android devices, trying to override input content would result in printing `Å`, no matter which letter of the keyboard was selected.</p>
 <p>Finally, we implemented a way to save progress for each interactive crossword. However, on mobile devices, this will be limited by the amount of local storage. Since we are not authenticating users, there is no way to save this across devices and store the answers against their account.</p>
