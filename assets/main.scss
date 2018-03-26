@@ -271,9 +271,10 @@ main article *:first-child{
   margin-top: 0;
 }
 
-main article p{
+main article p, main article ul{
   margin-left: 30px;
   margin-right: 30px;
+  list-style-position: inside;
 }
 
 main article img, main article video{
