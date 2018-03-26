@@ -7,7 +7,7 @@ teaser: Experiment
 excerpt: >
   Defining a new human-readable data format for simple crosswords
 ---
-When starting our interactive crossword project (link), we looked for an existing crossword data format, but not many were documented and widely used. Not wishing to create [Yet Another Standard](https://xkcd.com/927/){:target="_blank"}, we went with [https://www.xwordinfo.com/JSON/](https://www.xwordinfo.com/JSON/){:target="_blank"} but it proved too error-prone, and forced a clumsy parse/build structure on the code. After several acrimonious intra-team discussions, we looked for ‘a better way’, and a new format was born.
+When starting our [interactive crossword project](/experiment/2018/03/23/crosswords.html){:target="_blank"}, we looked for an existing crossword data format, but not many were documented and widely used. Not wishing to create [Yet Another Standard](https://xkcd.com/927/){:target="_blank"}, we went with [https://www.xwordinfo.com/JSON/](https://www.xwordinfo.com/JSON/){:target="_blank"} but it proved too error-prone, and forced a clumsy parse/build structure on the code. After several acrimonious intra-team discussions, we looked for ‘a better way’, and a new format was born.
 
 ```yaml
 version: standard v1
