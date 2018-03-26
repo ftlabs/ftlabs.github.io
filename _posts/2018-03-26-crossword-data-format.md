@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Yet Another Crossword Data Format"
-date:   2018-03-23 10:30:30 +0100
+date:   2018-03-26 10:30:30 +0100
 categories: Experiment
 teaser: Experiment
 excerpt: >
