@@ -9,7 +9,7 @@ excerpt: >
 ---
 <p>Crosswords have been around for over a hundred years, and the source of vehement opinions from the very start. When computers came along, it would only be a matter of time before crosswords joined the pool of digital pastimes, up there with Minesweeper or Spider Solitaire.</p>
 <p>Online, there is almost a duty for news publishers to offer an interactive version of their games page. There is a push towards interactive (admittedly of varying quality). Crosswords are important to some readers and are even the main feature of one of the New York Times' subscription tiers (What a turnaround when you know that, in 1924, they deemed it a <cite>"sinful waste in the utterly futile finding of words" * </cite>!) *Source: <a href="https://en.wikipedia.org/wiki/Crossword#History" target="_blank">Crossword - Wikipedia</a></p>
-<p>FT Labs have been working on a <a href="https://registry.origami.ft.com/components/o-crossword" target="_blank">custom intereactive crossword component</a> with all the features you would expect, and more, giving a particular focus to the clue list, for a better cross-device experience and improved overall accessibility.</p>
+<p>FT Labs have been working on a <a href="https://registry.origami.ft.com/components/o-crossword" target="_blank">custom interactive crossword component</a> with all the features you would expect and more, giving a particular focus to the clue list, for a better cross-device experience and improved overall accessibility.</p>
 
 <figure>
 	<img src="/assets/uploads/2018/03/FT_crossword.png" alt="" />
@@ -34,9 +34,9 @@ excerpt: >
 <p>
 {% include youtube_video.html src="https://www.youtube.com/embed/PUAPFeQTvBc" %}
 </p>
-<p>Another iteration, and we moved the interaction away from the grid. Shifting the focus to the clue list by giving the possibility to answer within it has several advantages. On mobile devices, where the grid cells would be too small to select, the list is more practical to navigate and interact with. Even in the grid view, the answer should be given in the input above, which highlights the selected clue. Whichever type input you choose, grid or list, on mobile or desktop, partial answers in both areas will be updated in real time.</p>
+<p>Another iteration, and its current form, moves the interaction away from the grid. Shifting the focus to the clue list by giving the possibility to answer within it has several advantages. On mobile devices, where the grid cells would be too small to select, the list is more practical to navigate and interact with. Even in the grid view, the answer should be given in the input above, which highlights the selected clue. Whichever type input you choose, grid or list, on mobile or desktop, partial answers in both areas will be updated in real time.</p>
 
-<h4>Demoing the Mobile View</h4>
+<h4>Mobile view demo</h4>
 <p>
 {% include youtube_video.html src="https://www.youtube.com/embed/_9GDGBFlvG4" %}
 </p>
@@ -76,10 +76,10 @@ excerpt: >
 
 <p>An <a href="https://registry.origami.ft.com/components/o-crossword@0.2.0" target="_blank">earlier version</a> of the experiment envisaged having a desktop-size grid scrolling horizontally.</p>
 <p>Secondly, we found that various mobile platforms handled keyboard input and focus differently. For example, on Android devices, trying to override input content would result in printing `Å`, no matter which letter of the keyboard was selected.</p>
-<p>Finally, we implemented a way to save progress for each interactive crossword. However, on mobile devices, this will be limited by the amount of local storage. Since we are not authenticating users, there is no way to save this across devices and store the answers against their account.</p>
+<p>Finally, we implemented a way to save progress for each interactive crossword. However, on mobile devices, this will be limited by the amount of local storage. Since we are not authenticating users, there is no way to save this across devices and store the answers against their FT account.</p>
 
 <h3>Generating new grids</h3>
-<p>For now, the process to publish the interactive versions of the daily crossword is partly manual. Obviously, a fully-automatic publication would be ideal, but the main steps are automated. There will be a subsequent post describing the new crossword data format and the tool for translating between formats.</p>
+<p>For now, the process to publish the interactive versions of the daily crossword is partly manual. Obviously, a fully automated publication would be ideal, but the main steps are automated. There will be a subsequent post describing the new crossword data format and the tool for translating between formats.</p>
 
 <h2>Available now!</h2>
 <p>Please try the latest interactive crosswords at <a href="https://labs.ft.com/crosswords/" target="_blank">labs.ft.com/crosswords/</a> and let us know what you think.</p>
