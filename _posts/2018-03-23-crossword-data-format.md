@@ -5,7 +5,7 @@ date:   2018-03-23 10:30:30 +0100
 categories: Experiment
 teaser: Experiment
 excerpt: >
-  Defining a new data format for simple crosswords
+  Defining a new human-readable data format for simple crosswords
 ---
 When starting our interactive crossword project (link), we looked for an existing crossword data format, but not many were documented and widely used. Not wishing to create [Yet Another Standard](https://xkcd.com/927/){:target="_blank"}, we went with [https://www.xwordinfo.com/JSON/](https://www.xwordinfo.com/JSON/){:target="_blank"} but it proved too error-prone, and forced a clumsy parse/build structure on the code. After several acrimonious intra-team discussions, we looked for ‘a better way’, and a new format was born.
 
@@ -57,7 +57,11 @@ and drives [an interactive version](https://labs.ft.com/crosswords/2018/03/07/Pu
 
 ## The new format
 
+<<<<<<< HEAD
 The crossword data format is a DSL, [a Domain Specific Language](https://en.wikipedia.org/wiki/Domain-specific_language){:target="_blank"}, being an concise, clear, human-readable piece of text that specifies how to construct a simple crossword.
+=======
+The crossword data format is a DSL, [a Domain Specific Language](https://en.wikipedia.org/wiki/Domain-specific_language), being an concise, human-readable piece of structured text that specifies how to construct a simple crossword.
+>>>>>>> ffd15b0253695e14ae4171a5bbb60a31212fc8c3
 
 It is written in [YAML](https://en.wikipedia.org/wiki/YAML){:target="_blank"}. Or rather, nearly YAML. The line items for each clue need to be wrapped in quotes in order to accommodate colons and speech marks in the clue. Currently our implementation fails to take this into account, parsing the text directly and not as YAML.
 
@@ -77,12 +81,15 @@ The ANSWER is a sequence of words or numbers separated by commas or hyphens. Ver
 
 The Clue text can include basic html formatting such as italics. A restriction of the YAML format means that there can be no bare square brackets, speech marks, colons, etc in the clue and answer texts, but the line (after the initial hyphen) can be wrapped in quotes to overcome that.
 
+<<<<<<< HEAD
 ### Weaknesses
 
 The format seems flexible enough to cover all the basics for the standard crossword, but is likely to run into difficulties for non-standard variants.
 
 If we stick with official YAML, then we need to take extra care about escaping certain characters used in the clues.
 
+=======
+>>>>>>> ffd15b0253695e14ae4171a5bbb60a31212fc8c3
 ## Using the format
 
 The format is easy to read, debug, and edit manually. This is probably its main benefit when compared with the other formats out there.
@@ -95,7 +102,17 @@ A little more effort (by unpacking the clues into a grid) is needed to ensure th
 * the clues are numbered appropriately,
 * and the answer letters agree at every intersection .
 
+<<<<<<< HEAD
 We have several different incoming data formats for crosswords published by the FT, including some (undocumented) XML exported from a commercial crossword compiling tool, [CCW](https://www.crossword-compiler.com/){:target="_blank"}, and a bespoke (but consistently-formatted) Word document. It has proved relatively simple to transform them into the new YAML format, and import that into our new crossword implementation.
+=======
+We have several different incoming data formats for crosswords published by the FT, including some (undocumented) XML exported from a commercial crossword compiling tool, [CCW](https://www.crossword-compiler.com/), and a bespoke (but consistently-formatted) word doc. It has proved relatively simple to transform them into the new YAML format, and import that into our new crossword implementation.
+
+## Weaknesses
+
+The format seems flexible enough to cover all the basics for the standard crossword, but is likely to run into difficulties for non-standard variants.
+
+If we stick with official YAML, then we need to take extra care about escaping certain characters used in the clues.
+>>>>>>> ffd15b0253695e14ae4171a5bbb60a31212fc8c3
 
 ## Implementation / Infrastructure
 
