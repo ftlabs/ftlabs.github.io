@@ -7,7 +7,7 @@ teaser: Experiment
 excerpt: >
   Defining a new human-readable data format for simple crosswords
 ---
-When starting our [interactive crossword project](/experiment/2018/03/23/crosswords.html){:target="_blank"}, we looked for an existing crossword data format, but not many were documented and widely used. Not wishing to create [Yet Another Standard](https://xkcd.com/927/){:target="_blank"}, we went with [https://www.xwordinfo.com/JSON/](https://www.xwordinfo.com/JSON/){:target="_blank"} but it proved too error-prone, and forced a clumsy parse/build structure on the code. After several acrimonious intra-team discussions, we looked for ‘a better way’, and a new format was born.
+When starting our [interactive crossword project](/experiment/2018/03/23/crosswords.html){:target="_blank"}, we looked for an existing crossword data format, but not many were documented and widely used. Not wishing to create [Yet Another Standard](https://xkcd.com/927/){:target="_blank"}, we went with [www.xwordinfo.com/JSON/](https://www.xwordinfo.com/JSON/){:target="_blank"} but it proved too error-prone, and forced a clumsy parse/build structure on the code. After several acrimonious intra-team discussions, we looked for ‘a better way’, and a new format was born.
 
 ```yaml
 version: standard v1
@@ -49,7 +49,7 @@ down:
 - (13,12) 22. ,23. Book a month to take over from glum donkey (4)
 - (15,12) 23. See 22 down (4)
 ```
-The above example of the new crossword data format describes [Crossword No.15,800 Set by Julius on 2018/03/07](https://www.ft.com/__origami/service/image/v2/images/raw/ftcms:bdb7ea5a-1875-11e8-9e9c-25c814761640?source=crosswordsftcom){:target="_blank"},
+The above example of the new crossword data format describes [Crossword No.15,800 Set by Julius on 2018/03/07](https://labs.ft.com/crosswords/2018/03/07/Crossword-15800.html){:target="_blank"},
 
 {% include figure-noimgservice.html src="https://www.ft.com/__origami/service/image/v2/images/raw/ftcms:bdb7ea5a-1875-11e8-9e9c-25c814761640?source=crosswordsftcom" alt="A example of the new crossword data format" width="100%" %}
 
@@ -64,6 +64,8 @@ It is written in [YAML](https://en.wikipedia.org/wiki/YAML){:target="_blank"}. O
 Blank lines and comments (starting with #) are ignored.
 
 There are several mandatory fields such as ‘name’ (which should be unique across all the crosswords), ‘author’, and ‘size’.
+
+### Clues
 
 The clues are grouped as lists named ‘across’ and ‘down’.
 
@@ -105,7 +107,7 @@ We have an in-browser [parser / validator / translator / editor / viewer](https:
 
 The same parser is baked into an [Origami](https://origami.ft.com/){:target="_blank"} web [component](https://registry.origami.ft.com/components/o-crossword@1.8.2){:target="_blank"} which is used to power the current online test. The crossword data can be supplied as a url to a file, or directly as an attribute value.
 
-We use [Jekyll](https://jekyllrb.com/){:target="_blank"} to create the mini site for the crossword experiment, [https://labs.ft.com/crosswords](https://labs.ft.com/crosswords){:target="_blank"}.
+We use [Jekyll](https://jekyllrb.com/){:target="_blank"} to create the mini site for the crossword experiment, [labs.ft.com/crosswords](https://labs.ft.com/crosswords){:target="_blank"}.
 
 ## Next steps / Extensions
 
