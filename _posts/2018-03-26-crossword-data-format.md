@@ -7,7 +7,7 @@ teaser: Experiment
 excerpt: >
   Defining a new human-readable data format for simple crosswords
 ---
-When starting our [interactive crossword project](/experiment/2018/03/23/crosswords.html){:target="_blank"}, we looked for an existing crossword data format, but not many were documented and widely used. Not wishing to create [Yet Another Standard](https://xkcd.com/927/){:target="_blank"}, we went with [www.xwordinfo.com/JSON/](https://www.xwordinfo.com/JSON/){:target="_blank"} but it proved too error-prone, and forced a clumsy parse/build structure on the code. After several acrimonious intra-team discussions, we looked for ‘a better way’, and a new format was born.
+When starting our [interactive crossword project](/experiment/2018/03/23/crosswords.html){:target="_blank"}, we looked for an existing crossword data format, but not many were documented and widely used. Not wishing to create [Yet Another Standard](https://xkcd.com/927/){:target="_blank"} (thanks, xkcd), we went with [www.xwordinfo.com/JSON](https://www.xwordinfo.com/JSON/){:target="_blank"} but it proved too error-prone, and forced a clumsy parse+build structure on the code. After several acrimonious intra-team discussions, we looked for ‘a better way’, and a new format was born.
 
 ```yaml
 version: standard v1
@@ -59,7 +59,7 @@ and drives [an interactive version](https://labs.ft.com/crosswords/2018/03/07/Pu
 
 The crossword data format is a DSL, [a Domain Specific Language](https://en.wikipedia.org/wiki/Domain-specific_language){:target="_blank"}, being an concise, clear, human-readable piece of text that specifies how to construct a simple crossword.
 
-It is written in [YAML](https://en.wikipedia.org/wiki/YAML){:target="_blank"}. Or rather, nearly YAML. The line items for each clue need to be wrapped in quotes in order to accommodate colons and speech marks in the clue. Currently our implementation fails to take this into account, parsing the text directly and not as YAML.
+It is written in [YAML](https://en.wikipedia.org/wiki/YAML){:target="_blank"}. Or rather, nearly YAML. The line items for each clue need to be wrapped in quotes in order to accommodate colons and speech marks in the clue. NB, currently our implementation fails to take this into account, parsing the text directly and not as YAML.
 
 Blank lines and comments (starting with #) are ignored.
 
@@ -73,17 +73,27 @@ Each clue has the form: - `(COORDINATES) IDs. Clue text (ANSWER)`
 
 COORDINATES are (across, down), with (1,1) being the top left square.
 
-The IDs identify each clue, and also tie together subsequent (comma-separated) clue IDs for answers which straddle multiple positions on the grid. The subsequent IDs numbers might have an associated ‘down’ or ‘across’ if needed to disambiguate when a particular clue id has both aspects.
+The IDs identify each clue, and also tie together subsequent (comma-separated) clue IDs for answers which straddle multiple positions on the grid, e.g., the clue ‘6 across‘ in the example grid above. The subsequent IDs numbers might have an associated ‘down’ or ‘across’ if needed to disambiguate when a particular clue id has both aspects.
 
-The ANSWER is a sequence of words or numbers separated by commas or hyphens. Very obscure crosswords might want to have full stops, colons, or semi-colons in there too, and this format could handle them.
+The ANSWER is a sequence of words or numbers separated by commas or hyphens. Very obscure crosswords might want to have full stops, colons, or semi-colons as separators in there too, and this format could handle them.
 
-The Clue text can include basic html formatting such as italics. A restriction of the YAML format means that there can be no bare square brackets, speech marks, colons, etc in the clue and answer texts, but the line (after the initial hyphen) can be wrapped in quotes to overcome that.
+The Clue text can include basic html formatting such as italics.
 
 ### Weaknesses
 
 The format seems flexible enough to cover all the basics for the standard crossword, but is likely to run into difficulties for non-standard variants.
 
-If we stick with official YAML, then we need to take extra care about escaping certain characters used in the clues.
+If we stick with official YAML, then we need to take extra care about escaping certain characters used in the clues. There can be no bare square brackets, speech marks, colons, etc in the clue and answer texts, but the line (after the initial hyphen) can be wrapped in quotes to overcome that.
+
+*Breaking News!* It turns out that some crossword authors have been known to split individual answer words across multiple lines in the grid! Yes. Shocking. This did not figure even as a possibility during the initial design of the format. I'm assured this only happens with words which break naturally into sub words, e.g. LIGHTHOUSE -> LIGHT HOUSE, when it might have been tiresome to have too many clues with short answers. Here is [a recent example](https://labs.ft.com/crosswords/2018/03/24/Crossword-15815.html) (look for clues '22 across' and '7 down').
+
+The new format, as it stands, cannot quite handle that, and it had to be [fudged a bit](https://labs.ft.com/crosswords/2018/03/24/Puzzle-15815-dynamic.html). However, the format could be fairly easily and cleanly extended to accommodate that scenario, perhaps by using a different separator in the IDs, e.g. for 22 across, using a pipe character to indicate the answer which spans clues 22 and 27 is a single word of length 10 (4+6):
+
+```
+- (12,11) 22.|27. Acrobatics in toilets with Eliot's initials <i>[NB: one word, length 10]</i> (4)
+...
+- (1,15) 27. See 22 across (6)
+```
 
 ## Using the format
 
