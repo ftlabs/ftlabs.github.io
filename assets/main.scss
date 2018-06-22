@@ -500,6 +500,10 @@ main article ol {
   margin: 10px auto;
 }
 
+.center {
+  text-align: center;
+}
+
 hr.end-of-articles{
   margin: 0;
   width: 50px;
@@ -748,7 +752,7 @@ pre.prettyprint code { background-color: transparent;}
 
   @media screen and (max-width: 830px) {
     figure {
-      width: 100%; 
+      width: 100%;
     }
   }
 }
