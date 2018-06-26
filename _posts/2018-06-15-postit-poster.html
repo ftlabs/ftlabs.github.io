@@ -1,0 +1,68 @@
+---
+layout: post
+title:  "Post-it® Poster"
+date:   2018-06-26 09:30:30 +0100
+categories: Notes
+teaser: Notes
+excerpt: >
+  A bit of fun with a digital version of our trade show poster
+---
+<p>FT Labs have a trade show poster (pictured below) which, for a now-forgotten reason, found itself on display in the office. Very shortly after the poster went up, colleagues started "hacking" it the lo-tech way, with sticky notes.</p>
+
+<img src="/assets/uploads/2018/06/labs_poster.jpg" alt="Trade show poster: FT Labs, Emerging web technology innovation at the Financial Times." />
+
+<blockquote>Emerging web technology innovation at the Financial Times</blockquote>
+<p>soon became</p>
+<blockquote>Merging techno + innovation at Times</blockquote>
+<p>among other slogans.</p>
+
+<p>There is something lovely about the physicality of the poster and notes occasionally falling off, creating new meanings; but we thought we'd spread the fun beyond the sign's location. So we made a <a href="https://labs.ft.com/pages/postit_poster.html">screen version</a> of it, accessible from the comfort of your own computer.</p>
+
+
+<h2>Digital Post-its</h2>
+
+<p>"Why not have a bit of fun with a "quick" experiment?" is often how things start. We endeavoured to recreate a proportional view of the poster, with the possibility to place notes anywhere, and even to write on them.</p>
+
+<p>It was an opportunity to publicise FT Labs, both externally (with screenshots of the hacked poster) and internally (via our <a href="https://labs.ft.com/2015/09/screens/">screen system</a>).</p>
+
+<p>The best reaction to the Post-its when the project went up on our screens: "Are these real?"; the magic being achieved with a combination of transparency and subtle drop shadows.</p>
+
+<img src="/assets/uploads/2018/06/Poster_v1.jpg" alt="Digital poster: FT Labs, Barging in with technology + innovation for the Financial Times." />
+
+
+<h2>The techie bit</h2>
+
+<p>There are two parts to the Post-it Poster. First, there is an exact scale replica of the physical sign with which users can interact; then, there's a kiosk view for display only.
+
+<h3>The real deal</h3>
+
+<p>We set ourselves a challenge to keep the digital version as close to the real one as possible, including the gradient, position of the logo and text, and the size of those elements. In practice, that means a lot of percentages, absolute positioning, and viewport units.</p>
+
+<p>The width of the window determines the scroll depth and sets the aspect ratio according to that of the real-life display. As for the notes, they get scaled proportionally to the window size and will keep their position in relation to the text on resize. Double-click on a note to toggle its orientation.</p>
+
+<p>The approach works well when you are able to resize the window or scroll the web page, however that was not an option with our internal screens.</p>
+
+
+<img src="/assets/uploads/2018/06/Poster_v2.jpg" alt="Digital poster: FT Labs, Emerging at the wrong Time." />
+
+
+<h3>Kiosk mode</h3>
+
+<p>Internal displays run on Chromebits in kiosk mode. Unfortunately, this means no scrolling and no interaction with the page is possible. It took a bit of head-scratching to translate the Post-its' position to a different screen ratio.</p>
+<pre>
+<code>//Left positioning
+var l = Number(left);
+var ratio = (l/100 - 0.1)*window.innerWidth + 70;
+
+//Top positioning
+var t = Number(top);
+var h = Number(height);
+var ratio = 380 + (KIOSK_RATIO*(t - 35.75)/100)*h;</code>
+</pre>
+
+<p>These positions are saved from the previous interactive view, and appended as query parameters to the URL.</p>
+<pre><code>?type=kiosk&[NOTE_1_PERCENTAGE_TOP];[NOTE_1_PERCENTAGE_LEFT];[NOTE_1_ORIENTATION (h or v)];[NOTE_1_TEXT]-[NOTE_2_PERCENTAGE_TOP];[NOTE_2_PERCENTAGE_LEFT];[NOTE_2_ORIENTATION (h or v)];[NOTE_2_TEXT]</code></pre>
+
+<p>That can make for really long URLs but saves having to maintain a database.</p>
+
+<p>That's it for now, but the list of useless features is potentially endless: how about animating Post-its to fall after a certain amount of time? Or the option to tear or fold the notes? Or an AR version?...</p>
