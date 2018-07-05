@@ -3,12 +3,12 @@ layout: page
 title: Jobs
 permalink: /jobs/
 ---
-We are looking for people who want to make world-class websites that help our readers find and enjoy globally respected content from the Financial Times.  Please choose the kind of job that you are interested in for specific details about each role, or read on for more general info about working for us.
 
 ## Vacancies
 
 - No FT Labs vacancies just now.
-- But lots of other vacancies within the FT: [aboutus.ft.com/careers](http://aboutus.ft.com/careers)
+- *But* if you fancy [a tech career in the FT](https://github.com/Financial-Times/careers) there are [numerous tech-related jobs](https://github.com/Financial-Times/careers/blob/master/VACANCIES.md) elsewhere in the FT.
+- And here is a bit more about life in the FT: [aboutus.ft.com/careers](http://aboutus.ft.com/careers)
 
 ## Working at FT
 
