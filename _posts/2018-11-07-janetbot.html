@@ -2,8 +2,8 @@
 layout: post
 title:  "JanetBot: Analysing gender diversity on the FT homepage"
 date:   2018-11-07 09:30:30 +0100
-categories: Notes
-teaser: Notes
+categories: Product
+teaser: Product
 excerpt: >
   From hackathon to MVP
 ---
@@ -32,9 +32,9 @@ excerpt: >
 
 <p>The results give the number of images classified as “man”, and the number of images classified as “woman”, out of all the images on the page. There is an emphasis on the first few articles ( what Editorial call the “Top Half”), as JanetBot aims to promote women’s visibility on the page.</p>
 
-<p>The name of the tool itself is a homage to Ms. Yellen, who was featured in no fewer than three articles on the day the bot was first prototyped.</p>
+<p>The name of the tool itself is an homage to Ms. Yellen, who was featured in no fewer than three articles on the day the bot was first prototyped.</p>
 
-<p>The primary focus since the reporting tool has launched in the newsroom has been to gather long-term data on the curation of our homepage, which will hopefully inform future selection.</p>
+<p>The primary focus since the reporting tool was launched in the newsroom has been to gather long-term data on the curation of our homepage, which will hopefully inform future selection.</p>
 
 
 <h2>The buzzwords section</h2>
@@ -48,16 +48,16 @@ excerpt: >
 
 <p>We started our project before Amazon announced their <a href="https://aws.amazon.com/rekognition/" target="_blank">Rekognition</a> service. Yes, other providers were quite good, but were still giving some errors on a small sample. What’s more, we had hopes to train the model on our own corpus of images, making it more “FT”. We soon found that the OpenSource dataset we were running with could not compete with that of Amazon. More on that in a later post.</p>
 
-<p>Amazon Rekognition tags faces with over 95% confidence in most cases, which allows us to record anything below that rate, and discard the results at a later date. Even with a high confidence, the algorithm does not distinguish the main subject of an image from background characters. There could be a woman walking in the background, while President Macron is in focus, and the image would be (rightly, from the algorithm’s point of view) classified as “woman”; whereas JanetBot’s aim is to highlight visible female role models on the page.</p>
+<p>Amazon Rekognition tags faces with over 95% confidence in most cases, which allows us to note anything below that rate, and discard the results at a later date. Even with a high confidence, the algorithm does not distinguish the main subject of an image from background characters. There could be a woman walking in the background, while President Macron is in focus, and the image would be (rightly, from the algorithm’s point of view) classified as “woman”; whereas JanetBot’s aim is to highlight visible female role models on the page.</p>
 
 <p>Similarly, in the picture below, the result would be “woman” because of the girl identified in the top right corner.</p>
 <figure>
 	<img src="/assets/uploads/2018/11/janetbot_dog.jpg" alt="Picture where the main focus is a dog" />
 </figure>
 
+<p>In this other example, the image would be classified as “man” because of the figure on the banknotes.</p>
 <figure>
-	<img src="/assets/uploads/2018/11/janetbot_currency.jpeg" alt="" />
-	<figcaption>Image classified as “man” because of the figure on the banknotes</figcaption>
+	<img src="/assets/uploads/2018/11/janetbot_currency.jpeg" alt="Chinese currency" />
 </figure>
 
 <p>It is to avoid these kinds of mistakes that JanetBot also comes with a correction mechanism, where human operators can rectify a classification.</p>
@@ -70,11 +70,11 @@ excerpt: >
 
 <h2>JanetBot, under the hood</h2>
 
-<p>The service is tailored to the <a href="https://ft.com" target="_blank">ft.com</a> homepage which follows a complex set of streams, rules, and layouts. For example, almost all articles have a main image, which is only displayed according to the layout and its position on the homepage. Whether or not an image is displayed does not come from our content API and has to be worked out by filtering the list of articles present on the page. This part is handled by a Node server which also sends the images to Rekognition and caches the results locally</p>
+<p>The service is tailored to the <a href="https://ft.com" target="_blank">ft.com</a> homepage which follows a complex set of article streams, rules, and layouts. For example, almost all articles have a main image, which is only displayed according to the layout and its position on the homepage. Whether or not an image is displayed does not come from our content API and has to be worked out by filtering the list of articles present on the page. This part is handled by a Node server which also sends the images to Rekognition and caches the results locally</p>
 
 <p>Those results are then polled by the front page to display the coloured borders, and hooked into Slack (in different teams and channels). There is also a dev channel setup for debugging purposes, that reports errors with various APIs and actions.</p>
 
-<p>A lot of edge cases became apparent throughout development. Opinion is not always opinion. There are particular cases when columnists’ headshots are displayed. Opinion pieces also occasionally find their way into the Top Half where a headshot could be shown.
+<p>Many edge cases became apparent throughout development. Opinion is not always opinion. There are particular cases when columnists’ headshots are displayed. Opinion pieces also occasionally find their way into the Top Half where a headshot could be shown.
 Videos and pieces hosted on subdomains had to be catered for.</p>
 
 <p>Another one of our challenges was to handle the various editions of the homepage, which vary depending on a reader’s region, and how to transmit the results to users looking at the page in a different region.</p>
