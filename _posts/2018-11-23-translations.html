@@ -1,0 +1,107 @@
+---
+layout: post
+title:  "Speaking in Financial Tongues: Translations on FT.com"
+date:   2018-11-23 09:30:30 +0100
+categories: Experiment
+teaser: Experiment
+excerpt: >
+  Exploring news in different languages.
+---
+<p>Researchers have been trying to crack Machine Translation for a few decades. With a wealth of digitised texts, translations APIs are getting quite good; good enough (or so do the native speakers in the office think) to experiment and offer them up to some of our readers. We started out comparing different services, before building a component for ft.com, similar to <a href="https://www.ft.com/content/fb705712-3be7-11e7-821a-6027b8a20f23" target="_blank">Experimental Amy</a>, our text-to-speech component.</p>
+
+<h2>The translations dashboard</h2>
+<p>We started by building an internal dashboard, capable of comparing the input in a source language and its translations from various APIs. The dashboard can handle free text, an FT Lexicon reference (an opportunity for laughs with the literal translation of expressions such as “dead cat bounce”), or an FT article ID.</p>
+
+<figure>
+	<img src="/assets/uploads/2018/11/translations_dash_form.png" alt="" />
+	<figcaption>Options on the translations dashboard</figcaption>
+</figure>
+
+<p>Results can be viewed in any available language. With Google offering such a wide range of languages, it is often the case that it cannot be compared with other providers; but it was interesting to see the variations in the output texts for common Indo-European languages.</p>
+
+<p>Beside Google, we also tried DeepL (an algorithm specifically trained on News articles in a handful of languages) and AWS Translate, which was still in its infancy, and lacked the option to preserve paragraphs. For all of them, the quality of translations varies depending on the target language, but is at a satisfying level for European ones.</p>
+
+<figure>
+	<img src="/assets/uploads/2018/11/translation_dash_results.png" alt="" />
+	<figcaption>Translations dashboard for <a href="https://ft.com/c4847aca-e7f9-11e8-8a85-04b8afea6ea3" target="_blank">an article</a> translated to French with Google and Deepl</figcaption>
+</figure>
+
+<p>If translations APIs are of acceptable quality, they are still costly (with a strange but consistent billing model of charging per amount of characters translated) and required some caching and rate limiting. When requested for the first time, an article translation gets saved into an S3 bucket and will subsequently be served unless the article has been updated since, thus reducing the amount of API calls to the translation service.</p>
+
+
+<h2>An embedded component for articles</h2>
+
+<p>Having decided on an appropriate translator, we have released the tool to a subset of our readers, on selected articles. A small selection of our readers will now be able to see the translation component (pictured below) on some article pages.</p>
+
+<figure>
+	<img src="/assets/uploads/2018/11/translation_component.png" alt="" />
+	<figcaption>Translation component</figcaption>
+</figure>
+
+<p>Beyond the selected cohort, several rules apply to the display of the component. We have restricted the initial experiment to <a href="https://www.ft.com/brexit" target="_blank">Brexit</a> and <a href="https://www.ft.com/technology" target="_blank">Technology</a> articles, topics popular with our readers (and especially our readers likely to be in a German-, French-, or Spanish-speaking country, which are our selected languages for now). Secondly, due to the pricing model mentioned above, the component will only display if the monthly target is below the API limit, or if we have a saved translation for the article.</p>
+
+<figure>
+	<img src="/assets/uploads/2018/11/translation_component_select.png" alt="" />
+	<figcaption>Translation component interface</figcaption>
+</figure>
+
+<p>An option lets users translate all subsequent articles where the component is available in their selected language. Once requested, translations get cached on the client side for the duration of the session, so it is quick to toggle back and forth between English and other languages.</p>
+
+<p>Although satisfying, translations are fully automated and not perfect so it is important that the English version remain “the source of truth” for the article content, as the disclaimer on the component suggests. The API also presents semantic issues; it preserves paragraphs, but not HTML tags and links.</p>
+
+<figure>
+	<img src="/assets/uploads/2018/11/translation_component_french.png" alt="" />
+	<figcaption>Translation component with French translation on</figcaption>
+</figure>
+
+<p>Translating articles automatically is the first and obvious option, in what could be plethora of other applications if the interest from readers is apparent.</p>
+
+<h2>Further opportunities</h2>
+
+<p>The main application of the translation component is for the comfort of those of our readers whose first language is not English. This might lead to them forwarding the article to relatives or friends who share the same mother tongue. It could also be seen as a learning tool for English speakers who wish to become polyglots.</p>
+
+<p>At the moment, the translations are fully automated, with no correction or human input whatsoever. Moving forward, we could envisage using the dashboard mentioned in the first section to help speed up translation, but save corrections and improvements for each article.</p>
+
+<p>Similarly, for comments, this could allow readers to comment in their native language and see the comment displayed in English for a wider audience to read and engage with.</p>
+
+<figure>
+	<img src="/assets/uploads/2018/11/translation_gif.gif" alt="Speech bubbles made of newspaper" />
+</figure>
+
+<p>Lastly, why limit these options to text? Experimental Amy uses Amazon Polly to generate an audio file of FT articles; Polly supports various voices and dialects, so we could envisage articles being read in French, German, or Spanish from their translation. It could also become a useful tool for Customer Services, transcribing their phone calls into English to be searchable. Or why not help the FT live team with hearables and live speech translation of events? The list of possibilities keeps on growing.</p>
+
+<hr />
+<p>Below is a translation to French of the above post, offered without text edits.</p>
+
+<h2>Parler en langues financières : Traductions sur FT.com</h2>
+<p>Les chercheurs tentent de casser la traduction automatique depuis quelques décennies. Grâce à la richesse des textes numérisés, les API de traduction sont de plus en plus performantes ; suffisamment bonnes (ou du moins le pensent les locuteurs natifs du bureau) pour les expérimenter et les proposer à certains de nos lecteurs. Nous avons commencé par comparer différents services, avant de construire un composant pour ft.com, similaire à Experimental Amy, notre composant text-to-speech.</p>
+
+<h2>Le tableau de bord des traductions</h2>
+<p>Nous avons commencé par construire un tableau de bord interne, capable de comparer l'entrée dans une langue source et ses traductions à partir de différentes API. Le tableau de bord peut gérer du texte libre, une référence au Lexique du CE (une occasion de rire avec la traduction littérale d'expressions telles que "dead cat bounce"), ou un identifiant d'article du CE.</p>
+
+<p>Les résultats peuvent être consultés dans toutes les langues disponibles. Avec Google offrant une telle variété de langues, il est souvent impossible de la comparer avec d'autres fournisseurs, mais il était intéressant de voir les variations dans les textes de sortie pour les langues indo-européennes communes.</p>
+
+<p>En plus de Google, nous avons également essayé DeepL (un algorithme spécifiquement formé sur les articles de nouvelles dans une poignée de langues) et AWS Translate, qui était encore à ses débuts, et n'avait pas la possibilité de préserver les paragraphes. Pour tous, la qualité des traductions varie en fonction de la langue cible, mais se situe à un niveau satisfaisant pour les traductions européennes.</p>
+
+<p>Si les API de traduction sont de qualité acceptable, elles restent coûteuses (avec un modèle de facturation étrange mais cohérent de facturation par nombre de caractères traduits) et nécessitent une certaine mise en cache et une limitation du débit. Lors de la première demande, une traduction d'article est sauvegardée dans un seau S3 et sera ensuite servie à moins que l'article n'ait été mis à jour depuis, ce qui réduit le nombre d'appels API vers le service de traduction.</p>
+
+
+<h2>Composant incorporé pour articles</h2>
+<p>Après avoir choisi un traducteur approprié, nous avons mis l'outil à la disposition d'un sous-ensemble de nos lecteurs, sur des articles sélectionnés. Une petite sélection de nos lecteurs pourra maintenant voir le composant de traduction (illustré ci-dessous) sur certaines pages de l'article.</p>
+
+<p>Au-delà de la cohorte sélectionnée, plusieurs règles s'appliquent à l'affichage de la composante. Nous avons limité l'expérience initiale aux articles Brexit et Technology, sujets populaires auprès de nos lecteurs (et en particulier de nos lecteurs susceptibles d'être dans un pays germanophone, francophone ou hispanophone, qui sont nos langues sélectionnées pour le moment). Deuxièmement, en raison du modèle de prix mentionné ci-dessus, le composant ne s'affichera que si la cible mensuelle est inférieure à la limite de l'API, ou si nous avons une traduction enregistrée pour l'article.</p>
+
+<p>Une option permet aux utilisateurs de traduire tous les articles suivants lorsque le composant est disponible dans la langue de leur choix. Une fois demandées, les traductions sont mises en cache côté client pendant toute la durée de la session, de sorte qu'il est rapide de basculer entre l'anglais et d'autres langues.</p>
+
+<p>Bien que satisfaisantes, les traductions sont entièrement automatisées et ne sont pas parfaites, il est donc important que la version anglaise reste "la source de vérité" pour le contenu de l'article, comme le suggère l'avertissement sur le composant. L'API présente également des problèmes sémantiques ; elle préserve les paragraphes, mais pas les balises et les liens HTML.</p>
+
+<p>La traduction automatique d'articles est la première option évidente, dans ce qui pourrait être une pléthore d'autres applications si l'intérêt des lecteurs est apparent.</p>
+
+<h2>D'autres opportunités</h2>
+<p>L'application principale de la composante traduction est pour le confort de nos lecteurs dont la langue maternelle n'est pas l'anglais. Cela pourrait les amener à transmettre l'article à des parents ou amis qui partagent la même langue maternelle. Il pourrait également être considéré comme un outil d'apprentissage pour les anglophones qui souhaitent devenir polyglottes.</p>
+
+<p>Actuellement, les traductions sont entièrement automatisées, sans aucune correction ni intervention humaine. Pour aller de l'avant, nous pourrions envisager d'utiliser le tableau de bord mentionné dans la première section pour aider à accélérer la traduction, mais enregistrer les corrections et améliorations pour chaque article.</p>
+
+<p>De même, pour les commentaires, cela pourrait permettre aux lecteurs de commenter dans leur langue maternelle et de voir le commentaire affiché en anglais pour qu'un public plus large puisse le lire et y participer.</p>
+
+<p>Enfin, pourquoi limiter ces options au texte ? Experimental Amy utilise Amazon Polly pour générer un fichier audio d'articles du CE ; Polly supporte plusieurs voix et dialectes, nous pouvons donc envisager de lire des articles en français, allemand ou espagnol à partir de leur traduction. Il pourrait également devenir un outil utile pour les services à la clientèle, en transcrivant leurs appels téléphoniques en anglais pour être consultable. Ou pourquoi ne pas aider l'équipe en direct du FT avec des auditions et la traduction de discours en direct des événements ? La liste des possibilités ne cesse de s'allonger.</p>
