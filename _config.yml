@@ -14,7 +14,6 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 title: FT Labs Blog
-update_id: 2018-12-11 11:58
 email: labs@ft.com
 description: >
   Exploring new technologies and ideas to help get FT Journalism to where it is needed.
