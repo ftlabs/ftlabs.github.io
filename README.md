@@ -1,6 +1,6 @@
 # ftlabs.github.io
 
-Github hosted blog of FT Labs
+GitHub hosted blog of FT Labs
 
 ## Local setup
 
