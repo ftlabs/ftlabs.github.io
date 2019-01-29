@@ -8,7 +8,7 @@ title: List of Individual Authors
   {% endif %}
 {% endfor %}
 
-{% assign sorted = (site['author'] | where:"layout", "author" | sort ) %}
+{% assign sorted = site['author'] | where:"layout", "author" | sort  %}
 {% for item in sorted %}
   {% if item.title != default_title %}
 * [{{ item.title }}]({{ item.url }})
