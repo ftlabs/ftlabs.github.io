@@ -1,0 +1,155 @@
+---
+layout: post
+title:  "Barcode"
+date:   2019-02-05 09:30:30 +0100
+categories: Experiment
+teaser: Experiment
+excerpt: >
+  Creating art out of headline images
+---
+<p><a href="https://github.com/ftlabs/barcode" target="_blank">Barcode</a> is an internal service/endpoint which gathers all of the headline images used in FT articles from a provided date range, the last 24 hours for example, and squashes them to give one condensed image. The final result looks similar to a coloured barcode.</p>
+
+{% include figure.html src="/assets/uploads/2019/01/barcode_header_example.jpg" description="Barcode of articles published during 2018-11-13, sorted by colour" width="80%" %}
+
+<h2>How did it come about?</h2>
+<p>We were experimenting with ways to show an extremely summarised view of the news. The aim being to give readers a speedier overview of recent events. During the rapid prototyping phase, one idea was to display all of the images from the last 24 hours worth of news all at the same time.</p>
+
+<p>This gave us a large number of images which we tried to display, equally, on the screen at the same time.</p>
+
+{% include figure.html src="/assets/uploads/2019/01/barcode_image_grid.png" description="Extreme summarisation headline image grid view" width="80%" %}
+
+<p>Pleasing to look at, however its ability to show a meaningful summary of the news is debatable.</p>
+
+<p>While building the above, and looking for image summarisation inspiration, we came across an image created from every single frame of the Harry Potter movie series.</p>
+
+{% include figure.html src="/assets/uploads/2019/01/barcode_hp_films.jpg" description="All the Harry Potter movie frames in one image <a href='https://www.reddit.com/r/dataisbeautiful/comments/194gmp/all_the_harry_potter_frames_from_all_the_movies/' target='_blank'>https://www.reddit.com/r/dataisbeautiful/comments/194gmp/all_the_harry_potter_frames_from_all_the_movies/</a> " width="80%" %}
+
+<p>Even though you cannot see the contents of each individual frame you can see the movies getting darker over each iteration and the (spoilers) white train station scene at the end of the series.</p>
+
+<p>So we made a version of the for the FT news and called it Stretched Images:</p>
+
+{% include figure.html src="/assets/uploads/2019/01/barcode_stretched_images.png" description="24 hours of FT headline images displayed using HTML, CSS & JS" width="80%" %}
+
+<p>Similar to the gridded view it doesn't give a great view of what is actually happening in the news. We can, however, see that variety of images used by articles and it does create a pleasing image.</p>
+
+<p>This was as far as the project came under the extreme summarisation banner.</p>
+
+<p>However…we were not done yet.</p>
+
+<h2>Phase 2</h2>
+
+<p>Stretched Images worked on a hardcoded set of parameters and was quite fiddly to update or change. So, in what started as 20% time project, we rebuilt Stretched Images into project Barcode - a parameterised endpoint we could use to explore FT News images.</p>
+
+<p>The first task was to actually turn a stack of images into one single image, as Stretched Images simulated this effect by display a series of stretched images on after the other. So we turned to Node, <a href="https://github.com/lovell/sharp" target="_blank">Sharp</a> & <a href="https://github.com/aheckmann/gm" target="_blank">Graphicsmagick</a>. Node handles the backend image requests and operations, Sharp for resizing and optimisation of images & Graphicsmagick for stitching a series of image files into one image file.</p>
+
+<p>Barcode works in a series of simple steps:</p>
+
+<ul>
+	<li>
+		Accept a series of parameters
+	</li>
+	<li>
+		Request images that match the parameters from FT's Origami Image Service
+	</li>
+	<li>
+		Combine all selected images into a single image
+	</li>
+	<li>
+		Save and return that image
+	</li>
+</ul>
+
+<p>We wanted to experiment with the display of the images simpler than Stretched Images so we created a series of parameters to explore barcode images. Some of the initial parameters we added were quite basic:</p>
+
+<ul>
+	<li>
+		<b>width</b> - width of final image
+	</li>
+	<li>
+		<b>height</b> - height of final image
+	</li>
+	<li>
+		<b>dateFrom</b> - date to start image selection from
+	</li>
+	<li>
+		<b>dateTo</b> - date to end image selection on
+	</li>
+</ul>
+
+<p>Then we started to come up with some more exploratory features we could mix-n-match for different results:</p>
+
+<ul>
+	<li>
+		<b>orientation</b> - stack images horizontally or vertically
+	</li>
+	<li>
+		<b>fit</b> - gets images as masks, squashed or solid colour
+	</li>
+	<li>
+		<b>order</b> - display order of images (published/colour)
+	</li>
+	<li>
+		<b>sort</b> - sort order by asc or desc
+	</li>
+</ul>
+
+<p>We used <a href="https://github.com/sindresorhus/rgb-hex" target="_blank">rgb-hex</a>, <a href="https://github.com/javierbyte/color-sort" target="_blank">Color Sort</a> & <a href="https://github.com/aqrln/image-average-color" target="_blank">Image Average Color</a> to help with the colour conversion, organising and sorting.</p>
+
+<p>Finally we created a service you could query and get some rather interesting images back.</p>
+
+{% include figure.html src="/assets/uploads/2019/01/barcode_solid_example.png" description="Horizontal block 'average image colour' lines, sorted by colour" width="80%" %}
+
+{% include figure.html src="/assets/uploads/2019/01/barcode_cover_example.png" description="Vertical masked lines, sorted by published date" width="80%" %}
+
+{% include figure.html src="/assets/uploads/2019/01/barcode_fill_example.png" description="Vertical stretched images, sorted by published date" width="80%" %}
+
+<h2>Lessons learned</h2>
+
+<p>A couple of times during the project we planned to implement a feature thinking “this will be quite simple to add”, and quickly realised it was more complex, but not impossible, than we thought.</p>
+
+<ul>
+	<li>
+		<b>Creating stretched images</b> - replicating CSS background-position: cover with an image library turned out to be an expensive operation. Thankfully the Origami team gave us a big hand and added an option to the their image service we could use
+	</li>
+	<li>
+		<b>Image generation speeds</b> - - resizing a series of images can be quite process-intensive, we had to try out a few libraries before settling on Sharp
+	</li>
+	<li>
+		<b>Extract pixel colour from an image? Easy...right?</b>- not so much. Thought we could do this without a library, gave up and used Image Average Color insead
+	</li>
+	<li>
+		<b>Sort by colour? Easy...right?</b> - again, not so much. The initial thought was to add up the RGB values and sort by the resulting sum however the result didn't look sorted at all. Color Sort to the rescue
+	</li>
+	<li>
+		<b>Generation timeouts</b> - Some images take longer than average to generate resulting in test server timeouts. We added optimisations to improve the speed of the process
+	</li>
+	<li>
+		<b>Concurrency issues</b> - Our test server refreshes every 24 hours, wiping any generated/cached images. When the server restarts it is vulnerable to a race condition where we could end up with 2 or more items being processed concurrently, as multiple images are requested (with no available cache). We're currently looking into using a mutex flag to restrict access to the queue
+	</li>
+</ul>
+
+<h2>Next steps/future creep</h2>
+
+<p>Throughout the creation of Barcode we were pleasantly plagued by new ideas and features for the service. This is commonly known as feature creep. While quite a few feature creeps made it into the project, there are some that we'd still like to explore:</p>
+
+<ul>
+	<li>
+		Adding a greater variety of colour sorting algorithms
+	</li>
+	<li>
+		Add the option to search for images based on other tags, such as genre
+	</li>
+	<li>
+		Use a facial recognition service to identify images of a given person and return a barcode/mosaic of that person
+	</li>
+	<li>
+		Post daily images to a social media thread, "Barcode of the day"
+	</li>
+	<li>
+		Generate an animation (gif or video) of a series of Barcode images, e.g. a month of Barcode images
+	</li>
+</ul>
+
+<p>We've also had a few suggestions from other teams that would be interesting to have a look into.</p>
+
+<p>So perhaps we’re not quite finished with Barcode yet...</p>
