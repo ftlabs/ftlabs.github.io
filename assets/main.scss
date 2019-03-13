@@ -291,6 +291,12 @@ main article img, main article video{
   background: white;
   margin-bottom: 1em;
   max-width: 100%;
+
+  &.blend {
+    background: none;
+    border: none;
+    box-shadow: none;
+  }
 }
 
 .youtube-iframe {

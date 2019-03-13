@@ -3,7 +3,14 @@ layout: page
 title: Contact Us
 permalink: /contact-us/
 ---
-If you're a developer or publisher grappling with similar challenges to us, we'd love to hear from you.  You can find us on [Twitter](https://twitter.com/ftlabs), or [Github](https://github.com/ftlabs), or drop us a line to [{{site.email}}](mailto:{{site.email}}).
+{% include figure.html src="/assets/imgs/blue-labs-logo_new.png"
+alt="FT Labs"
+width="150"
+class="blend"
+%}
+This is the contact page for the FT Labs team. If you're a developer or publisher grappling with similar challenges to us, we'd love to hear from you.  You can find us on [Twitter](https://twitter.com/ftlabs), or [Github](https://github.com/ftlabs), or drop us a line to [{{site.email}}](mailto:{{site.email}}).
+
+For other Financial Times enquiries, please visit the [FT's support page](https://aboutus.ft.com/en-gb/contact-us/).
 
 ## Visiting us
 
