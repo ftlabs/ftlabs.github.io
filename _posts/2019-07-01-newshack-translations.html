@@ -1,0 +1,94 @@
+---
+layout: post
+title:  "BBC newsHack: Multilingual newsrooms"
+date:   2019-07-01 09:30:30 +0100
+categories: Hackathon
+teaser: Hackathon
+excerpt: >
+  A further exploration of machine translations at BBC newsHack
+---
+<p>Last month, we took part in <a href="https://labs.ft.com/hackathon/2018/01/02/bbc-newshack.html" target="_blank">another BBC newsHack</a>, focused on <a href="https://bbcnewslabs.co.uk/2019/06/20/Roundup-of-the-multilingual-newsHACK/" target="_blank">multilingual tools</a>. Having already experimented with <a href="https://labs.ft.com/experiment/2018/11/23/translations.html" target="_blank">automated article translations</a> earlier this year, we thought it might be a good opportunity to expand our exploration of the topic. Along with a cross-disciplinary team from various departments of the FT — and some new acquaintances made on the day — we set out to bring new translations ideas to life.</p>
+
+<blockquote class="twitter-tweet" data-cards="hidden" data-lang="en"><p lang="en" dir="ltr">Four fine folk from from three different <a href="https://twitter.com/FT?ref_src=twsrc%5Etfw">@FT</a> teams have combined to tackle the &#39;Tools for multilingual newsrooms&#39; <a href="https://twitter.com/hashtag/newshack?src=hash&amp;ref_src=twsrc%5Etfw">#newshack</a> organised by <a href="https://twitter.com/BBC_Connected?ref_src=twsrc%5Etfw">@bbc_connected</a> &amp; <a href="https://twitter.com/BBC_News_Labs?ref_src=twsrc%5Etfw">@BBC_News_Labs</a>: <br><br>    <a href="https://twitter.com/Lily_2point0?ref_src=twsrc%5Etfw">@lily_2point0</a>, <a href="https://twitter.com/jamiebrownco?ref_src=twsrc%5Etfw">@jamiebrownco</a>, <a href="https://twitter.com/joannaskao?ref_src=twsrc%5Etfw">@joannaskao</a>, <a href="https://twitter.com/MHA_076?ref_src=twsrc%5Etfw">@MHA_076</a><br><br>(<a href="https://t.co/lUkLbB9O3e">https://t.co/lUkLbB9O3e</a>)</p>&mdash; FT Labs (@FTLabs) <a href="https://twitter.com/FTLabs/status/1138388940900225024?ref_src=twsrc%5Etfw">June 11, 2019</a></blockquote>
+
+
+<h2>Forming an idea</h2>
+<figure>
+	<img src="/assets/uploads/2019/07/newsHack_brainstorm.jpg" alt="Early ideas for the hack on Post-It notes" />
+</figure>
+
+<p>Exercises at the beginning of the first day proved really useful to refine our hack. We started with a POINT (Problem, Opportunity, Insight, Need, Theme) system, then formulated ideas starting with “how might we”, carrying on with dot voting and a rapid generation of 8 ideas; to finally settle on one after another round of voting.
+</p>
+
+<p>
+After some refinement and regrouping of ideas, the team came up with 8 propositions:
+	<ul>
+		<li>Connecting readers via voice devices</li>
+		<li>Translating article comments</li>
+		<li>Picture drawing about article/concept. “Picture is worth 1000 words”</li>
+		<li>Highlight text and ask group for translation</li>
+		<li>Side-by-side thread of a conversation conducted in different languages</li>
+		<li>Emoji translation -- Universal language?</li>
+		<li>Linking phrases/idioms that have a very local meaning to a source of explanation automatically</li>
+		<li>Filtering</li>
+	</ul>
+</p>
+
+<figure>
+	<img src="/assets/uploads/2019/07/newsHack_ideas.jpg" alt="Sheet of ideas, detailed above" />
+</figure>
+
+<p>Fairly soon, propositions started converging towards a core idea: creating a community around languages; an ideal way to break language barriers by discussing and correcting machine translations.</p>
+
+<figure>
+	<img src="/assets/uploads/2019/07/newsHack_beetle.jpg" alt="The beetle exercise, detailing the usefulness of MetaCrowd" />
+</figure>
+
+
+<h2>MetaCrowd</h2>
+<h3>What it is?</h3>
+<figure>
+	<img src="/assets/uploads/2019/07/newsHack_MetaCrowd.png" alt="Comments on an article translation" />
+</figure>
+
+<p>MetaCrowd is a commenting system specifically focused on translated content. Poor or unclear translations can be highlighted by readers in articles. The crowd (readers and journalists alike) can respond, comment and discuss, improving readability. A voting feature identifies the most recommended and useful translation for a phrase/keyword, which allows to update the translation for this specific article.</p>
+
+<h3>Demo</h3>
+{% include youtube_video.html src="https://www.youtube.com/embed/vArch4SJQ-M" %}
+<br>
+
+<h3>Who is it for?</h3>
+<p>The tool is primarily for non-native speakers of English who read the news and might use machine translation services to get clarification on sticky points (idioms, mistranslations, etc.)
+It also relies on a community of multilingual people/journalists using the same platform to pitch in and answer queries. The main user flow can be seen below:</p>
+
+<figure>
+	<img src="/assets/uploads/2019/07/newsHack_userflow1.png" alt="" />
+	<figcaption>1. French speaker translates English article and seeks clarity on a specific phrase</figcaption>
+</figure>
+
+<figure>
+	<img src="/assets/uploads/2019/07/newsHack_userflow1.png" alt="" />
+	<figcaption>2. Native English speaker who is also fluent in French responds to query</figcaption>
+</figure>
+
+<figure>
+	<img src="/assets/uploads/2019/07/newsHack_userflow3.png" alt="" />
+	<figcaption>3. French speaker views response to query, and provides a rating</figcaption>
+</figure>
+
+
+<h2>Technical challenges</h2>
+<p>Putting a working prototype together in a couple of days came with its challenges. If we had the basic translation framework in place, our efforts were focused on setting up yet another comments system. We are conscious of all the (multilingual) moderations issues that might entail, and for the sake of the prototype, assumed reporting systems were in place. Much more work would be needed in that area for a client-facing product.</p>
+
+<p>Synchronising text highlights proved to be a bit of a hack. Since translations are presented side-by-side with the original text, we thought it would be useful to highlight both sides when text gets selected. We chose text that suited the example; but a word-for-word match is impossible in most cases. There is no cost-effective solution to match each word with their translation, as it would require repeated calls to the translation API, although NLP might be an option?</p>
+
+<figure>
+	<img src="/assets/uploads/2019/07/newsHack_sync-highlights.png" alt="Demo of synced highlights" />
+	<figcaption></figcaption>
+</figure>
+
+<p>One challenge was with the organisation of the team itself. With participants from outside the FT, we couldn’t share access to our systems, and therefore find the right balance of tasks to share. It seems to have worked out quite well in the end.</p>
+
+<blockquote class="twitter-tweet" data-conversation="none" data-lang="en"><p lang="en" dir="ltr">With a polished presentation which finished *within* the allotted 4 mins, the Metacrowd team included a working demo, and started by getting right to the point... <a href="https://t.co/jqBqhzVozn">pic.twitter.com/jqBqhzVozn</a></p>&mdash; FT Labs (@FTLabs) <a href="https://twitter.com/FTLabs/status/1139088075261431808?ref_src=twsrc%5Etfw">June 13, 2019</a></blockquote>
+
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
