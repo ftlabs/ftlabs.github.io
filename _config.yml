@@ -38,6 +38,7 @@ exclude:
 default-image-width: 300
 excerpt_separator: ""
 logo-background-image: /assets/imgs/Blue-red-yellow.png
+preview-image: /assets/imgs/blue-labs-logo_new.png
 collections:
   author:
     output: true
