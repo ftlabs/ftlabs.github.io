@@ -18,7 +18,7 @@ email: labs@ft.com
 description: >
   Exploring new technologies and ideas to help get FT Journalism to where it is needed.
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "" # the base hostname & protocol for your site, e.g. http://example.com
+url: "https://labs.ft.com" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: ftlabs
 github_username:  ftlabs
 image-service-id: ftlabsblogjekyll
