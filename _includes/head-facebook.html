@@ -1,0 +1,4 @@
+<meta property="og:type"        content="article" />
+<meta property="og:title"       content="{{ page.title | default: site.title | escape | strip_html | normalize_whitespace | escape }}" />
+<meta property="og:description" content="{{ page.excerpt | default: page.context | default: site.description | markdownify | strip_html | normalize_whitespace | escape }}" />
+<meta     name="og:image"       content="{{ page.preview-image | default: site.preview-image | absolute_url }}" />
