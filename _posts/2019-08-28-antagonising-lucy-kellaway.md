@@ -51,7 +51,7 @@ The audio experiment had pivoted.
 
 We compared the voice offerings of the main providers at the time, Google, IBM, Amazon. Largely due to convenience and a wide choice of nice, interesting voices, we settled on Amazon Polly, which had recently been [plugged by Jeff Bezos](https://www.recode.net/2017/4/12/15274220/jeff-bezos-amazon-shareholders-letter-day-2-disagree-and-commit).
 
-Of the AMZ voices, Geraint was the clear team favourite. Geraint had the soul of a poet. He elevated mere reading of text into a lyrical performance. We really liked Geraint, especially once we got him to read the lyrics of Bohemian Rhapsody. That audio file was all it took to convince any doubter that the quality of automated voices had now achieved a threshold of "wow, rather good".
+Of the AMZ voices, Geraint was the clear team favourite. Experimental Geraint had the soul of a poet. He elevated mere reading of text into a lyrical performance, especially once we got him to read the lyrics of Bohemian Rhapsody. That audio file was all it took to convince any doubter that the quality of automated voices had now achieved a threshold of "wow, rather good".
 
 Since this was a public-facing experiment going to actual, subscription-paying consumers, we needed to be sure we had buy-in from the rest of the company, especially Editorial, Brand, Marketing, Product. Until that point, no-one had asked (or answered) the question, "What does the FT sound like?"
 
@@ -81,13 +81,13 @@ Yes, well, welcome to the future. [We didn’t say this]
 
 The cost was initially nothing, for the Labs team anyway, because it disappeared into other teams' AWS budgets, and that is how we roll in Labs. But even when there was proper attribution of costs, eventually, it still turned out to be just pennies per article.
 
-The costs are so low, there are no worries about re-rendering older articles with later versions of the voice as it’s quality improves incrementally.
+The costs are so low, there are no worries about re-rendering older articles with later versions of the voice as its quality improves incrementally.
 
 ## "It is not very good. It gets lots of things wrong"
 
 Well, there are at least two angles for this.
 
-No-one can dispute that the new automated voices are amazing, as evidenced by Geraint doing Bohemian Rhapsody. [Whoops, we did not have *that* audio to hand.]
+No-one can dispute that the new automated voices are amazing, as evidenced by Experimental Geraint doing Bohemian Rhapsody. [Whoops, we did not have *that* audio to hand.]
 
 The question is then whether they are adequate for long news articles, and there it is a definite maybe. Sometimes definitely no, other times ok.
 
@@ -130,18 +130,24 @@ Some new use cases have emerged, beyond basic listening:
 
 ## "Thank you"
 
-After followup emails to check details, there was radio silence for a few days until, on 21/07/2015,
+We had survived!
+
+After followup emails to check details, there was radio silence for a few days.
+
+Then, on 21/07/2015,
 > [Amy the robot is no match for me](https://www.ft.com/content/fb705712-3be7-11e7-821a-6027b8a20f23)\\
 > My AI rival may be cheap and fast but she is dreary\\
 > LUCY KELLAWAY
 
-And so, we reached peak surreality in the audio project as we triggered Experimental Amy emotionlessly, relentlessly, albeit with jolts, narrating Lucy Kellaway's article which was (politely) dissing Experimental Amy.
+## ... Peak Surreality
+
+Naturally enough, we triggered Experimental Amy to emotionlessly, relentlessly, albeit with jolts, narrate Lucy Kellaway's article which was (politely) dissing Experimental Amy:
 
 <iframe width="100%" height="100" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/672209747&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>
 
-And here is [Lucy reading Lucy](https://www.ft.com/content/a0f18048-50b0-4bba-9d59-f4c240dcedf2).
+And (24 hours later ;-), [Lucy reading Lucy](https://www.ft.com/content/a0f18048-50b0-4bba-9d59-f4c240dcedf2).
 
-Soon after the chat, we forwarded to Lucy Kellaway a snippet of Geraint performing Bohemian Rhapsody.
+Soon after the chat, we forwarded to Lucy Kellaway a snippet of Experimental Geraint performing Bohemian Rhapsody:
 
 <iframe width="100%" height="100" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/672208889&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>
 
