@@ -19,7 +19,7 @@ With that, it looked like our foray into artificial voices, might be over. Weeks
 
 Lucy Kellaway, [scourge of corporate bullshit](https://ig.ft.com/sites/guffipedia/), [doyen of the well placed barb](https://twitter.com/lucykellaway/status/696392193884475392?lang=en), [opinionated Columnist](https://www.ft.com/comment/lucy-kellaway), and writer that day of new column piece, had just noticed our audio experiment muscling in on brand Kellaway.
 
-By chance, the FT Labs Team's new audio prototype had selected the latest LK article as one of the first assortment to be converted to audio using an artificial voice, Experimental Amy. The new audio player component sat prominently near the top of each article, giving the unforewarned ft.com readers a chance to listen to it.
+By chance, the FT Labs Team's new audio prototype had selected the latest Lucy Kellaway article as one of the first assortment to be converted to audio using an artificial voice, Experimental Amy. The new audio player component sat prominently near the top of each article, giving the unforewarned [ft.com](http://www.ft.com) readers a chance to listen to it.
 
 Only Lucy Kellaway narrates Lucy Kellaway's articles ([Listen to Lucy](https://www.ft.com/listen-to-lucy)), so almost immediately we had fallen foul of the second of our two primary project don’t-do-thats:
 
@@ -28,18 +28,19 @@ Only Lucy Kellaway narrates Lucy Kellaway's articles ([Listen to Lucy](https://w
 
 (Only then could we safely continue to explore the question: Is this good enough and useful enough for our subscribers?)
 
-As we mobilised to limit the damage, and drop that one article from the experiment (which *should* have been an easy thing to do, you might have thought), an email arrived. It provided more context for the explosion behind the scenes (in part, years of frustration with the labor-intensive, error-prone podcast process), but with a new directive: Don't take it down - leave the Amy audio in place. Lucy was now ‘intrigued’.
+As we mobilised to limit the damage, and drop that one article from the experiment (which *should* have been an easy thing to do, you might have thought), an email arrived. It provided more context for the explosion behind the scenes (in part, years of frustration with the labour-intensive, error-prone podcast process), but with a new directive: Don't take it down - leave the Amy audio in place. Lucy was now ‘intrigued’.
 
 > "I would like to make it the subject of next week's column. Do you have time for a chat?"
 
 The very next day, fully prepped, with assorted sales pitches and justifications at the ready, we went downstairs to do chat.
 
-Lucy Kellaway was ... lovely - interested in, and even supportive of, the Labs experiment. But also a journalist. The interrogation began.
-(Some dramatic license may have been taken with the following transcription)
+Lucy Kellaway was... lovely - interested in, and even supportive of, the Labs experiment. But also a journalist. The interrogation began.
+
+(Some dramatic license may have been taken with the following transcription.)
 
 ## "What's Experimental Amy all about?"
 
-Originally, we had a request from our Business Development team to help them gather enough supporting evidence to establish a business case for paying for human narration of FT articles. The Labs team built a framework to import narrations from a partner 3rd party audio provider, with a stable of mellifluous voice actors, and expose them via an audio player on the relevant articles on ft.com. The delays between article publishing and the arrival of a new audio file were of the order of 12 hrs. The audio was of high quality, and whereas the experiment involved just 3 articles per day, it would obviously incur a non-trivial cost if rolled out across the entirety of each day’s publications.
+Originally, we had a request from our Business Development team to help them gather enough supporting evidence to establish a business case for paying for human narration of FT articles. The Labs team built a framework to import narrations from a partner 3rd party audio provider, with a stable of mellifluous voice actors, and expose them via an audio player on the relevant articles on [ft.com](http://www.ft.com). The delays between article publishing and the arrival of a new audio file were of the order of 12 hrs. The audio was of high quality, and whereas the experiment involved just 3 articles per day, it would obviously incur a non-trivial cost if rolled out across the entirety of each day’s publications.
 
 A year or two before that, there had been a brief foray into the use of automated voices in cars, but the voice quality at the time was awful, so that idea was parked.
 
@@ -51,11 +52,11 @@ The audio experiment had pivoted.
 
 We compared the voice offerings of the main providers at the time, Google, IBM, Amazon. Largely due to convenience and a wide choice of nice, interesting voices, we settled on Amazon Polly, which had recently been [plugged by Jeff Bezos](https://www.recode.net/2017/4/12/15274220/jeff-bezos-amazon-shareholders-letter-day-2-disagree-and-commit).
 
-Of the AMZ voices, Geraint was the clear team favourite. Experimental Geraint had the soul of a poet. He elevated mere reading of text into a lyrical performance, especially once we got him to read the lyrics of Bohemian Rhapsody. That audio file was all it took to convince any doubter that the quality of automated voices had now achieved a threshold of "wow, rather good".
+Of the Polly voices, Geraint was the clear team favourite. Experimental Geraint had the soul of a poet. He elevated mere reading of text into a lyrical performance, especially once we got him to read the lyrics of Bohemian Rhapsody. That audio file was all it took to convince any doubter that the quality of automated voices had now achieved a threshold of "wow, rather good".
 
 Since this was a public-facing experiment going to actual, subscription-paying consumers, we needed to be sure we had buy-in from the rest of the company, especially Editorial, Brand, Marketing, Product. Until that point, no-one had asked (or answered) the question, "What does the FT sound like?"
 
-We conducted numerous auditions, narrating FT articles with a variety of automated accents and variants: english, welsh, US, indian english, australian, male, female, and french and german (because, why not?), all offered by the Polly API. The unanimous choice was Amy, a clear, boring, english, female voice.
+We conducted numerous auditions, narrating FT articles with a variety of automated accents and variants: English, Welsh, US, Indian English, Australian, male, female, and French and German (because, why not?), all offered by the Polly API. The unanimous choice was Amy, a clear, boring, english, female voice.
 
 [This in turn highlighted an issue with the human-narrated articles, where the voice actors were emoting that bit too much. More like reading a story than a news item. Amy did not emote. News was news, not Jackanory.]
 
@@ -87,7 +88,7 @@ The costs are so low, there are no worries about re-rendering older articles wit
 
 Well, there are at least two angles for this.
 
-No-one can dispute that the new automated voices are amazing, as evidenced by Experimental Geraint doing Bohemian Rhapsody. [Whoops, we did not have *that* audio to hand.]
+No-one can dispute that the new automated voices are amazing, as evidenced by Experimental Geraint doing Bohemian Rhapsody. [Whoops, we did not have that audio to hand.]
 
 The question is then whether they are adequate for long news articles, and there it is a definite maybe. Sometimes definitely no, other times ok.
 
@@ -125,7 +126,8 @@ Some new use cases have emerged, beyond basic listening:
 * listening to and reading the same article. This is a thing. Some people like doing both together.
 * off-tab listening, where the listener can click through to another tab, and the article continues to be narrated out loud
 * lecture fillers during transitions
-* the obvious use of this automated audio in podcasts, https://labs.ft.com/2017/02/listen-to-the-ft
+* the [obvious use](https://labs.ft.com/2017/02/listen-to-the-ft) of this automated audio in podcasts
+
 ]
 
 ## "Thank you"
