@@ -136,10 +136,14 @@ We had survived!
 
 After followup emails to check details, there was radio silence for a few days.
 
-Then, on 21/07/2015,
-> [Amy the robot is no match for me](https://www.ft.com/content/fb705712-3be7-11e7-821a-6027b8a20f23)\\
-> My AI rival may be cheap and fast but she is dreary\\
-> LUCY KELLAWAY
+Then, on 2017/07/21, Lucy published
+
+<blockquote class="twitter-tweet" data-lang="en">
+	<p lang="en" dir="ltr"><a href="https://www.ft.com/content/fb705712-3be7-11e7-821a-6027b8a20f23">Amy the robot is no match for me</a>
+<br>My AI rival may be cheap and fast but she is dreary
+<br>LUCY KELLAWAY</p>
+	<p><cite>&mdash; Financial Times (@FinancialTimes) <a href="https://twitter.com/FinancialTimes/status/866321397496393728">May 21, 2017</a></cite></p>
+</blockquote>
 
 ## ... Peak Surreality
 
@@ -148,6 +152,8 @@ Naturally enough, we triggered Experimental Amy to emotionlessly, relentlessly, 
 <iframe width="100%" height="100" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/672209747&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>
 
 And (24 hours later ;-), [Lucy reading Lucy](https://www.ft.com/content/a0f18048-50b0-4bba-9d59-f4c240dcedf2).
+
+## Geraint Rhapsody
 
 Soon after the chat, we forwarded to Lucy Kellaway a snippet of Experimental Geraint performing Bohemian Rhapsody:
 
@@ -160,3 +166,5 @@ Subject: Re: Audio articles\\
 To: Chris Gathercole <...>\\
 \\
 I ADORE GERAINT
+
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
