@@ -4,6 +4,7 @@ title:  "Antagonising Lucy Kellaway with Experimental Amy"
 date:   2019-08-28 15:55:30 +0100
 categories: Experiment
 teaser: Experiment
+preview-image: /assets/uploads/2019/08/amy-switch.jpg
 excerpt: >
   With that, it looked like our foray into artificial voices, might be over. Weeks of work. First day live.
 ---
