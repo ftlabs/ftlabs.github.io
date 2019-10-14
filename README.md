@@ -11,7 +11,17 @@ $ bundle exec jekyll serve
 
 On a successful ```jekyll serve``` the console will tell you what localhost URL you can find the local site on
 
-### Troubleshooting
+## Troubleshooting
+
+### Attempting to update a gem version to satisfy a Synk issue
+
+`$ bundle install --path vendor/bundle # to install gems without sudo`
+and added vendor and .bundle to .gitignore
+and added vendor to exclude: in \_config.yml (because annoying error msgs)
+`$ bundle update github-pages # which updated Gemfile.lock`
+where github-pages was the gem which pulled in the gem which needed to be updated...
+`$ bundle exec jekyll serve # to check it runs locally`
+
 
 #### Attempting to run 'jekyll new ftlabs'
 
