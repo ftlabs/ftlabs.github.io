@@ -28,23 +28,23 @@ excerpt: >
 
 {% include figure.html src="/assets/uploads/2020/02/myft_ml_hanger51.jpg" description="Hangar 51 from Inidiana Jones - large repository storage of mysteries and wonders" width="80%" %}
 
-<p>FT Data teams to the rescue! Members of the Data Science and Data Support departments became our trusted guides, leading us to the data we sought. Data Science also introduced us to R which was invaluable in processing and manipulating data of this size. We also built upon Data Sciences wealth of tools to get our own scripts up and running.</p>
+<p>FT Data teams to the rescue! Members of the Data Science and Data Support departments became our trusted guides, leading us to the data we sought. Data Science also introduced us to R which was invaluable in processing and manipulating data of this size. We also built upon Data Science's wealth of tools to get our own scripts up and running.</p>
 
 <p>These data sets were immense. Over a number of weeks we looked at follows/unfollows and saves/unsaves in turn.</p>
 
 <h2>User topic follows</h2>
 
-<p>We discovered with user topic follows that we could use <a href="https://en.wikipedia.org/wiki/K-means_clustering" target="_blank">k-means clustering</a> to group topics together, based on the users who follow them, and allow the ML to make groupings for humans to label later. We initially wanted to group several types (people, topics etc) together but the compute costs were too high for our initial investigation, so we settled for topics (for now).</p> 
+<p>We discovered with user topic follows that we could use <a href="https://en.wikipedia.org/wiki/K-means_clustering" target="_blank">k-means clustering</a> to group topics together, based on the users who follow them, and allow the ML to make groupings for humans to label later. We initially wanted to group several types (people, topics etc) together but the compute costs were too high for our initial investigation, so we settled for topics (for now).</p>
 
-{% include figure.html src="/assets/uploads/2020/02/myft_ml_clustergroups.png" description="FT article topics grouped together in clusters by a k-means clustering algorithm examining users topic follow/unfollow vectors." width="80%" %}
+{% include figure.html src="/assets/uploads/2020/02/myft_ml_clustergroups.png" description="FT article topics grouped together in clusters by a k-means clustering algorithm examining vectors of users following each topic." width="80%" %}
 
-<p>Depicted in the image above are the 3, 5, 10 & 20 cluster grouping versions of FT topics. Cluster numbers were selected by using the elbow method (<a href="https://en.wikipedia.org/wiki/Determining_the_number_of_clusters_in_a_data_set" target="_blank">elbow method</a>) of estimating the optimal number of clusters in a collection of data.</p>
+<p>Depicted in the image above are the 3, 5, 10 & 20 cluster grouping versions of FT topics. Cluster numbers were selected by using the <a href="https://en.wikipedia.org/wiki/Determining_the_number_of_clusters_in_a_data_set" target="_blank">elbow method</a> of estimating the optimal number of clusters in a collection of data.</p>
 
 <p>Each version is the number of groups a human gave to the k-means algorithm and said "put all the topics into this number of groups". Each users follows are used as vectors to calculate the topics position, allowing similar patterns of topic following to be detected by the algorithm.</p>
 
 <p>You can see that some groups change quite a bit as the number of clusters go up however others (like the trapezoid in the bottom left) are so relevant and separate from other topics that they hold onto their group cohesiveness even as the number of clusters increases.</p>
 
-<p>This gave use a collection of topic groups that we could use to suggest new topics to users. "You follow this topic but what about the others in the group". While very useful these clusters only represent one part of a recommendation, we'd need to look deeper to refine the recommendations.</p>
+<p>This gave us a collection of topic groups that we could use to suggest new topics to users. "You follow this topic but what about the others in the group". While very useful, these clusters only represent one part of a recommendation, we'd need to look deeper to refine the recommendations.</p>
 
 <p>As we further understood the data and improved our R skills we took a look at follows vs unfollows. This would turn out to take a lot more data massaging to ready the data for analysis.</p>
 
@@ -54,11 +54,11 @@ excerpt: >
 
 <p>We mapped the number of user concept follows to the number of user concept unfollows to see if we could identify concepts that had a stronger (higher) follow to unfollow ratio count. Armed with this ratio count we could rank the clustered topic suggestions in order of other users voting with their digital feet.</p>
 
-<p>The above graph helped us determine if a topic was more 'sticky', meaning it retains it's gained users more than other concepts.</p>
+<p>The above graph helped us determine if a topic was more 'sticky', meaning it retains its gained users more than other concepts. Both axes are scaled by log10 to help visually spread out the interesting portion of the data. Somewhat annoyingly, the most dramatic portion of the graph, looking like a fragment of X ray crystallography, is simply an artefact of the log-scaling, and only covers topics with the fewest followers (and therefore of least interest).</p>
 
 {% include figure.html src="/assets/uploads/2020/02/myft_ml_follows_unfollows_guides.png" width="80%" %}
 
-<p>The light grey line is x=y, so any concepts on this line have exactly the same number of follows as unfollows. The black line is approximately marking the average 10:1 ratio of follows/unfollows each concept has. The further to the right of the black line a concept is, the greater number of follows it has.</p>
+<p>The light grey line is x=y, so any concepts on this line have exactly the same number of follows as unfollows. The black line is approximately marking the average 10:1 ratio of follows/unfollows each concept has. The further to the right of the black line a concept is, the greater proportion of follows it has.</p>
 
 <p>This is far from a perfect ranking system. We discovered that due to some differences in tracking organic follows and organic unfollows we were not able to count organic unfollows with 100% confidence. Leading to concepts appearing on the left of the follow=unfollow grey line, which should not be possible.</p>
 
@@ -100,4 +100,4 @@ excerpt: >
 
 <p>We've also come a long way into understanding the capabilities and limitations of not only ML but our own data. We now have access to large relevant datasets with multitudes of possible investigations to help discover and support future projects.</p>
 
-<p>I'd call that a win.</p>
+<p>We'd call that a win.</p>
