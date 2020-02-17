@@ -16,7 +16,7 @@ For other Financial Times enquiries, please visit the [FT's support page](https:
 
 We are based in the FT office in the City of London. Our nearest tube station is Mansion House (District, Circle).
 
-Our address: [*1 Friday Street, London, EC4M 9BT*](https://www.google.com/maps/place/1+Friday+St,+London+EC4M+9JA/@51.5126479,-0.0983802,17z/data=!3m1!4b1!4m5!3m4!1s0x487604aaf9be10d7:0x94a6f0e02a8b8796!8m2!3d51.5126446!4d-0.0961915)
+Our address: [*Bracken House, 1 Friday Street, London, EC4M 9BT*](https://www.google.com/maps/place/1+Friday+St,+London+EC4M+9JA/@51.5126479,-0.0983802,17z/data=!3m1!4b1!4m5!3m4!1s0x487604aaf9be10d7:0x94a6f0e02a8b8796!8m2!3d51.5126446!4d-0.0961915)
 
 
 On arrival you'll need to know the name of the Labs team member you've come to visit, so we can come and meet you.
