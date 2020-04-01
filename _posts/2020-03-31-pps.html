@@ -9,16 +9,18 @@ excerpt: >
   A Google worksheet and Slackbot integration
 ---
 
+{% include figure.html src="/assets/uploads/2020/03/pps_system_sequence_diagram_sketch.jpg"  width="80%" %}
+
 <p>As a Manager, you have many projects on the go at the same time. You want to know how each one's going, but it's too time consuming to contact each project lead individually.</p>
 
 <p>
-  Idea!
+  <b>Idea!</b>
   <br/>
   What if we could let each project lead quickly add an update to a central location which anyone can look at.
 </p>
 
 <p>
-  Hmmm, Issues.
+  <b>Hmmm, Issues.</b>
   <br/>
   We don't want to get to grips with yet another platform on top of the multitude we already use. Oh, but we do need to enforce some kind of common structure otherwise it'll just be a dump of updates no will read. Oh oh and, we want the data itself to be accessible so managers can create their own reports without requiring additional developer time.
 </p>
@@ -28,7 +30,7 @@ excerpt: >
 </p>
 
 <p>
-  Solution! 
+  <b>Solution!</b>
   <br/>
   Slack is used frequently by the Tech teams, so let's use a bot to accept new project updates whenever the project lead has one. We'll also store the updates in Google Spreadsheets so managers and analysts can create their own reports and summaries.
 </p>
@@ -41,7 +43,7 @@ excerpt: >
   You could, but I'm betting it's not as flexible in responding to ever changing project demands as you'd like. We can switch out the Google Spreadsheet storage for a service more familiar to you (like JIRA). 
 </p>
 
-<p></p>
+<p>
   The idea is to create a quicker, more agile project update tool using existing technologies. We're using Slack and Google Spreadsheets as our familiar tools, but we're not locking ourselves to them.
 </p>
 
@@ -102,7 +104,7 @@ excerpt: >
   The Slackbot does the work of ferrying requests back and forth and displaying the user interactive elements. Google Spreadsheet acts as a data store and configuration of the PPS instance (i.e. the contents of the form drop downs or available reports). 
 </p>
 
-{% include figure.html src="/assets/uploads/2020/03/pps_system_sequence_diagram.png" description="Example of the rows of project updates being stored in the Google spreadsheet" width="80%" %}
+{% include figure.html src="/assets/uploads/2020/03/pps_rows_of_project_updates_in_spreadsheet.png" description="Example of the rows of project updates being stored in the Google spreadsheet" width="80%" %}
 
 <p>
   So no additional developer time is required if Managers want to increase/decrease the number of options in drop down, or add a new reporting option, as this is pulled on-demand from the spreadsheet on the users request.
@@ -116,18 +118,16 @@ excerpt: >
 
 <h3>Step one: Capture</h3>
 
-<p>First type <pre>/pps-add</pre> in Slack. Then fill in the modal that appears:</p>
+<p>First type <b>/pps-add</b> in Slack. Then fill in the modal that appears:</p>
 
 {% include figure.html src="/assets/uploads/2020/03/pps_mission_update_form_in_slack.png" width="80%" %}
 
-{% include figure.html src="/assets/uploads/2020/03/pps_example_mission_types_in_spreadsheet.png" description="Example mission types stored in spredsheet" width="80%" %}
-{% include figure.html src="/assets/uploads/2020/03/pps_example_release_types_in_spreadsheet.png" description="Example release types stored in spredsheet" width="80%" %}
-
 <p>
-  <i>
-    Drop down lists are populated from the Google spreadsheet
-  </i>
+  The drop down lists are populated from rows from the Google spreadsheet. Updating the spreadsheet updates the form.
 </p>
+
+{% include figure.html src="/assets/uploads/2020/03/pps_example_mission_types_in_spreadsheet.png" description="Example mission types stored in spreadsheet" width="80%" %}
+{% include figure.html src="/assets/uploads/2020/03/pps_example_release_types_in_spreadsheet.png" description="Example release types stored in spreadsheet" width="80%" %}
 
 <p>
   Once you hit submit you'll receive a message that confirms the submission. A second message confirms that the content was added to the worksheet. 
@@ -144,7 +144,7 @@ excerpt: >
 </p>
 
 <p>
-  First type <pre>/pps-summary</pre> into Slack and choose the report you would like to see from the drop down list provided.
+  First type <b>/pps-summary</b> into Slack and choose the report you would like to see from the drop down list provided.
 </p>
 
 {% include figure.html src="/assets/uploads/2020/03/pps_report_selecion_field_in_slack.png" width="80%" %}
@@ -155,9 +155,9 @@ excerpt: >
 
 {% include figure.html src="/assets/uploads/2020/03/pps_mission_report_in_slack.png" width="80%" %}
 
-<h3>
+<h2>
   User feedback
-</h3>
+</h2>
 
 <p>
   PPS has been received well. Reviewers were very positive to use it, and were excited to add some real project updates. 
