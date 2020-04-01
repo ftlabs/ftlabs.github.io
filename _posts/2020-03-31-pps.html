@@ -1,0 +1,237 @@
+---
+layout: post
+title:  "Reducing the pain/hassle/faff of a weekly 'What is everyone doing?''"
+date:   2020-02-17 09:30:30 +0100
+categories: Research
+teaser: Research
+preview-image: /assets/uploads/2019/01/myft_ml_header_graph.png
+excerpt: >
+  A Google worksheet and Slackbot integration
+---
+
+<p>As a Manager, you have many projects on the go at the same time. You want to know how each one's going, but it's too time consuming to contact each project lead individually.</p>
+
+<p>
+  Idea!
+  <br/>
+  What if we could let each project lead quickly add an update to a central location which anyone can look at.
+</p>
+
+<p>
+  Hmmm, Issues.
+  <br/>
+  We don't want to get to grips with yet another platform on top of the multitude we already use. Oh, but we do need to enforce some kind of common structure otherwise it'll just be a dump of updates no will read. Oh oh and, we want the data itself to be accessible so managers can create their own reports without requiring additional developer time.
+</p>
+
+<p>
+  Tricky
+</p>
+
+<p>
+  Solution! 
+  <br/>
+  Slack is used frequently by the Tech teams, so let's use a bot to accept new project updates whenever the project lead has one. We'll also store the updates in Google Spreadsheets so managers and analysts can create their own reports and summaries.
+</p>
+
+<p>
+  But wait, why don't we just use the existing “standard project management tool”&trade; we have?
+</p>
+
+<p>
+  You could, but I'm betting it's not as flexible in responding to ever changing project demands as you'd like. We can switch out the Google Spreadsheet storage for a service more familiar to you (like JIRA). 
+</p>
+
+<p></p>
+  The idea is to create a quicker, more agile project update tool using existing technologies. We're using Slack and Google Spreadsheets as our familiar tools, but we're not locking ourselves to them.
+</p>
+
+<p>
+  Sounds great, will that work?
+</p>
+
+<p>
+  Yes. It works really well.
+</p>
+
+<p>
+  Introducing Project Status Notifier (PPS) a Slackbot, running on AWS Serverless, with a Google spreadsheet backend.
+</p>
+
+<h2>How it works</h2>
+
+<p>Using a Google worksheet as the data store, it's possible for Slack users to:
+</p>
+
+<ul>
+  <li>Push project updates to the worksheet</li>
+  <li>Request summaries/reports of the current state of projects</li>
+</ul>
+
+<p>
+  The worksheet is protected (admin access only), where Administrators can view and edit all records. More importantly, they can create project reports and/or summaries to make available to Slack users without needing to update the Slackbot or push a code release.
+</p>
+
+<p>
+  Here's how the process works:
+</p>
+
+{% include figure.html src="/assets/uploads/2020/03/pps_system_sequence_diagram.png" description="Sequence diagram of the proposed Slack + Google Spreadsheet solution" width="80%" %}
+
+<ol>
+  <li>User enters a slash command into Slack</li>
+  <li>Slack passes the request onto the Slackbot (detailed in the Slack app)</li>
+  <li>Slackbot (Node - Express) receives the request</li>
+  <li>Slackbot request configuration data from Google spreadsheet</li>
+  <li>Slackbot combines the config data and JSON template to create a JSON request that Slack will interpret as a form to show the user.</li>
+  <li>Slackbot sends back the Block Kit response (JSON) to show the User the Project Status Update form</li>
+  <li>Slack interprets the JSON and displays the form to the User</li>
+  <li>User fills out form</li>
+  <li>Slack sends the form data to the Slackbot</li>
+  <li>Slackbot starts processing the submission</li>
+  <li>Slackbot sends a 'Request in progress' message to the User</li>
+  <li>Slackbot sends the data to the Google spreadsheet via Google API</li>
+  <li>API confirms update success</li>
+  <li>Slackbot sends a response to the User confirming the update</li>
+  <li>User receives confirmation message</li>
+  <li>User happy</li>
+  <li>...</li>
+  <li>Profit</li>
+</ol>
+
+<p>
+  The Slackbot does the work of ferrying requests back and forth and displaying the user interactive elements. Google Spreadsheet acts as a data store and configuration of the PPS instance (i.e. the contents of the form drop downs or available reports). 
+</p>
+
+{% include figure.html src="/assets/uploads/2020/03/pps_system_sequence_diagram.png" description="Example of the rows of project updates being stored in the Google spreadsheet" width="80%" %}
+
+<p>
+  So no additional developer time is required if Managers want to increase/decrease the number of options in drop down, or add a new reporting option, as this is pulled on-demand from the spreadsheet on the users request.
+</p>
+
+<h2>Features</h2>
+
+<p>Currently users have the ability to add project updates and request available reports.</p>
+
+<p>You can add an update in a few steps.</p>
+
+<h3>Step one: Capture</h3>
+
+<p>First type <pre>/pps-add</pre> in Slack. Then fill in the modal that appears:</p>
+
+{% include figure.html src="/assets/uploads/2020/03/pps_mission_update_form_in_slack.png" width="80%" %}
+
+{% include figure.html src="/assets/uploads/2020/03/pps_example_mission_types_in_spreadsheet.png" description="Example mission types stored in spredsheet" width="80%" %}
+{% include figure.html src="/assets/uploads/2020/03/pps_example_release_types_in_spreadsheet.png" description="Example release types stored in spredsheet" width="80%" %}
+
+<p>
+  <i>
+    Drop down lists are populated from the Google spreadsheet
+  </i>
+</p>
+
+<p>
+  Once you hit submit you'll receive a message that confirms the submission. A second message confirms that the content was added to the worksheet. 
+</p>
+
+{% include figure.html src="/assets/uploads/2020/03/pps_project_update_submission_confirmation_message_in_slack.png" width="80%" %}
+
+<h3>
+  Step two: Report
+</h3>
+
+<p>
+  Getting an existing summary or report takes even less steps.
+</p>
+
+<p>
+  First type <pre>/pps-summary</pre> into Slack and choose the report you would like to see from the drop down list provided.
+</p>
+
+{% include figure.html src="/assets/uploads/2020/03/pps_report_selecion_field_in_slack.png" width="80%" %}
+
+<p>
+  Once you have made your selection, the bot will make the report request on your behalf and will return you the info when it's done.
+</p>
+
+{% include figure.html src="/assets/uploads/2020/03/pps_mission_report_in_slack.png" width="80%" %}
+
+<h3>
+  User feedback
+</h3>
+
+<p>
+  PPS has been received well. Reviewers were very positive to use it, and were excited to add some real project updates. 
+</p>
+
+<p>
+  At the moment (March 2020) we are wrapping the project up to 'open label' it for future use.
+</p>
+
+<h2>
+  Challenges
+</h2>
+
+<h3>
+  Tables in Slack
+</h3>
+
+<p>
+  One challenge we did run into was displaying the reports tabular data. Slack messages always wrap after a certain max character or screen size. There is no way to let tabulated data expand widthways or become scrollable - it just gets wrapped, which can make the data unreadable. Our research into this found many interesting workarounds but no concrete supported solution. For now we are using an `ascii table` package (<a href="https://www.npmjs.com/package/ascii-table" target="_blank">https://www.npmjs.com/package/ascii-table</a>) to display the data while being mindful of the character limit.
+</p>
+
+<p>
+  Here's hoping Slack releases a supported way to do this.
+</p>
+
+<h3>
+  Three-second timeout
+</h3>
+
+<p>
+  Another challenge was Slack's three-second timeout rule. That is, all network requests sent from Slack to our event webhook expect an “Acknowledgment response - a required, immediate response that confirms your app received the payload.” (<a href="https://api.slack.com/interactivity/handling#acknowledgment_response" target="_blank">Source</a>)
+</p>
+
+<p>
+  When a user interacts with an interactive message, say the submission of a form, the Slackbot has three seconds to respond. After three seconds, Slack assumes there was a network problem, and tries again.
+</p>
+
+<p>
+  Unfortunately this means that when a form submission, insertion and verification took longer than three seconds the Slackbot is unable to inform the User of its success or failure in time. Fortunately we discovered the work-around in a parameter called <b>request_url</b>. 
+</p>
+
+<p>
+  On a User's initial engagement with an interactive element in Slack, their interaction request from Slack contains a URL (<b>request_url</b> parameter) that can be used to send further messages back to the User <b>after</b> the three-second timeout. Now this URL comes with its own restrictions* but we used this to reliably send back submission confirmations and requested reports, which can sometimes take a little while to retrieve and package. To make sure each subsequent interaction keeps the same <b>request_url</b>, since it's only sent on initial contact, we store it in the <b>private_metadata</b> for future responses.
+</p>
+
+<p>
+  <i>
+    * Asynchronous responses: “These responses can be sent up to 5 times within 30 minutes of receiving the payload. Even when sending composed responses, you must still send an acknowledgment response.”
+  </i>
+  <br>
+  <b>Source</b> - <a href="https://api.slack.com/interactivity/handling#asynchronous_responses" target="_blank">https://api.slack.com/interactivity/handling#asynchronous_responses</a>
+</p>
+
+<h2>
+  Into the future
+</h2>
+
+<p>
+  As with most interesting project prototypes there were a number of future features that we didn't get round to. 
+</p>
+
+<ul>
+  <li>Tie Google spreadsheet to Slack channel to make the app is flexible for other teams</li>
+  <li>Add interaction to add missions/headings via Slack app and not manually</li>
+  <li>Load existing project names for autocomplete</li>
+  <li>On demand report creation for the evolution of a specific project </li>
+</ul>
+
+<p>
+  Perhaps we, or another team, will get to implement these when we roll this out as a live tool.
+</p>
+
+<p>
+  You can check it out the code for yourself here: <a href="https://github.com/ftlabs/PPS" target="_blank">https://github.com/ftlabs/PPS</a>
+  <br />
+  Let us know if you have any ideas for useful improvements or funky new features.
+</p>
